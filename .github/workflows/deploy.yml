@@ -1,0 +1,37 @@
+name: Build and Deploy Jekyll Site to Vercel
+
+on:
+  push:
+    branches: [ main ] # Or the branch you use for development
+  workflow_dispatch:     # Adds a manual trigger option
+  
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v3
+
+    - name: Set up Ruby
+      uses: ruby/setup-ruby@v1
+      with:
+        ruby-version: '3.0' # Use the Ruby version compatible with your gems
+
+    - name: Install dependencies
+      run: |
+        gem install bundler
+        bundle install
+
+    - name: Build Jekyll site
+      run: |
+        bundle exec jekyll build --destination ./built-site
+        cp vercel.json ./built-site/
+
+    - name: Deploy to built-site branch
+      uses: peaceiris/actions-gh-pages@v3
+      with:
+        github_token: ${{ secrets.GITHUB_TOKEN }}
+        publish_dir: ./built-site
+        destination_branch: built-site
+        keep_files: false

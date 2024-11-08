@@ -1,0 +1,63 @@
+# Site Information
+title: "[Product Name] Review" # Replace with product-specific title when setting up a new site
+description: "An in-depth review of [Product Name], covering features, benefits, and why it's the best choice for [target audience]."
+email: "joshua.alan.hickman@gmail.com"
+timezone: "UTC"
+baseurl: "" # Leave empty for GitHub Pages or Vercel deployments
+permalink: "/:title/" # Clean URLs based on title
+
+# Branding
+logo: "assets/images/logo.png" # Path to logo image (can replace in assets/images)
+favicon: "assets/images/favicon.ico" # Path to favicon
+
+# Pagination
+paginate: 30 # Number of posts per page (can be adjusted or left high for one-page setups)
+
+# Comments
+disqus: "" # Set your Disqus shortname here, or leave blank to disable comments
+
+# Google Analytics
+ganalytics: "" # Add your Google Analytics tracking ID here if needed
+
+# Social Profiles (Use placeholders to be updated per site)
+social:
+  instagram: "https://www.instagram.com/yourprofile/"
+  facebook: "https://www.facebook.com/yourprofile"
+  twitter: "https://twitter.com/yourprofile"
+
+# Authors (Generic profile with placeholders; update as needed for each site)
+authors:
+  primary_author:
+    name: "Author Name"
+    display_name: "Author Display Name"
+    avatar: "assets/images/author.png" # Placeholder for author avatar
+    email: "your-email@example.com"
+    web: "https://yourwebsite.com"
+    twitter: "https://twitter.com/yourprofile"
+    description: "Short description of the author for profile sections."
+
+# SEO & Feeds
+locale: "en_us"
+lang: "en_us"
+feed_items: 10 # Number of items in the feed
+feed_update_period: daily
+feed_update_frequency: 1
+
+# Markdown Configuration
+markdown: kramdown
+kramdown:
+  syntax_highlighter_opts:
+    disable: true
+
+# SCSS Configuration
+sass:
+  sass_dir: _sass
+  style: :compressed
+
+# Plugins
+plugins: 
+  - jekyll-paginate
+  - jekyll-sitemap
+  - jekyll-feed
+  - jekyll-seo-tag
+  - jekyll-archives
