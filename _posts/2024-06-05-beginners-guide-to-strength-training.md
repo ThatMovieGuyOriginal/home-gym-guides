@@ -48,7 +48,7 @@ Let’s clear this up: Lifting weights won’t make you bulky. Building muscle t
 
 #### Essential Gear
 You don’t need a fancy gym to start. A few basics will do:
-- **Dumbbells**: Adjustable sets like the [Bowflex SelectTech 552](#) are perfect for small spaces.
+- **Dumbbells**: Adjustable sets like the ([Bowflex SelectTech 552](https://www.homegymguides.com/bowflex-selecttech-552-review/)) are perfect for small spaces.
 - **Resistance Bands**: Affordable and great for beginners.
 - **Yoga Mat**: For comfort during floor exercises.
 
