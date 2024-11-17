@@ -100,7 +100,7 @@ Alternate workouts three days per week with rest days in between.
 Building strength isn’t just about lifting—it’s about fueling your body.  
 - **Protein**: Aim for 0.7–1 gram per pound of body weight daily. Include foods like chicken, tofu, and eggs.  
 - **Carbs**: Whole grains, fruits, and vegetables provide the energy to power through workouts.  
-- **Supplements**: A simple whey protein powder, like [Optimum Nutrition Gold Standard](#), can help meet your protein goals.
+- **Supplements**: A simple whey protein powder, like [Optimum Nutrition Gold Standard](https://amzn.to/4eBXZDk), can help meet your protein goals.
 
 ---
 
