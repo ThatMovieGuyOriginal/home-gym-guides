@@ -4,40 +4,35 @@ title: 404
 permalink: /404.html
 ---
 
-<!-- In a real project, you'd likely put your custom CSS in a separate file. -->
+<!-- Inline CSS for demo; ideally place this in a separate CSS file -->
 <style>
-  /* From an affiliate marketing perspective, green often implies growth, 
-     health, and positive energy — perfect for a fitness brand. 
-     This pale green background is subtle but keeps visitors engaged. */
+  /* Pale green background conveys health and vitality */
   body {
-    background-color: #E6F7E6; /* Light green */
+    background-color: #E6F7E6;
   }
 
-  /* Style the link so it stands out as a button-like element */
+  /* Make the link bold, green, and no underline by default */
   .homepage-link {
-    display: inline-block;
-    padding: 0.5rem 1rem;
-    background-color: #28a745; /* Bootstrap's 'success' green */
-    color: #fff;
-    text-decoration: none;
     font-weight: bold;
-    border-radius: 0.25rem;
-    margin-top: 1rem;
+    color: #28a745; /* A noticeable green that still fits the theme */
+    text-decoration: none;
   }
+  /* Subtle hover effect: underline and slightly darker green */
   .homepage-link:hover {
-    background-color: #218838; /* Slightly darker on hover */
+    text-decoration: underline;
+    color: #218838;
   }
 
-  /* Add some spacing around the main container */
+  /* Center content and add vertical spacing */
   .container-404 {
     text-align: center;
     padding-top: 5rem;
     padding-bottom: 5rem;
   }
 
-  /* Add a little extra space after the 404 badge */
+  /* Extra spacing after the 404 badge */
   .badge-dark {
-    margin-bottom: 1rem; /* Creates the blank line you wanted */
+    margin-bottom: 1rem;
   }
 </style>
 
@@ -53,9 +48,9 @@ permalink: /404.html
   </p>
 
   <p>
-    But no sweat, let's get you back in the zone.
-    Use the search bar below or return to our
+    But no sweat, let's get you back in the zone. Use the search bar below or return to our
     <a href="{{ site.baseurl }}/" class="homepage-link">homepage</a>
     for more fitness insights.
   </p>
 </div>
+
