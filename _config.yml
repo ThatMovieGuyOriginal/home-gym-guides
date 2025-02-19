@@ -1,10 +1,11 @@
 # Site Information
-title: "[Product Name] Review" # Replace with product-specific title when setting up a new site
-description: "An in-depth review of [Product Name], covering features, benefits, and why it's the best choice for [target audience]."
-email: "joshua.alan.hickman@gmail.com"
+title: "Home Gym Guides: Empowering Your Fitness Journey at Home"
+description: "Unlock your full potential with in-depth fitness product reviews, expert workout tips, and motivational insights—all designed to help you transform any space into a personal gym."
+email: "contact@homegymguides.com"
 timezone: "UTC"
-baseurl: "" # Leave empty for GitHub Pages or Vercel deployments
-permalink: "/:title/" # Clean URLs based on title
+url: "https://www.homegymguides.com"
+baseurl: "" 
+permalink: "/:title/"
 
 # Branding
 logo: "assets/images/logo.png" # Path to logo image (can replace in assets/images)
