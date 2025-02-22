@@ -11,14 +11,18 @@ permalink: /404.html
     background-color: #E6F7E6;
   }
 
+  /* HOMEPAGE LINK: replicate the yellow underline & hover highlight */
   .homepage-link {
     font-weight: bold;
     color: #28a745;
-    text-decoration: none;
+    text-decoration: underline;
+    text-decoration-color: yellow;  /* Yellow underline */
+    text-decoration-thickness: 2px; /* Optional: thicker underline */
+    transition: background-color 0.3s, color 0.3s;
   }
   .homepage-link:hover {
-    text-decoration: underline;
-    color: #218838;
+    background-color: yellow;  /* Yellow highlight behind text on hover */
+    color: #218838;            /* Darker green text on hover */
   }
 
   /* Center content and add vertical spacing */
