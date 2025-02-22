@@ -46,8 +46,6 @@ comments: false
 </style>
 
 <div class="privacy-container">
-  <h1>Privacy Policy</h1>
-
   <p>
     At <strong>Home Gym Guides</strong>, we respect your privacy and are committed to protecting any personal information you share with us. This policy outlines how we handle the data we collect and how it’s used.
   </p>
