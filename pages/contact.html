@@ -5,16 +5,83 @@ permalink: "/contact/"
 comments: false
 ---
 
-<form action="https://formspree.io/f/mpwzdkvg" method="POST">    
-<p class="mb-4">Thanks for reaching out to Home Gym Guides! Whether you have questions about setting up your perfect workout space or need advice on choosing equipment, we're here to help. Drop us a message below, and we'll get back to you as soon as we can!</p>
-<div class="form-group row">
-<div class="col-md-6">
-<input class="form-control" type="text" name="name" placeholder="Name*" required>
+<!-- Inline CSS for demonstration. Ideally, put this in a dedicated stylesheet -->
+<style>
+  /* Match the 404's background color for brand consistency */
+  body {
+    background-color: #E6F7E6;
+  }
+
+  /* Container style for centering and spacing */
+  .contact-container {
+    max-width: 700px;
+    margin: 0 auto;
+    padding: 2rem 1rem;
+    background-color: #fff; /* White background behind the form for clarity */
+    border-radius: 5px;
+  }
+
+  /* Headings and text alignment to match the 404 page vibe */
+  .contact-container h1 {
+    text-align: center;
+    margin-bottom: 1rem;
+  }
+  .contact-container p {
+    text-align: center;
+  }
+
+  /* Subtle highlight for form labels and placeholders */
+  .form-control::placeholder {
+    color: #6c757d;
+  }
+
+  /* CTA Link style (similar to 404 link) */
+  .homepage-link {
+    font-weight: bold;
+    color: #28a745;
+    text-decoration: none;
+  }
+  .homepage-link:hover {
+    text-decoration: underline;
+    color: #218838;
+  }
+
+  /* Optional analytics trigger on form submission */
+  /* You can remove this if you don’t need Google Analytics event tracking. */
+  form#contactForm {
+    /* no direct style needed here, but we’ll attach an onsubmit event */
+  }
+</style>
+
+<div class="contact-container">
+  <h1>Contact Home Gym Guides</h1>
+  <p class="mb-4">
+    Trusted by thousands of fitness enthusiasts. Have a question about building your dream home gym? Need help choosing the best equipment for your space? 
+    Drop us a message below, and we’ll get back to you ASAP!
+  </p>
+
+  <form 
+    id="contactForm" 
+    action="https://formspree.io/f/mpwzdkvg" 
+    method="POST"
+    onsubmit="if(window.gtag){ gtag('event', 'contact_form_submitted'); }"
+  >
+    <div class="form-group row">
+      <div class="col-md-6 mb-3">
+        <input class="form-control" type="text" name="name" placeholder="Name*" required>
+      </div>
+      <div class="col-md-6 mb-3">
+        <input class="form-control" type="email" name="_replyto" placeholder="E-mail Address*" required>
+      </div>
+    </div>
+    
+    <textarea rows="8" class="form-control mb-3" name="message" placeholder="Message*" required></textarea>    
+    <input class="btn btn-dark" type="submit" value="Send">
+  </form>
+
+  <p class="small mt-4 text-center">
+    Or check out our 
+    <a href="{{ site.baseurl }}/recommended-gear" class="homepage-link">Recommended Gear</a> 
+    for expert picks and reviews.
+  </p>
 </div>
-<div class="col-md-6">
-<input class="form-control" type="email" name="_replyto" placeholder="E-mail Address*" required>
-</div>
-</div>
-<textarea rows="8" class="form-control mb-3" name="message" placeholder="Message*" required></textarea>    
-<input class="btn btn-dark" type="submit" value="Send">
-</form>
