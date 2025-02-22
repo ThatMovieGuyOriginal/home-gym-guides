@@ -70,7 +70,7 @@ comments: false
   <ul>
     <li><strong>Enhancing User Experience:</strong> We use logs and cookies to personalize content and possibly display relevant advertising.</li>
     <li><strong>Email Communications:</strong> We send emails to subscribers with news, fitness insights, or product recommendations. You can unsubscribe at any time by following the link in the email.</li>
-    <li><strong>No Sale or Lease of Emails:</strong> We do not sell, rent, or lease your email address to third parties.</li>
+    <li><strong>No Sale or Lease of Emails:</strong> We do not sell, rent, or lease your email address to third parties. Ever.</li>
   </ul>
 
   <h2>Visitor Options</h2>
