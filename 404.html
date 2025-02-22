@@ -30,6 +30,16 @@ permalink: /404.html
     padding-bottom: 5rem;
   }
 
+  /* White box styling, similar to the Contact page */
+  .white-box {
+    max-width: 700px;
+    margin: 0 auto; /* center the box */
+    background-color: #fff;
+    border-radius: 5px;
+    padding: 2rem;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* subtle shadow */
+  }
+
   /* Extra spacing after the 404 badge */
   .badge-dark {
     margin-bottom: 1rem;
@@ -37,20 +47,21 @@ permalink: /404.html
 </style>
 
 <div class="container-404">
-  <img src="/assets/images/404.png" alt="404 Not Found" />
+  <div class="white-box">
+    <img src="/assets/images/404.png" alt="404 Not Found" />
 
-  <h1 class="mt-5">
-    <span class="badge badge-dark font-weight-normal">404</span>
-  </h1>
+    <h1 class="mt-5">
+      <span class="badge badge-dark font-weight-normal">404</span>
+    </h1>
 
-  <p>
-    Just like a CrossFitter who never brags about their workout, this page doesn't exist...
-  </p>
+    <p>
+      Just like a CrossFitter who never brags about their workout, this page doesn't exist...
+    </p>
 
-  <p>
-    But no sweat, let's get you back in the zone. Use the search bar below or return to our
-    <a href="{{ site.baseurl }}/" class="homepage-link">homepage</a>
-    for more fitness insights.
-  </p>
+    <p>
+      But no sweat, let's get you back in the zone. Use the search bar below or return to our
+      <a href="{{ site.baseurl }}/" class="homepage-link">homepage</a>
+      for more fitness insights.
+    </p>
+  </div>
 </div>
-
