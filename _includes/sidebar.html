@@ -1,20 +1,18 @@
-<div class="sidebar sticky-top" style="font-family: 'Roboto', sans-serif;">
-  <div class="sidebar-section" style="padding: 30px; box-shadow: 0 0 5px rgba(0,0,0,0.1); margin-bottom: 2rem; border-radius: 5px;">
-    <h5 style="text-align: center; font-family: 'Playfair Display', serif; margin-bottom: 1rem;">
-      <span style="background-color: #fff; padding: 0 15px;">Newsletter</span>
+<aside class="sidebar sticky-top">
+  <div class="sidebar-section newsletter-section">
+    <h5 class="section-heading">
+      <span class="section-heading-text">Newsletter</span>
     </h5>
     {% include newsletter.html %}
   </div>
   
-  <div class="sidebar-section" style="padding: 30px; box-shadow: 0 0 5px rgba(0,0,0,0.1); border-radius: 5px;">
-    <h5 style="text-align: center; font-family: 'Playfair Display', serif; margin-bottom: 1rem;">
-      <span style="background-color: #fff; padding: 0 15px;">Sponsored</span>
+  <div class="sidebar-section sponsored-section">
+    <h5 class="section-heading">
+      <span class="section-heading-text">Sponsored</span>
     </h5>
-    <!-- Google Ads Code -->
-    <div class="google-ads" style="text-align: center;">
+    <div class="google-ads text-center">
       <!-- Replace below code with your actual Google Ads snippet -->
       <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
-      <!-- Example Ad Unit -->
       <ins class="adsbygoogle"
            style="display:block"
            data-ad-client="ca-pub-XXXXXXXXXXXXXX"
@@ -22,8 +20,8 @@
            data-ad-format="auto"
            data-full-width-responsive="true"></ins>
       <script>
-           (adsbygoogle = window.adsbygoogle || []).push({});
+        (adsbygoogle = window.adsbygoogle || []).push({});
       </script>
     </div>
   </div>
-</div>
+</aside>
