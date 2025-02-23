@@ -7,21 +7,29 @@ comments: false
 
 <!-- Inline CSS for demonstration. Ideally, put this in a dedicated stylesheet -->
 <style>
-  /* Match the 404's background color for brand consistency */
+  /* Branded background and primary text color */
   body {
-    background-color: #E6F7E6;
+    background-color: #F9F9F9;
+    color: #333333;
+    font-family: 'Roboto', 'Open Sans', sans-serif;
   }
 
-  /* Container style for centering and spacing */
+  /* Headings use Playfair Display for a touch of elegance */
+  h1, h2, h3, h4, h5, h6 {
+    font-family: 'Playfair Display', serif;
+  }
+
+  /* Container style for centering and spacing, with a subtle shadow for depth */
   .contact-container {
     max-width: 700px;
     margin: 0 auto;
     padding: 2rem 1rem;
-    background-color: #fff; /* White background behind the form for clarity */
+    background-color: #fff;
     border-radius: 5px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
   }
 
-  /* Headings and text alignment to match the 404 page vibe */
+  /* Headings and text alignment for a consistent look */
   .contact-container h1 {
     text-align: center;
     margin-bottom: 1rem;
@@ -30,26 +38,33 @@ comments: false
     text-align: center;
   }
 
-  /* Subtle highlight for form labels and placeholders */
+  /* Subtle placeholder color for form inputs */
   .form-control::placeholder {
     color: #6c757d;
   }
 
-  /* CTA Link style (similar to 404 link) */
+  /* CTA Link style, using our CTA color and secondary accent for hover */
   .homepage-link {
     font-weight: bold;
-    color: #28a745;
-    text-decoration: none;
+    color: #28A745;
+    text-decoration: underline;
+    text-decoration-color: #FFC107;
+    transition: background-color 0.3s, color 0.3s;
   }
   .homepage-link:hover {
-    text-decoration: underline;
+    background-color: #FFC107;
     color: #218838;
   }
 
-  /* Optional analytics trigger on form submission */
-  /* You can remove this if you don’t need Google Analytics event tracking. */
-  form#contactForm {
-    /* no direct style needed here, but we’ll attach an onsubmit event */
+  /* Button styling using our branded CTA color */
+  .btn {
+    background-color: #28A745;
+    color: #fff;
+    border: none;
+    transition: background-color 0.3s;
+  }
+  .btn:hover {
+    background-color: #218838;
   }
 </style>
 
