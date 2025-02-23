@@ -7,12 +7,20 @@ image: assets/images/screenshot.png
 
 <!-- Inline CSS for demonstration; ideally place this in a dedicated stylesheet -->
 <style>
-  /* Match the Contact/404 background */
+  /* Branded light neutral background and primary text color */
   body {
-    background-color: #E6F7E6;
+    background-color: #F9F9F9;
+    color: #333333;
+    font-family: 'Roboto', 'Open Sans', sans-serif;
   }
 
-  /* Center and style the main About container */
+  /* Headings styled with Playfair Display for authority and elegance */
+  h1, h2 {
+    font-family: 'Playfair Display', serif;
+    color: #333333;
+  }
+
+  /* About container styling with a clean white background and subtle shadow */
   .about-container {
     max-width: 700px;
     margin: 0 auto;
@@ -22,7 +30,7 @@ image: assets/images/screenshot.png
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
   }
 
-  /* Heading and paragraph alignment */
+  /* Centered heading and paragraph alignment */
   .about-container h1 {
     text-align: center;
     margin-bottom: 1rem;
@@ -31,21 +39,21 @@ image: assets/images/screenshot.png
     text-align: center;
   }
 
-  /* Yellow underline link style, similar to the Contact page’s CTA link */
+  /* CTA link styling using our CTA color and secondary accent for hover */
   .homepage-link {
     font-weight: bold;
-    color: #28a745;
+    color: #28A745;
     text-decoration: underline;
-    text-decoration-color: yellow;
+    text-decoration-color: #FFC107;
     text-decoration-thickness: 2px;
     transition: background-color 0.3s, color 0.3s;
   }
   .homepage-link:hover {
-    background-color: yellow;
+    background-color: #FFC107;
     color: #218838;
   }
 
-  /* Optional styling for subheadings or other text */
+  /* Additional styling for subheadings */
   .about-container h2 {
     margin-top: 2rem;
     text-align: center;
