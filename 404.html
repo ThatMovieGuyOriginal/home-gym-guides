@@ -6,23 +6,31 @@ permalink: /404.html
 
 <!-- Inline CSS for demo; ideally place this in a separate CSS file -->
 <style>
-  /* Pale green background conveys health and vitality */
+  /* Use the branded light, neutral background */
   body {
-    background-color: #E6F7E6;
+    background-color: #F9F9F9;
+    color: #333333; /* Primary text color for strong contrast */
+    font-family: 'Roboto', 'Open Sans', sans-serif; /* Body font */
   }
 
-  /* HOMEPAGE LINK: replicate the yellow underline & hover highlight */
+  /* Headings use the Playfair Display font for an authoritative look */
+  h1, h2, h3, h4, h5, h6 {
+    font-family: 'Playfair Display', serif;
+    color: #333333;
+  }
+
+  /* HOMEPAGE LINK: updated hover highlight to use the secondary accent (#FFC107) */
   .homepage-link {
     font-weight: bold;
-    color: #28a745;
+    color: #28A745; /* CTA green remains */
     text-decoration: underline;
-    text-decoration-color: yellow;  /* Yellow underline */
-    text-decoration-thickness: 2px; /* Optional: thicker underline */
+    text-decoration-color: #FFC107;  /* Use the secondary accent for the underline */
+    text-decoration-thickness: 2px;
     transition: background-color 0.3s, color 0.3s;
   }
   .homepage-link:hover {
-    background-color: yellow;  /* Yellow highlight behind text on hover */
-    color: #218838;            /* Darker green text on hover */
+    background-color: #FFC107;  /* Secondary accent on hover */
+    color: #218838;            /* Slightly darker green for visual feedback */
   }
 
   /* Center content and add vertical spacing */
@@ -32,14 +40,14 @@ permalink: /404.html
     padding-bottom: 5rem;
   }
 
-  /* White box styling, similar to the Contact page */
+  /* White box styling with subtle elegance */
   .white-box {
     max-width: 700px;
-    margin: 0 auto; /* center the box */
+    margin: 0 auto;
     background-color: #fff;
     border-radius: 5px;
     padding: 2rem;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* subtle shadow */
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
   }
 
   /* Extra spacing after the 404 badge */
