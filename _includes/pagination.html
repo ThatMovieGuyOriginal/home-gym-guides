@@ -1,13 +1,21 @@
-<nav class="pagination" role="pagination">
-    {% if paginator.previous_page %}
-        {% if paginator.previous_page == 1 %}
-            <a class="newer-posts" href="{{site.baseurl}}/" title="Previous Page">&laquo; Newer</a>
-        {% else %}
-            <a class="newer-posts" href="{{ paginator.previous_page_path | prepend: site.baseurl | replace: '//', '/' }}" title="Previous Page">&laquo; Newer </a>
-      {% endif %}
+<nav class="pagination" role="pagination" style="text-align: center; margin: 2rem 0;">
+  {% if paginator.previous_page %}
+    {% if paginator.previous_page == 1 %}
+      <a class="newer-posts" href="{{ site.baseurl }}/" title="Previous Page" style="font-family: 'Roboto', sans-serif; color: #28A745; text-decoration: underline; text-decoration-color: #FFC107; text-decoration-thickness: 2px; transition: background-color 0.3s, color 0.3s;">
+        &laquo; Newer
+      </a>
+    {% else %}
+      <a class="newer-posts" href="{{ paginator.previous_page_path | prepend: site.baseurl | replace: '//', '/' }}" title="Previous Page" style="font-family: 'Roboto', sans-serif; color: #28A745; text-decoration: underline; text-decoration-color: #FFC107; text-decoration-thickness: 2px; transition: background-color 0.3s, color 0.3s;">
+        &laquo; Newer
+      </a>
     {% endif %}
-    <span class="page-number d-none"> &nbsp; &nbsp; Page {{paginator.page}} of {{paginator.total_pages}} &nbsp; &nbsp; </span>
-    {% if paginator.next_page %} 
-        <a class="older-posts" href="{{ paginator.next_page_path | prepend: site.baseurl | replace: '//', '/' }}" title="Next Page">Older &raquo;</a>
-    {% endif %} 
+  {% endif %}
+  <span class="page-number d-none" style="font-family: 'Roboto', sans-serif; color: #333333;">
+    &nbsp; &nbsp; Page {{ paginator.page }} of {{ paginator.total_pages }} &nbsp; &nbsp;
+  </span>
+  {% if paginator.next_page %}
+    <a class="older-posts" href="{{ paginator.next_page_path | prepend: site.baseurl | replace: '//', '/' }}" title="Next Page" style="font-family: 'Roboto', sans-serif; color: #28A745; text-decoration: underline; text-decoration-color: #FFC107; text-decoration-thickness: 2px; transition: background-color 0.3s, color 0.3s;">
+      Older &raquo;
+    </a>
+  {% endif %}
 </nav>
