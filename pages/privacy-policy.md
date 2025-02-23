@@ -7,12 +7,22 @@ comments: false
 
 <!-- Inline CSS for demonstration; ideally place this in a dedicated stylesheet -->
 <style>
-  /* Match the light green background used site-wide */
+  /* Use branded light neutral background and primary text color */
   body {
-    background-color: #E6F7E6;
+    background-color: #F9F9F9;
+    color: #333333;
+    font-family: 'Roboto', 'Open Sans', sans-serif;
   }
 
-  /* White box container for content */
+  /* Headings use Playfair Display for a professional, authoritative look */
+  h1, h2, h3 {
+    font-family: 'Playfair Display', serif;
+    color: #333333;
+    text-align: center;
+    margin-bottom: 1rem;
+  }
+
+  /* Container styling with a clean white background and subtle shadow */
   .privacy-container {
     max-width: 700px;
     margin: 0 auto;
@@ -22,25 +32,22 @@ comments: false
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
   }
 
-  .privacy-container h1, .privacy-container h2, .privacy-container h3 {
-    text-align: center;
-    margin-bottom: 1rem;
-  }
+  /* Body text alignment */
   .privacy-container p, .privacy-container li {
     text-align: left;
   }
 
-  /* Yellow underline link style, similar to other pages */
+  /* CTA link styling updated to use our secondary accent for the underline */
   .homepage-link {
     font-weight: bold;
-    color: #28a745;
+    color: #28A745;
     text-decoration: underline;
-    text-decoration-color: yellow;
+    text-decoration-color: #FFC107;
     text-decoration-thickness: 2px;
     transition: background-color 0.3s, color 0.3s;
   }
   .homepage-link:hover {
-    background-color: yellow;
+    background-color: #FFC107;
     color: #218838;
   }
 </style>
@@ -60,7 +67,7 @@ comments: false
 
   <h2>Cookies</h2>
   <p>
-    Cookies are small digital signature files stored by your web browser. They help remember your preferences, track return visits, and enhance your overall experience. Third-party advertising companies may also use cookies for tracking purposes. 
+    Cookies are small digital signature files stored by your web browser. They help remember your preferences, track return visits, and enhance your overall experience. Third-party advertising companies may also use cookies for tracking purposes.
   </p>
   <p>
     You can typically block or disable cookies via your browser settings; however, this may affect certain site features.
@@ -75,7 +82,7 @@ comments: false
 
   <h2>Visitor Options</h2>
   <p>
-    If you have subscribed to one of our services (e.g., a newsletter), you may unsubscribe by following the instructions in the emails you receive. 
+    If you have subscribed to one of our services (e.g., a newsletter), you may unsubscribe by following the instructions in the emails you receive.
   </p>
   <p>
     If you have concerns about cookies, you can modify your browser settings to block or delete them, though some site features may be unavailable.
