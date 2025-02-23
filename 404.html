@@ -6,38 +6,25 @@ permalink: /404.html
 
 <!-- Inline CSS for demo; ideally place this in a separate CSS file -->
 <style>
-  /* Use the branded light, neutral background */
+  /* Branded light, neutral background and typography */
   body {
     background-color: #F9F9F9;
-    color: #333333; /* Primary text color for strong contrast */
-    font-family: 'Roboto', 'Open Sans', sans-serif; /* Body font */
-  }
-
-  /* Headings use the Playfair Display font for an authoritative look */
-  h1, h2, h3, h4, h5, h6 {
-    font-family: 'Playfair Display', serif;
     color: #333333;
+    font-family: 'Roboto', 'Open Sans', sans-serif;
+    margin: 0;
+    padding: 0;
   }
 
-  /* HOMEPAGE LINK: updated hover highlight to use the secondary accent (#FFC107) */
-  .homepage-link {
-    font-weight: bold;
-    color: #28A745; /* CTA green remains */
-    text-decoration: underline;
-    text-decoration-color: #FFC107;  /* Use the secondary accent for the underline */
-    text-decoration-thickness: 2px;
-    transition: background-color 0.3s, color 0.3s;
-  }
-  .homepage-link:hover {
-    background-color: #FFC107;  /* Secondary accent on hover */
-    color: #218838;            /* Slightly darker green for visual feedback */
+  /* Ensure images are responsive */
+  img {
+    max-width: 100%;
+    height: auto;
   }
 
-  /* Center content and add vertical spacing */
+  /* Center content and adjust padding for mobile */
   .container-404 {
     text-align: center;
-    padding-top: 5rem;
-    padding-bottom: 5rem;
+    padding: 5rem 1rem;
   }
 
   /* White box styling with subtle elegance */
@@ -50,15 +37,57 @@ permalink: /404.html
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
   }
 
-  /* Extra spacing after the 404 badge */
-  .badge-dark {
-    margin-bottom: 1rem;
+  /* Headings using Playfair Display for authority */
+  h1, h2, h3, h4, h5, h6 {
+    font-family: 'Playfair Display', serif;
+    color: #333333;
+  }
+
+  /* HOMEPAGE LINK: consistent branding with hover accent */
+  .homepage-link {
+    font-weight: bold;
+    color: #28A745;
+    text-decoration: underline;
+    text-decoration-color: #FFC107;
+    text-decoration-thickness: 2px;
+    transition: background-color 0.3s, color 0.3s;
+  }
+  .homepage-link:hover {
+    background-color: #FFC107;
+    color: #218838;
+  }
+
+  /* Styling for the search form */
+  .search-form {
+    margin-top: 1.5rem;
+  }
+  .search-input {
+    width: 80%;
+    max-width: 400px;
+    padding: 0.75rem;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 1rem;
+  }
+  .search-button {
+    padding: 0.75rem 1rem;
+    border: none;
+    background-color: #28A745;
+    color: #fff;
+    font-size: 1rem;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-left: 0.5rem;
+    transition: background-color 0.3s;
+  }
+  .search-button:hover {
+    background-color: #218838;
   }
 </style>
 
 <div class="container-404">
   <div class="white-box">
-    <img src="/assets/images/404.png" alt="404 Not Found" />
+    <img src="/assets/images/404.png" alt="404 Error - Page Not Found" />
 
     <h1 class="mt-5">
       <span class="badge badge-dark font-weight-normal">404</span>
@@ -73,5 +102,11 @@ permalink: /404.html
       <a href="{{ site.baseurl }}/" class="homepage-link">homepage</a>
       for more fitness insights.
     </p>
+
+    <!-- Search form to enhance navigation -->
+    <form action="{{ site.baseurl }}/search" method="get" class="search-form">
+      <input type="text" name="q" placeholder="Search..." class="search-input" aria-label="Search">
+      <button type="submit" class="search-button">Search</button>
+    </form>
   </div>
 </div>
