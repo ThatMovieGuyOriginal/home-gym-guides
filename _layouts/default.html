@@ -1,134 +1,714 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<link rel="icon" href="{{ site.baseurl }}/{{site.favicon}}">
+// SCSS Variables (with !default so they can be overridden)
+$green:   #28A745 !default;
+$blue:    #007BFF !default;
 
-<title>{{ page.title }} | {{site.title}}</title>
+// Import Bootstrap (your local copy)
+@import 'bootstrap/bootstrap';
 
-{% seo %}
+// Import fonts from Google
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&display=swap');
 
-<link href="{{ site.baseurl }}/assets/css/theme.css" rel="stylesheet">
+/* ==========================================================================
+   CSS Variables for Consistent Theming
+   ========================================================================== */
+:root {
+  --green: #{$green};
+  --blue: #{$blue};
+  --background-color: #F9F9F9;
+  --primary-text: #333333;
+  --white: #fff;
+  --font-body: 'Roboto', 'Open Sans', sans-serif;
+  --font-heading: 'Playfair Display', serif;
+  --border-radius: 5px;
+}
 
-<!-- custom CSS - Remove this if you don't use it or choose to customize the stylesheet with sass-->
-<link href="{{ site.baseurl }}/assets/css/custom.css" rel="stylesheet">
-<!-- custom CSS end-->
-    
-{% if jekyll.environment == "production" %}       
-<!-- Global site tag (gtag.js) - Google Analytics -->
-<script async src="https://www.googletagmanager.com/gtag/js?id={{site.ganalytics}}"></script>
-<script>
-window.dataLayer = window.dataLayer || [];
-function gtag(){dataLayer.push(arguments);}
-gtag('js', new Date());
-gtag('config', '{{site.ganalytics}}');
-</script>
-{% endif %}
-   
-</head>   
-    
-{% capture layout %}{% if page.layout %}layout-{{ page.layout }}{% endif %}{% endcapture %}
-<body class="{{ layout }}">
+/* ==========================================================================
+   Global Resets & Base Styles
+   ========================================================================== */
+*, *::before, *::after {
+  box-sizing: border-box;
+}
 
-    
-<!-- Menu Navigation
-================================================== -->
-<div class="navigation-wrap start-header start-style">
-    <nav class="navbar navbar-expand-lg">
-        <div class="container">
+html {
+  scroll-behavior: smooth;
+}
 
-          <a class="navbar-brand text-dark font-weight-bold big d-flex align-items-center" href="{{site.baseurl}}/">
-          {% if site.logo %}
-          <img class="mr-2" src="{{site.baseurl}}/{{site.logo}}" alt="logo"> 
-          {% else %}
-          <span class="d-none d-md-inline-block">{{ site.title }}</span>
-          {% endif %}
-          </a> | 
-          
+body {
+  background: var(--background-color);
+  font-size: 17px;
+  transition: all 200ms linear;
+  font-family: var(--font-body);
+  line-height: 1.7;
+  color: var(--primary-text);
+  overflow-x: hidden;
+  padding-top: 116px;
+}
 
-          <div class="d-flex align-items-center">
-            
-            <span class="ml-3 text-muted small">Follow</span>
+/* Utility Classes */
+.serif-font {
+  font-family: var(--font-heading);
+}
 
-            <a class="d-inline-block social-icon" target="_blank" href="{{site.social.twitter}}">
-              <svg xmlns="http://www.w3.org/2000/svg" width="19" height="19" fill="currentColor" class="bi bi-twitter" viewBox="0 0 16 16">
-              <path d="M5.026 15c6.038 0 9.341-5.003 9.341-9.334 0-.14 0-.282-.006-.422A6.685 6.685 0 0 0 16 3.542a6.658 6.658 0 0 1-1.889.518 3.301 3.301 0 0 0 1.447-1.817 6.533 6.533 0 0 1-2.087.793A3.286 3.286 0 0 0 7.875 6.03a9.325 9.325 0 0 1-6.767-3.429 3.289 3.289 0 0 0 1.018 4.382A3.323 3.323 0 0 1 .64 6.575v.045a3.288 3.288 0 0 0 2.632 3.218 3.203 3.203 0 0 1-.865.115 3.23 3.23 0 0 1-.614-.057 3.283 3.283 0 0 0 3.067 2.277A6.588 6.588 0 0 1 .78 13.58a6.32 6.32 0 0 1-.78-.045A9.344 9.344 0 0 0 5.026 15z"/>
-            </svg> 
-            </a>
-            
-            <a class="d-inline-block social-icon" target="_blank" href="{{site.social.instagram}}">
-              <svg xmlns="http://www.w3.org/2000/svg" width="19" height="19" fill="currentColor" class="bi bi-instagram" viewBox="0 0 16 16">
-              <path d="M8 0C5.829 0 5.556.01 4.703.048 3.85.088 3.269.222 2.76.42a3.917 3.917 0 0 0-1.417.923A3.927 3.927 0 0 0 .42 2.76C.222 3.268.087 3.85.048 4.7.01 5.555 0 5.827 0 8.001c0 2.172.01 2.444.048 3.297.04.852.174 1.433.372 1.942.205.526.478.972.923 1.417.444.445.89.719 1.416.923.51.198 1.09.333 1.942.372C5.555 15.99 5.827 16 8 16s2.444-.01 3.298-.048c.851-.04 1.434-.174 1.943-.372a3.916 3.916 0 0 0 1.416-.923c.445-.445.718-.891.923-1.417.197-.509.332-1.09.372-1.942C15.99 10.445 16 10.173 16 8s-.01-2.445-.048-3.299c-.04-.851-.175-1.433-.372-1.941a3.926 3.926 0 0 0-.923-1.417A3.911 3.911 0 0 0 13.24.42c-.51-.198-1.092-.333-1.943-.372C10.443.01 10.172 0 7.998 0h.003zm-.717 1.442h.718c2.136 0 2.389.007 3.232.046.78.035 1.204.166 1.486.275.373.145.64.319.92.599.28.28.453.546.598.92.11.281.24.705.275 1.485.039.843.047 1.096.047 3.231s-.008 2.389-.047 3.232c-.035.78-.166 1.203-.275 1.485a2.47 2.47 0 0 1-.599.919c-.28.28-.546.453-.92.598-.28.11-.704.24-1.485.276-.843.038-1.096.047-3.232.047s-2.39-.009-3.233-.047c-.78-.036-1.203-.166-1.485-.276a2.478 2.478 0 0 1-.92-.598 2.48 2.48 0 0 1-.6-.92c-.109-.281-.24-.705-.275-1.485-.038-.843-.046-1.096-.046-3.233 0-2.136.008-2.388.046-3.231.036-.78.166-1.204.276-1.486.145-.373.319-.64.599-.92.28-.28.546-.453.92-.598.282-.11.705-.24 1.485-.276.738-.034 1.024-.044 2.515-.045v.002zm4.988 1.328a.96.96 0 1 0 0 1.92.96.96 0 0 0 0-1.92zm-4.27 1.122a4.109 4.109 0 1 0 0 8.217 4.109 4.109 0 0 0 0-8.217zm0 1.441a2.667 2.667 0 1 1 0 5.334 2.667 2.667 0 0 1 0-5.334z"/>
-            </svg>
-            </a>
-      
-            <a class="d-inline-block social-icon" target="_blank" href="{{site.social.facebook}}">
-              <svg xmlns="http://www.w3.org/2000/svg" width="19" height="19" fill="currentColor" class="bi bi-facebook" viewBox="0 0 16 16">
-              <path d="M16 8.049c0-4.446-3.582-8.05-8-8.05C3.58 0-.002 3.603-.002 8.05c0 4.017 2.926 7.347 6.75 7.951v-5.625h-2.03V8.05H6.75V6.275c0-2.017 1.195-3.131 3.022-3.131.876 0 1.791.157 1.791.157v1.98h-1.009c-.993 0-1.303.621-1.303 1.258v1.51h2.218l-.354 2.326H9.25V16c3.824-.604 6.75-3.934 6.75-7.951z"/>
-            </svg>
-            </a>
+@media (max-width: 1366px) {
+  .container-xl,
+  .container-lg,
+  .container-md,
+  .container-sm,
+  .container {
+    width: 90%;
+    max-width: 90%;
+    padding: 0 25px;
+  }
+}
 
-          </div>
-    
-          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
-            <svg xmlns="http://www.w3.org/2000/svg" width="26" height="26" fill="currentColor" class="bi bi-three-dots-vertical" viewBox="0 0 16 16">
-              <path d="M9.5 13a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0zm0-5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0zm0-5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0z"/>
-            </svg>
-          </button>
-          
-          <div class="collapse navbar-collapse" id="navbarResponsive">
-            <ul class="navbar-nav ml-auto font-weight-bold d-flex align-items-center">
-              {% for item in site.data.menus.topmenu %}
-              <li class="nav-item">
-                <a class="nav-link px-3 {% if item.class %}{{item.class}}{% endif %}" href="{% unless item.external %}{{site.baseurl}}/{% endunless %}{{item.url}}" alt="{{item.title}}">{{item.title}}</a>
-              </li>
-              {% endfor %}
-            </ul>
-          </div>
+main {
+  min-height: 500px;
+}
 
-        </div>
-      </nav>
-    </div>  
+/* ==========================================================================
+   Typography & Links
+   ========================================================================== */
+.h1, .h2, .h3, .h4, .h5, .h6,
+h1, h2, h3, h4, h5, h6,
+.navbar-light .navbar-brand,
+.text-dark,
+.dropdown-item {
+  color: var(--primary-text);
+  font-family: var(--font-heading);
+}
 
-    
-<!-- Container
-================================================== -->    
-<main class="container">   
-      {{ content }}  
-</main>
+h1, h2, h3, h4, h5, h6,
+.h1, .h2, .h3, .h4, .h5, .h6 {
+  font-weight: 700;
+}
 
-<!-- Footer
-================================================== -->    
-<footer class="footer container text-center">  
+h4, .h4, h5, .h5 {
+  line-height: 1.4;
+}
 
-  <!-- CREDITS BEGIN.-->
-  <!-- If you want to support my work, please donate to remove the credits. This helps me keep it up and running: https://www.wowthemes.net/donate/ -->
-  <div class="credits mx-auto text-center mb-3">
-    <a class="hover-opacity font-weight-bold" href="https://bootstrapstarter.com/template-affiliates-bootstrap-jekyll/">
-      <img src="{{site.baseurl}}/assets/images/credits.png" alt="powered by WowThemes">
-    </a>
-  </div>
-  <!-- CREDITS END -->
+.font-weight-bold {
+  font-weight: 700 !important;
+}
 
-  <ul class="p-0 mb-1 small">
-    {% for item in site.data.menus.footermenu %}
-    <li>
-      <a href="{% unless item.external %}{{site.baseurl}}/{% endunless %}{{item.url}}" alt="{{item.title}}">{{item.title}}</a>
-    </li>
-    {% endfor %}
-    </ul>
-    <div class="copyright small">
-       Copyright © {{site.title}}. All rights reserved.
-    </div>
-</footer>
+a {
+  color: inherit;
+  text-decoration: none;
+  transition: all 0.4s;
+  &:hover {
+    text-decoration: none;
+    color: inherit;
+    transition: all 0.4s;
+  }
+}
 
-<!-- JavaScript
-================================================== -->    
-<script src="{{ site.baseurl }}/assets/js/jquery.min.js"></script>   
-<script src="{{ site.baseurl }}/assets/js/bootstrap.min.js"></script>   
-<script src="{{ site.baseurl }}/assets/js/theme.js"></script>    
-    
-</body>
-    
-</html>
+img, video {
+  max-width: 100%;
+}
+
+/* ==========================================================================
+   Component-Specific Styles
+   ========================================================================== */
+.item-card {
+  .categories {
+    position: absolute;
+    top: 10px;
+    left: 30px;
+    font-size: 13px;
+    a {
+      background: var(--primary-text);
+      color: var(--white);
+      padding: 2px 4px;
+      border-radius: 4px;
+    }
+  }
+}
+
+small, .small {
+  font-size: 90%;
+}
+
+.big {
+  font-size: 1.4em;
+}
+
+/* ==========================================================================
+   Navigation
+   ========================================================================== */
+.start-header {
+  opacity: 1;
+  transform: translateY(0);
+  padding: 20px 0;
+  transition: all 0.3s ease-out;
+}
+.start-header.scroll-on {
+  padding: 5px 0;
+  transition: all 0.3s ease-out;
+  box-shadow: 0px 10px 40px 0px rgba(0, 0, 0, 0.05);
+}
+.start-header.scroll-on .navbar-brand img {
+  transition: all 0.3s ease-out;
+}
+.navigation-wrap {
+  width: 100%;
+  top: 0;
+  left: 0;
+  z-index: 9999;
+  transition: all 0.3s ease-out;
+  position: fixed;
+  background: var(--white);
+}
+.social-icon {
+  display: inline-block !important;
+  width: 20px;
+  height: 20px;
+  margin-left: 15px;
+}
+
+/* ==========================================================================
+   Sidebar
+   ========================================================================== */
+.sidebar.sticky-top {
+  top: 96px;
+  .dropdown-item {
+    opacity: 0.6;
+  }
+  .dropdown-item.blog {
+    display: none;
+  }
+}
+
+/* ==========================================================================
+   Pages & Sections
+   ========================================================================== */
+.hero {
+  background: var(--blue);
+  padding: 5rem 5rem;
+  color: var(--white);
+}
+
+@media only screen and (max-width: 1024px) {
+  .page-header.big {
+    font-size: 3.5em;
+  }
+  .wrap-page-header {
+    padding: 2rem 0 3rem;
+  }
+  .wrap-page-header {
+    display: none;
+  }
+  .layout-default .wrap-page-header {
+    display: block;
+  }
+}
+
+@media only screen and (max-width: 767px) {
+  .page-header.big {
+    font-size: 2.5em;
+  }
+}
+
+.google-auto-placed {
+  margin-bottom: 2rem;
+}
+
+.comma:last-child {
+  display: none;
+}
+
+.hero h1 {
+  font-size: 2.5em;
+}
+
+.section-title {
+  h2 {
+    font-weight: 700;
+    font-size: 1.4rem;
+    margin-bottom: 27px;
+    position: relative;
+    &:before {
+      position: absolute;
+      z-index: 1;
+      left: 15px;
+      right: 0;
+      top: 15px;
+      height: 1px;
+      content: '';
+      background-color: #efefef;
+    }
+  }
+  span {
+    background-color: var(--white);
+    position: relative;
+    z-index: 2;
+    display: inline-block;
+    padding: 0 15px 0 0;
+    font-size: 14px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+  }
+}
+
+.layout-page {
+  .section-title {
+    span {
+      font-size: 2rem;
+      text-transform: none;
+      letter-spacing: 0;
+    }
+    h2 {
+      &:before {
+        top: 17px;
+      }
+    }
+  }
+}
+
+.article-post {
+  ol, ul {
+    margin-bottom: 1.5rem;
+    ol, ul {
+      list-style: disc;
+      margin-bottom: 0;
+    }
+  }
+}
+
+.prevnextlinks {
+  border-top: 1px solid #eee;
+  border-bottom: 1px solid #eee;
+  margin: 0;
+  .thepostlink {
+    padding: 20px 0;
+    font-size: 17px;
+    display: block;
+    color: #111;
+    font-weight: 500;
+  }
+  .rightborder {
+    border-right: 1px solid #eee;
+  }
+}
+
+.author-thumb {
+  object-position: center;
+  width: 50px;
+  height: 50px;
+  margin-right: 9px;
+  border-radius: 100%;
+  border: 2px solid #eaeaea;
+  padding: 2px;
+  object-fit: cover;
+}
+
+.post-top-meta {
+  margin: 3rem 0 1rem;
+  .author-thumb {
+    width: 72px;
+    height: 72px;
+  }
+  &.authorpage {
+    .author-thumb {
+      margin-top: 40px;
+    }
+  }
+  span {
+    font-size: 0.9rem;
+    color: rgba(0,0,0,0.44);
+    display: inline-block;
+  }
+  .author-description {
+    margin: 10px 0 5px;
+    font-size: 0.95rem;
+  }
+  .author-meta {
+    flex: 1 1 auto;
+    white-space: nowrap !important;
+    text-overflow: ellipsis !important;
+    overflow: hidden !important;
+  }
+  span.post-name,
+  span.post-date,
+  span.author-meta {
+    display: inline-block;
+  }
+  span.post-read-more {
+    a {
+      color: rgba(0,0,0,0.44);
+      display: inline-block;
+      float: right;
+      width: 30px;
+      height: 30px;
+      line-height: 30px;
+      text-align: center;
+      border: 1px solid #d0d0d0;
+      border-radius: 50%;
+      &:hover {
+        text-decoration: none;
+      }
+    }
+  }
+}
+
+span.post-name,
+span.post-read-more a:hover {
+  color: rgba(0,0,0,0.8);
+}
+
+.dot:after {
+  content: "·";
+  margin: 0 3px;
+}
+
+.mainheading {
+  h1.posttitle {
+    font-weight: 700;
+    margin-bottom: 2rem;
+  }
+}
+
+.link-dark {
+  color: rgba(0,0,0,0.8);
+}
+
+.article-post {
+  > * {
+    margin-bottom: 1.5rem;
+  }
+  font-size: 1.18em;
+  line-height: 1.64;
+  color: rgba(0,0,0,0.8);
+  code {
+    font-size: 15px;
+  }
+  a {
+    color: inherit; 
+    box-shadow: inset 0 -2px 0 rgba(255, 229, 31, 1),
+                0 2px 0 rgba(255, 229, 31, 1);
+    &:hover {
+      box-shadow: inset 0 -30px 0 rgba(255, 229, 31, 1),
+                  0 2px 0 rgba(255, 229, 31, 1);
+      text-decoration: none;
+    }
+  }
+  img, iframe {
+    border-radius: 0.25rem !important;
+  }
+}
+
+blockquote {
+  border-left: 4px solid #222;
+  padding-left: 20px;
+  font-style: italic;
+  color: rgba(0,0,0,0.5);
+  margin-left: 30px;
+  font-size: 0.9em;
+}
+
+.featured-image {
+  display: block;
+  margin-bottom: 2rem;
+}
+
+.full-width {
+  width: 100vw;
+  position: relative;
+  left: 50%;
+  right: 50%;
+  margin-left: -50vw;
+  margin-right: -50vw;
+}
+
+/* ==========================================================================
+   Responsive Adjustments for Post Metadata
+   ========================================================================== */
+@media (max-width: 1024px) {
+  .post-top-meta .col-md-10 {
+    text-align: center;
+  }
+}
+@media (max-width: 767px) {
+  .post-top-meta.authorpage {
+    text-align: center;
+  }
+}
+
+/* ==========================================================================
+   Cards, Tags & Utility Classes
+   ========================================================================== */
+.card {
+  border: 0;
+  .img-thumb {
+    border-top-right-radius: 4px;
+    border-top-left-radius: 4px;
+  }
+}
+
+ul.tags {
+  list-style: none;
+  padding: 0;
+  margin: 0 0 1.5rem;
+  li {
+    display: inline-block;
+    font-size: 0.9rem;
+    a {
+      color: var(--primary-text);
+      padding: 3px 10px;
+      border-radius: 3px;
+      font-weight: 500;
+      background: #eee;
+      text-transform: capitalize;
+      box-shadow: 0 6px 10px 0 rgba(169, 169, 169, 0.1);
+      &:hover {
+        background: rgba(0,0,0,0.07);
+        text-decoration: none;
+      }
+    }
+  }
+}
+
+.margtop3rem {
+  margin-top: 3rem;
+}
+
+.sep {
+  height: 1px;
+  width: 20px;
+  background: #999;
+  margin: 0 auto 1.2rem;
+}
+
+.btn.follow {
+  border: 1px solid #ccc;
+  color: #999;
+  padding: 3px 10px;
+  text-align: center;
+  border-radius: 999em;
+  font-size: 0.85rem;
+  display: inline-block;
+  box-shadow: none;
+  font-weight: 400;
+}
+
+.btn.subscribe {
+  background-color: var(--green);
+  border-color: var(--green);
+  color: #fff;
+  fill: #fff;
+  border-radius: 30px;
+  font-size: 0.85rem;
+  margin-left: 10px;
+  font-weight: 600;
+  text-transform: uppercase;
+}
+
+.post-top-meta .btn.follow {
+  margin-left: 5px;
+  margin-top: -4px;
+}
+
+.graybg.authorpage {
+  border-top: 1px solid #f0f0f0;
+}
+
+.authorpostbox {
+  width: 760px;
+  margin: 0 auto 1.5rem;
+  max-width: 100%;
+  .img-thumb {
+    width: 100%;
+  }
+}
+
+.sociallinks {
+  margin: 1rem 0;
+  a {
+    background: #666;
+    color: #fff;
+    width: 22px;
+    height: 22px;
+    display: inline-block;
+    text-align: center;
+    line-height: 22px;
+    border-radius: 50%;
+    font-size: 12px;
+  }
+}
+
+#comments {
+  margin: 3rem 0 1.5rem;
+}
+
+.sidebar {
+  font-size: 15px;
+  h5 {
+    margin-bottom: 1rem;
+    text-align: center;
+    position: relative;
+    font-weight: 700;
+    span {
+      background-color: var(--white);
+      position: relative;
+      z-index: 2;
+      display: inline-block;
+      padding: 0 15px;
+      text-align: center;
+      font-size: 14px;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+    &:before {
+      position: absolute;
+      z-index: 1;
+      left: 0;
+      top: 15px;
+      width: 100%;
+      height: 1px;
+      content: '';
+      background-color: var(--primary-text);
+    }
+  }
+  ul {
+    list-style: none;
+    padding: 0;
+    li {
+      a {
+        color: #999;
+        border-bottom: 1px solid #f6f6f6;
+        display: block;
+        padding: 7px 0;
+      }
+    }
+  }
+}
+
+.sidebar-section {
+  margin-bottom: 2rem;
+  box-shadow: 0 0 1px 0 rgba(0, 0, 0, 0.44);
+  padding: 30px;
+}
+
+.sidebar {
+  #mc_embed_signup {
+    form {
+      padding: 0 !important;
+    }
+    .button {
+      width: 100% !important;
+      background: var(--blue) !important;
+      height: auto;
+      padding: 6px 20px;
+      font-weight: 600;
+    }
+    h2 {
+      font-weight: 400;
+      font-size: 15px;
+      color: #999;
+      margin-bottom: 1rem;
+      line-height: 1.5;
+      text-align: center;
+    }
+    input {
+      width: 100%;
+    }
+    .mc-field-group {
+      width: 100% !important;
+    }
+  }
+  &.sidebar-right {
+    .sidebar {
+      max-width: inherit;
+    }
+  }
+}
+
+.article-post {
+  .h1,
+  .h2,
+  .h3,
+  .h4,
+  .h5,
+  .h6,
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    font-weight: 700;
+    font-family: var(--font-body);
+    margin-top: 3rem;
+  }
+}
+
+img {
+  max-width: 100%;
+  height: auto;
+}
+
+.bottompagination {
+  span.navigation {
+    display: block;
+    font-size: 0.93rem;
+    font-weight: 700;
+    text-align: center;
+    position: relative;
+    &:before {
+      position: absolute;
+      z-index: 1;
+      left: 0;
+      right: 0;
+      top: 12px;
+      height: 1px;
+      content: '';
+      margin-bottom: 0;
+    }
+  }
+  span.navigation a {
+    background: var(--blue);
+    color: #fff;
+    padding: 5px;
+    border-radius: 3px;
+    text-transform: none;
+    font-weight: 600;
+    letter-spacing: 0;
+    min-width: 100px;
+    display: inline-block;
+  }
+  .pointerup {
+    margin-bottom: -18px;
+    margin-left: 49%;
+    font-size: 30px;
+    i.fa {
+      color: #eaeaea;
+    }
+  }
+}
+
+.pagination {
+  display: inline-block;
+  background: var(--white);
+  z-index: 1;
+  position: relative;
+  padding: 0 20px;
+  font-size: 13px;
+  letter-spacing: 0.5px;
+  font-weight: 500;
+  text-transform: uppercase;
+}
+
+.footer {
+  margin-top: 4rem;
+  padding: 30px 0;
+  ul {
+    li {
+      display: inline-block;
+      padding: 10px;
+    }
+  }
+}
+
+.hover-opacity:hover {
+  transition: all 0.3s;
+  opacity: 0.8;
+}
