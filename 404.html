@@ -1,91 +1,135 @@
 ---
 layout: default
-title: 404
+title: "404 - Page Not Found"
 permalink: /404.html
+robots: noindex, follow
 ---
 
 <!-- Inline CSS for demo; ideally place this in a separate CSS file -->
 <style>
-  /* Branded light, neutral background and typography */
+  /* CSS Variables for easy theming */
+  :root {
+    --background-color: #F9F9F9;
+    --primary-text: #333333;
+    --cta-green: #28A745;
+    --cta-green-dark: #218838;
+    --secondary-accent: #FFC107;
+    --white: #fff;
+    --border-radius: 5px;
+    --font-body: 'Roboto', 'Open Sans', sans-serif;
+    --font-heading: 'Playfair Display', serif;
+  }
+
+  /* Global resets */
+  *, *::before, *::after {
+    box-sizing: border-box;
+  }
+
   body {
-    background-color: #F9F9F9;
-    color: #333333;
-    font-family: 'Roboto', 'Open Sans', sans-serif;
     margin: 0;
     padding: 0;
+    background-color: var(--background-color);
+    color: var(--primary-text);
+    font-family: var(--font-body);
+    line-height: 1.6;
   }
 
   /* Ensure images are responsive */
   img {
     max-width: 100%;
     height: auto;
+    display: block;
   }
 
-  /* Center content and adjust padding for mobile */
+  /* Container for the 404 content */
   .container-404 {
     text-align: center;
     padding: 5rem 1rem;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
   }
 
-  /* White box styling with subtle elegance */
+  /* White box styling */
   .white-box {
     max-width: 700px;
     margin: 0 auto;
-    background-color: #fff;
-    border-radius: 5px;
+    background-color: var(--white);
+    border-radius: var(--border-radius);
     padding: 2rem;
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
   }
 
-  /* Headings using Playfair Display for authority */
+  /* Headings using a modern mix of fonts */
   h1, h2, h3, h4, h5, h6 {
-    font-family: 'Playfair Display', serif;
-    color: #333333;
+    font-family: var(--font-heading);
+    color: var(--primary-text);
+    margin-top: 0;
   }
 
-  /* HOMEPAGE LINK: consistent branding with hover accent */
+  /* Homepage link styling with accessible focus state */
   .homepage-link {
     font-weight: bold;
-    color: #28A745;
+    color: var(--cta-green);
     text-decoration: underline;
-    text-decoration-color: #FFC107;
+    text-decoration-color: var(--secondary-accent);
     text-decoration-thickness: 2px;
     transition: background-color 0.3s, color 0.3s;
   }
-  .homepage-link:hover {
-    background-color: #FFC107;
-    color: #218838;
+  .homepage-link:hover,
+  .homepage-link:focus {
+    background-color: var(--secondary-accent);
+    color: var(--cta-green-dark);
+    outline: none;
   }
 
   /* Styling for the search form */
   .search-form {
     margin-top: 1.5rem;
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
   }
   .search-input {
-    width: 80%;
+    flex: 1 1 300px;
     max-width: 400px;
     padding: 0.75rem;
     border: 1px solid #ccc;
-    border-radius: 5px;
+    border-radius: var(--border-radius);
     font-size: 1rem;
   }
   .search-button {
     padding: 0.75rem 1rem;
     border: none;
-    background-color: #28A745;
+    background-color: var(--cta-green);
     color: #fff;
     font-size: 1rem;
-    border-radius: 5px;
+    border-radius: var(--border-radius);
     cursor: pointer;
     margin-left: 0.5rem;
     transition: background-color 0.3s;
   }
-  .search-button:hover {
-    background-color: #218838;
+  .search-button:hover,
+  .search-button:focus {
+    background-color: var(--cta-green-dark);
+    outline: none;
+  }
+  
+  /* Screen reader only class for accessibility */
+  .sr-only {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    border: 0;
   }
 </style>
 
-<div class="container-404">
+<main class="container-404" role="main">
   <div class="white-box">
     <img src="/assets/images/404.png" alt="404 Error - Page Not Found" />
 
@@ -103,10 +147,11 @@ permalink: /404.html
       for more fitness insights.
     </p>
 
-    <!-- Search form to enhance navigation -->
+    <!-- Accessible search form -->
     <form action="{{ site.baseurl }}/search" method="get" class="search-form">
-      <input type="text" name="q" placeholder="Search..." class="search-input" aria-label="Search">
+      <label for="search" class="sr-only">Search</label>
+      <input type="text" id="search" name="q" placeholder="Search..." class="search-input" aria-label="Search">
       <button type="submit" class="search-button">Search</button>
     </form>
   </div>
-</div>
+</main>
