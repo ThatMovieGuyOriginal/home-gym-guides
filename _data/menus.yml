@@ -10,6 +10,8 @@ topmenu:
     url: "https://affiliate.example.com/home-gym-top-picks"  # Replace with actual affiliate link
     class: "ml-2 btn btn-dark text-white px-3"
     external: true
+    target: _blank
+    rel: "noopener noreferrer"
 
 # Footer Menu
 footermenu:
@@ -22,3 +24,5 @@ footermenu:
   - title: "Gear Up Your Home Gym"
     url: "https://affiliate.example.com/home-gym-top-picks"  # Replace with actual affiliate link
     external: true
+    target: _blank
+    rel: "noopener noreferrer"
