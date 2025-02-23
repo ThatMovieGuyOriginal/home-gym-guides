@@ -1,102 +1,186 @@
 ---
 layout: page
-title: Contact
+title: "Contact"
 permalink: "/contact/"
 comments: false
 ---
 
 <!-- Inline CSS for demonstration. Ideally, put this in a dedicated stylesheet -->
 <style>
-  /* Branded background and primary text color */
+  :root {
+    --background-color: #F9F9F9;
+    --primary-text: #333333;
+    --cta-green: #28A745;
+    --cta-green-dark: #218838;
+    --secondary-accent: #FFC107;
+    --white: #fff;
+    --border-radius: 5px;
+    --font-body: 'Roboto', 'Open Sans', sans-serif;
+    --font-heading: 'Playfair Display', serif;
+  }
+  
+  /* Global resets */
+  *, *::before, *::after {
+    box-sizing: border-box;
+  }
+  
   body {
-    background-color: #F9F9F9;
-    color: #333333;
-    font-family: 'Roboto', 'Open Sans', sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: var(--background-color);
+    color: var(--primary-text);
+    font-family: var(--font-body);
+    line-height: 1.6;
   }
-
-  /* Headings use Playfair Display for a touch of elegance */
+  
   h1, h2, h3, h4, h5, h6 {
-    font-family: 'Playfair Display', serif;
+    font-family: var(--font-heading);
   }
-
-  /* Container style for centering and spacing, with a subtle shadow for depth */
+  
+  /* Container styling */
   .contact-container {
     max-width: 700px;
-    margin: 0 auto;
+    margin: 2rem auto;
     padding: 2rem 1rem;
-    background-color: #fff;
-    border-radius: 5px;
+    background-color: var(--white);
+    border-radius: var(--border-radius);
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
   }
-
-  /* Headings and text alignment for a consistent look */
+  
   .contact-container h1 {
     text-align: center;
     margin-bottom: 1rem;
   }
+  
   .contact-container p {
     text-align: center;
   }
-
-  /* Subtle placeholder color for form inputs */
+  
+  /* Form styles */
+  .form-group {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+    margin-bottom: 1rem;
+  }
+  
+  .form-group .form-control {
+    flex: 1;
+    padding: 0.75rem;
+    border: 1px solid #ccc;
+    border-radius: var(--border-radius);
+    font-size: 1rem;
+  }
+  
+  /* Responsive two-column layout for name and email */
+  .half-width {
+    flex: 1 1 calc(50% - 0.5rem);
+  }
+  
+  /* Full width for textarea */
+  textarea.form-control {
+    width: 100%;
+    resize: vertical;
+  }
+  
   .form-control::placeholder {
     color: #6c757d;
   }
-
-  /* CTA Link style, using our CTA color and secondary accent for hover */
-  .homepage-link {
-    font-weight: bold;
-    color: #28A745;
-    text-decoration: underline;
-    text-decoration-color: #FFC107;
-    transition: background-color 0.3s, color 0.3s;
-  }
-  .homepage-link:hover {
-    background-color: #FFC107;
-    color: #218838;
-  }
-
-  /* Button styling using our branded CTA color */
+  
+  /* Button styling */
   .btn {
-    background-color: #28A745;
+    background-color: var(--cta-green);
     color: #fff;
     border: none;
+    padding: 0.75rem 1rem;
+    font-size: 1rem;
+    border-radius: var(--border-radius);
+    cursor: pointer;
     transition: background-color 0.3s;
   }
-  .btn:hover {
-    background-color: #218838;
+  
+  .btn:hover,
+  .btn:focus {
+    background-color: var(--cta-green-dark);
+    outline: none;
+  }
+  
+  /* Accessible link styling */
+  .homepage-link {
+    font-weight: bold;
+    color: var(--cta-green);
+    text-decoration: underline;
+    text-decoration-color: var(--secondary-accent);
+    transition: background-color 0.3s, color 0.3s;
+  }
+  
+  .homepage-link:hover,
+  .homepage-link:focus {
+    background-color: var(--secondary-accent);
+    color: var(--cta-green-dark);
+    outline: none;
+  }
+  
+  /* Responsive adjustments */
+  @media (max-width: 600px) {
+    .half-width {
+      flex: 1 1 100%;
+    }
+  }
+  
+  /* Screen reader only class */
+  .sr-only {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    border: 0;
   }
 </style>
 
-<div class="contact-container">
-  <h1>Home Gym Guides</h1>
-  <p class="mb-4">
-    Trusted by thousands of fitness enthusiasts. Have a question about building your dream home gym? Need help choosing the best equipment for your space? 
-    Drop us a message below, and we’ll get back to you ASAP!
-  </p>
-
-  <form 
-    id="contactForm" 
-    action="https://formspree.io/f/mpwzdkvg" 
-    method="POST"
-    onsubmit="if(window.gtag){ gtag('event', 'contact_form_submitted'); }"
-  >
-    <div class="form-group row">
-      <div class="col-md-6 mb-3">
-        <input class="form-control" type="text" name="name" placeholder="Name*" required>
-      </div>
-      <div class="col-md-6 mb-3">
-        <input class="form-control" type="email" name="_replyto" placeholder="E-mail Address*" required>
-      </div>
-    </div>
+<main role="main">
+  <div class="contact-container">
+    <h1>Home Gym Guides</h1>
+    <p class="mb-4">
+      Trusted by thousands of fitness enthusiasts. Have a question about building your dream home gym? Need help choosing the best equipment for your space? 
+      Drop us a message below, and we’ll get back to you ASAP!
+    </p>
     
-    <textarea rows="8" class="form-control mb-3" name="message" placeholder="Message*" required></textarea>    
-    <input class="btn btn-dark" type="submit" value="Send">
-  </form>
-
-  <p class="small mt-4 text-center">
-    Or check out our 
-    <a href="{{ site.baseurl }}/recommended-gear" class="homepage-link">Recommended Gear</a> 
-    for expert picks and reviews.
-  </p>
-</div>
+    <form 
+      id="contactForm" 
+      action="https://formspree.io/f/mpwzdkvg" 
+      method="POST"
+      onsubmit="if(window.gtag){ gtag('event', 'contact_form_submitted'); }"
+    >
+      <!-- Accessible labels for form inputs -->
+      <div class="form-group">
+        <div class="half-width">
+          <label for="contact-name" class="sr-only">Name</label>
+          <input class="form-control" type="text" id="contact-name" name="name" placeholder="Name*" required>
+        </div>
+        <div class="half-width">
+          <label for="contact-email" class="sr-only">E-mail Address</label>
+          <input class="form-control" type="email" id="contact-email" name="_replyto" placeholder="E-mail Address*" required>
+        </div>
+      </div>
+      
+      <div class="form-group">
+        <label for="contact-message" class="sr-only">Message</label>
+        <textarea id="contact-message" rows="8" class="form-control" name="message" placeholder="Message*" required></textarea>    
+      </div>
+      
+      <div class="form-group" style="justify-content: center;">
+        <input class="btn" type="submit" value="Send">
+      </div>
+    </form>
+    
+    <p class="small mt-4 text-center">
+      Or check out our 
+      <a href="{{ site.baseurl }}/recommended-gear" class="homepage-link">Recommended Gear</a> 
+      for expert picks and reviews.
+    </p>
+  </div>
+</main>
