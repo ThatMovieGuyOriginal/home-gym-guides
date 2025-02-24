@@ -101,26 +101,33 @@ gtag('config', '{{site.ganalytics}}');
 <!-- Footer
 ================================================== -->    
 <footer class="footer container text-center">  
-
-  <!-- CREDITS BEGIN.-->
-  <!-- If you want to support my work, please donate to remove the credits. This helps me keep it up and running: https://www.wowthemes.net/donate/ -->
-  <div class="credits mx-auto text-center mb-3">
-    <a class="hover-opacity font-weight-bold" href="https://bootstrapstarter.com/template-affiliates-bootstrap-jekyll/">
-      <img src="{{site.baseurl}}/assets/images/credits.png" alt="powered by WowThemes">
-    </a>
-  </div>
-  <!-- CREDITS END -->
-
   <ul class="p-0 mb-1 small">
     {% for item in site.data.menus.footermenu %}
     <li>
-      <a href="{% unless item.external %}{{site.baseurl}}/{% endunless %}{{item.url}}" alt="{{item.title}}">{{item.title}}</a>
+      <a href="{% unless item.external %}{{ site.baseurl }}/{% endunless %}{{ item.url }}" alt="{{ item.title }}">{{ item.title }}</a>
     </li>
     {% endfor %}
-    </ul>
-    <div class="copyright small">
-       Copyright © {{site.title}}. All rights reserved.
-    </div>
+  </ul>
+
+  <!-- Add a subtle line of social proof or trust statement -->
+  <p class="small text-muted mb-2">
+    Trusted by thousands of fitness enthusiasts striving for their ideal home gym.
+  </p>
+
+  <!-- Marketing CTA: you can configure the link and text in _config.yml -->
+  <p class="small mb-3">
+    <a href="{{ site.cta_link }}" class="font-weight-bold" style="color: #28a745; text-decoration: none;">
+      {{ site.cta_text }}
+    </a>
+  </p>
+
+  <div class="copyright small">
+    <!-- This outputs the domain and site title from _config.yml -->
+    Copyright © 
+    <a href="{{ site.url }}">{{ site.title }}</a> 
+    ({{ site.url | replace: "https://", "" | replace: "http://", "" }}).
+    All rights reserved.
+  </div>
 </footer>
 
 <!-- JavaScript
