@@ -82,6 +82,50 @@ small, .small {
 .big {
     font-size:1.4em;
 }
+
+.homepage-link {
+  font-weight: bold;
+  color: var(--cta-green);
+  text-decoration: underline;
+  text-decoration-color: var(--secondary-accent);
+  text-decoration-thickness: 2px;
+  transition: background-color 0.3s, color 0.3s;
+}
+
+.homepage-link:hover,
+.homepage-link:focus {
+  background-color: var(--secondary-accent);
+  color: var(--cta-green-dark);
+  outline: none;
+}
+
+.search-button {
+  padding: 0.75rem 1rem;
+  border: none;
+  background-color: var(--cta-green); /* Ensures CTA green is applied */
+  color: #fff;
+  font-size: 1rem;
+  border-radius: var(--border-radius);
+  cursor: pointer;
+  margin-left: 0.5rem;
+  transition: background-color 0.3s;
+}
+
+.search-button:hover,
+.search-button:focus {
+  background-color: var(--cta-green-dark); /* A darker green on hover */
+  outline: none;
+}
+
+.white-box {
+  max-width: 700px;
+  margin: 0 auto;
+  background-color: var(--white); /* Ensure this is set to white */
+  border-radius: var(--border-radius);
+  padding: 2rem;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
 /* #Navigation
 ================================================== */
 
@@ -402,16 +446,24 @@ ul.tags li a:hover {
     font-weight:400;
 }
 .btn.subscribe {
-	background-color: #28A745;
-	border-color: #28A745;
-	color:rgba(255,255,255,1);
-	fill:rgba(255,255,255,1);
-	border-radius:30px;
-	font-size:0.85rem;
-	margin-left:10px;
-	font-weight:600;
-	text-transform:uppercase;
+  background-color: var(--cta-green);
+  border-color: var(--cta-green);
+  color: #fff;
+  border-radius: 30px;
+  font-size: 0.85rem;
+  margin-left: 10px;
+  font-weight: 600;
+  text-transform: uppercase;
+  transition: background-color 0.3s, border-color 0.3s;
 }
+
+.btn.subscribe:hover,
+.btn.subscribe:focus {
+  background-color: var(--cta-green-dark);
+  border-color: var(--cta-green-dark);
+  outline: none;
+}
+
 .post-top-meta .btn.follow {
 	margin-left:5px;
 	margin-top:-4px;
