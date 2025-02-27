@@ -1,134 +1,285 @@
 ---
 layout: page
-title: "Contact"
+title: "Contact Us | Expert Home Gym Advice & Equipment Recommendations"
 permalink: "/contact/"
-comments: false
+description: "Have questions about building your home gym? Our fitness experts are ready to help you choose the perfect equipment for your space and goals."
 ---
 
-<!-- Inline CSS for demonstration. Ideally, put this in a dedicated stylesheet -->
 <style>
+  /* Modern Contact Page Styles */
   :root {
-    --background-color: #F9F9F9;
-    --primary-text: #333333;
-    --cta-green: #28A745;
-    --cta-green-dark: #218838;
-    --secondary-accent: #FFC107;
-    --white: #fff;
-    --border-radius: 5px;
-    --font-body: 'Roboto', 'Open Sans', sans-serif;
-    --font-heading: 'Playfair Display', serif;
+    --primary-color: #0a0a0a;
+    --accent-color: #ff4d4d;
+    --light-bg: #f9f9f9;
+    --text-color: #333333;
+    --secondary-text: #666666;
+    --box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+    --success-color: #28A745;
+    --success-hover: #218838;
+    --highlight-color: #FFC107;
   }
   
-  /* Global resets */
-  *, *::before, *::after {
-    box-sizing: border-box;
-  }
-  
-  body {
-    margin: 0;
-    padding: 0;
-    background-color: var(--background-color);
-    color: var(--primary-text);
-    font-family: var(--font-body);
-    line-height: 1.6;
-  }
-  
-  h1, h2, h3, h4, h5, h6 {
-    font-family: var(--font-heading);
-  }
-  
-  /* Container styling */
   .contact-container {
-    max-width: 700px;
+    display: flex;
+    flex-direction: column;
+    padding: 2rem;
     margin: 2rem auto;
-    padding: 2rem 1rem;
-    background-color: var(--white);
-    border-radius: var(--border-radius);
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    max-width: 800px;
+    background-color: white;
+    border-radius: 12px;
+    box-shadow: var(--box-shadow);
   }
   
-  .contact-container h1 {
+  .contact-header {
     text-align: center;
-    margin-bottom: 1rem;
+    margin-bottom: 2rem;
   }
   
-  .contact-container p {
-    text-align: center;
+  .contact-title {
+    font-size: 2.2rem;
+    font-weight: 700;
+    color: var(--primary-color);
+    margin: 0 0 1rem;
+    position: relative;
+    display: inline-block;
   }
   
-  /* Form styles */
+  .contact-title::after {
+    content: "";
+    position: absolute;
+    height: 8px;
+    width: 100%;
+    background-color: var(--accent-color);
+    opacity: 0.2;
+    bottom: 8px;
+    left: 0;
+    z-index: -1;
+  }
+  
+  .contact-subtitle {
+    font-size: 1.2rem;
+    color: var(--secondary-text);
+    max-width: 600px;
+    margin: 0 auto 1.5rem;
+  }
+  
+  .contact-form {
+    width: 100%;
+  }
+  
   .form-group {
     display: flex;
     flex-wrap: wrap;
     gap: 1rem;
-    margin-bottom: 1rem;
+    margin-bottom: 1.5rem;
   }
   
-  .form-group .form-control {
-    flex: 1;
-    padding: 0.75rem;
-    border: 1px solid #ccc;
-    border-radius: var(--border-radius);
-    font-size: 1rem;
-  }
-  
-  /* Responsive two-column layout for name and email */
   .half-width {
     flex: 1 1 calc(50% - 0.5rem);
   }
   
-  /* Full width for textarea */
-  textarea.form-control {
+  .form-control {
     width: 100%;
+    padding: 0.9rem 1.2rem;
+    border: 2px solid #eaeaea;
+    border-radius: 50px;
+    font-size: 1rem;
+    transition: all 0.3s ease;
+  }
+  
+  .form-control:focus {
+    outline: none;
+    border-color: var(--accent-color);
+    box-shadow: 0 0 0 3px rgba(255, 77, 77, 0.1);
+  }
+  
+  textarea.form-control {
+    min-height: 150px;
+    border-radius: 20px;
     resize: vertical;
   }
   
-  .form-control::placeholder {
-    color: #6c757d;
-  }
-  
-  /* Button styling */
-  .btn {
-    background-color: var(--cta-green);
-    color: #fff;
+  .submit-btn {
+    background-color: var(--accent-color);
+    color: white;
     border: none;
-    padding: 0.75rem 1rem;
-    font-size: 1rem;
-    border-radius: var(--border-radius);
+    padding: 0.9rem 2rem;
+    border-radius: 50px;
+    font-weight: 600;
+    font-size: 1.1rem;
     cursor: pointer;
-    transition: background-color 0.3s;
+    transition: all 0.3s ease;
+    display: block;
+    margin: 0 auto;
+    min-width: 200px;
   }
   
-  .btn:hover,
-  .btn:focus {
-    background-color: var(--cta-green-dark);
-    outline: none;
+  .submit-btn:hover {
+    background-color: #e03e3e;
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(255, 77, 77, 0.2);
   }
   
-  /* Accessible link styling */
-  .homepage-link {
-    font-weight: bold;
-    color: var(--cta-green);
-    text-decoration: underline;
-    text-decoration-color: var(--secondary-accent);
-    transition: background-color 0.3s, color 0.3s;
+  .recommendations {
+    margin-top: 3rem;
+    background-color: var(--light-bg);
+    padding: 1.8rem;
+    border-radius: 12px;
+    width: 100%;
   }
   
-  .homepage-link:hover,
-  .homepage-link:focus {
-    background-color: var(--secondary-accent);
-    color: var(--cta-green-dark);
-    outline: none;
+  .recommendations-title {
+    font-size: 1.5rem;
+    font-weight: 600;
+    margin-bottom: 1rem;
+    color: var(--primary-color);
+    text-align: center;
+    position: relative;
+    display: inline-block;
   }
   
-  /* Responsive adjustments */
-  @media (max-width: 600px) {
-    .half-width {
-      flex: 1 1 100%;
+  .recommendations-title::after {
+    content: "";
+    position: absolute;
+    height: 3px;
+    width: 80px;
+    background-color: var(--accent-color);
+    bottom: -8px;
+    left: 50%;
+    transform: translateX(-50%);
+  }
+  
+  .recommendations-subtitle {
+    text-align: center;
+    margin-bottom: 1.5rem;
+    color: var(--secondary-text);
+  }
+  
+  .products-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 1.5rem;
+    margin-top: 1.5rem;
+  }
+  
+  .product-card {
+    background-color: white;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+    transition: all 0.3s ease;
+    text-decoration: none;
+    color: var(--text-color);
+    position: relative;
+  }
+  
+  .product-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 12px 25px rgba(0,0,0,0.1);
+  }
+  
+  .product-img {
+    width: 100%;
+    height: 180px;
+    object-fit: contain;
+    padding: 1rem;
+    transition: transform 0.3s ease;
+  }
+  
+  .product-card:hover .product-img {
+    transform: scale(1.05);
+  }
+  
+  .product-info {
+    padding: 1.2rem;
+    border-top: 1px solid #f0f0f0;
+  }
+  
+  .product-title {
+    font-weight: 600;
+    margin: 0 0 0.5rem;
+    color: var(--primary-color);
+  }
+  
+  .product-price {
+    font-weight: 700;
+    color: var(--accent-color);
+    display: block;
+    margin-bottom: 0.5rem;
+  }
+  
+  .product-rating {
+    color: var(--highlight-color);
+    margin-bottom: 0.5rem;
+  }
+  
+  .buy-now-btn {
+    display: block;
+    background-color: var(--accent-color);
+    color: white;
+    text-align: center;
+    padding: 0.7rem 0;
+    border-radius: 50px;
+    font-weight: 600;
+    margin-top: 0.8rem;
+    transition: all 0.3s ease;
+  }
+  
+  .product-card:hover .buy-now-btn {
+    background-color: #e03e3e;
+  }
+  
+  .discount-badge {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background-color: var(--highlight-color);
+    color: var(--primary-color);
+    font-weight: 700;
+    padding: 0.3rem 0.8rem;
+    border-radius: 50px;
+    font-size: 0.9rem;
+    z-index: 1;
+  }
+  
+  .limited-time {
+    text-align: center;
+    margin-top: 1.5rem;
+    font-weight: 600;
+    color: var(--accent-color);
+  }
+  
+  /* Responsive Adjustments */
+  @media (max-width: 768px) {
+    .contact-container {
+      padding: 1.5rem;
+      margin: 1rem;
+    }
+    
+    .contact-title {
+      font-size: 1.8rem;
+    }
+    
+    .contact-subtitle {
+      font-size: 1rem;
+    }
+    
+    .products-grid {
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
     }
   }
   
-  /* Screen reader only class */
+  @media (max-width: 480px) {
+    .half-width {
+      flex: 1 1 100%;
+    }
+    
+    .submit-btn {
+      width: 100%;
+    }
+  }
+  
+  /* Accessibility */
   .sr-only {
     position: absolute;
     width: 1px;
@@ -143,44 +294,128 @@ comments: false
 
 <main role="main">
   <div class="contact-container">
-    <h1>Home Gym Guides</h1>
-    <p class="mb-4">
-      Trusted by thousands of fitness enthusiasts. Have a question about building your dream home gym? Need help choosing the best equipment for your space? 
-      Drop us a message below, and we’ll get back to you ASAP!
-    </p>
+    <div class="contact-header">
+      <h1 class="contact-title">Get Expert Home Gym Advice</h1>
+      <p class="contact-subtitle">
+        Join thousands of fitness enthusiasts who've transformed their home workouts with our expert guidance. Whether you're building a complete gym or need equipment recommendations, we're here to help.
+      </p>
+    </div>
     
     <form 
       id="contactForm" 
+      class="contact-form"
       action="https://formspree.io/f/mpwzdkvg" 
       method="POST"
-      onsubmit="if(window.gtag){ gtag('event', 'contact_form_submitted'); }"
+      onsubmit="if(window.gtag){ gtag('event', 'contact_form_submitted', {'event_category': 'engagement', 'event_label': 'contact form'}); }"
     >
-      <!-- Accessible labels for form inputs -->
       <div class="form-group">
         <div class="half-width">
           <label for="contact-name" class="sr-only">Name</label>
-          <input class="form-control" type="text" id="contact-name" name="name" placeholder="Name*" required>
+          <input class="form-control" type="text" id="contact-name" name="name" placeholder="Your Name*" required>
         </div>
         <div class="half-width">
-          <label for="contact-email" class="sr-only">E-mail Address</label>
-          <input class="form-control" type="email" id="contact-email" name="_replyto" placeholder="E-mail Address*" required>
+          <label for="contact-email" class="sr-only">Email Address</label>
+          <input class="form-control" type="email" id="contact-email" name="_replyto" placeholder="Your Email*" required>
+        </div>
+      </div>
+      
+      <div class="form-group">
+        <div class="half-width">
+          <label for="contact-fitness-level" class="sr-only">Fitness Level</label>
+          <select class="form-control" id="contact-fitness-level" name="fitness_level">
+            <option value="">Select Your Fitness Level</option>
+            <option value="beginner">Beginner</option>
+            <option value="intermediate">Intermediate</option>
+            <option value="advanced">Advanced</option>
+          </select>
+        </div>
+        <div class="half-width">
+          <label for="contact-budget" class="sr-only">Budget Range</label>
+          <select class="form-control" id="contact-budget" name="budget_range">
+            <option value="">Your Budget Range</option>
+            <option value="under-500">Under $500</option>
+            <option value="500-1000">$500 - $1,000</option>
+            <option value="1000-2000">$1,000 - $2,000</option>
+            <option value="over-2000">Over $2,000</option>
+          </select>
         </div>
       </div>
       
       <div class="form-group">
         <label for="contact-message" class="sr-only">Message</label>
-        <textarea id="contact-message" rows="8" class="form-control" name="message" placeholder="Message*" required></textarea>    
+        <textarea id="contact-message" rows="6" class="form-control" name="message" placeholder="Tell us about your fitness goals and what you need help with...*" required></textarea>    
       </div>
       
-      <div class="form-group" style="justify-content: center;">
-        <input class="btn" type="submit" value="Send">
+      <div class="form-group">
+        <button type="submit" class="submit-btn">Get Personalized Advice</button>
       </div>
+      
+      <!-- Hidden fields for analytics -->
+      <input type="hidden" name="page_source" value="contact_page">
+      <input type="hidden" name="utm_campaign" value="{{ site.utm_campaign }}">
     </form>
     
-    <p class="small mt-4 text-center">
-      Or check out our 
-      <a href="{{ site.baseurl }}/recommended-gear" class="homepage-link">Recommended Gear</a> 
-      for expert picks and reviews.
-    </p>
+    <div class="recommendations">
+      <h2 class="recommendations-title">Trending Equipment</h2>
+      <p class="recommendations-subtitle">Our most popular picks this month, based on expert testing and customer feedback</p>
+      
+      <div class="products-grid">
+        <!-- Product 1 -->
+        <a href="https://amzn.to/41iLxE1" class="product-card" onclick="if(window.gtag){ gtag('event', 'product_click', {'product_name': 'Premium Kettlebells', 'position': 'contact_page'}); }">
+          <span class="discount-badge">25% OFF</span>
+          <img src="/assets/images/kettlebell-removebg.png" alt="Premium Kettlebells Set" class="product-img">
+          <div class="product-info">
+            <h3 class="product-title">Premium Kettlebells Set</h3>
+            <span class="product-price">From $22.10</span>
+            <div class="product-rating">★★★★★ (1,287 reviews)</div>
+            <span class="buy-now-btn">View Deal</span>
+          </div>
+        </a>
+        
+        <!-- Product 2 -->
+        <a href="https://amzn.to/4gYQU11" class="product-card" onclick="if(window.gtag){ gtag('event', 'product_click', {'product_name': 'Pro Resistance Bands', 'position': 'contact_page'}); }">
+          <span class="discount-badge">30% OFF</span>
+          <img src="/assets/images/resistance-band-removebg.png" alt="Professional Resistance Band Set" class="product-img">
+          <div class="product-info">
+            <h3 class="product-title">Pro Resistance Band Set</h3>
+            <span class="product-price">$27.97</span>
+            <div class="product-rating">★★★★½ (943 reviews)</div>
+            <span class="buy-now-btn">View Deal</span>
+          </div>
+        </a>
+        
+        <!-- Product 3 -->
+        <a href="https://amzn.to/4if3dY7" class="product-card" onclick="if(window.gtag){ gtag('event', 'product_click', {'product_name': 'Extra Thick Yoga Mat', 'position': 'contact_page'}); }">
+          <img src="/assets/images/yoga-mat-removebg.png" alt="Premium Extra Thick Yoga Mat" class="product-img">
+          <div class="product-info">
+            <h3 class="product-title">Extra Thick Yoga Mat</h3>
+            <span class="product-price">$21.98</span>
+            <div class="product-rating">★★★★★ (2,156 reviews)</div>
+            <span class="buy-now-btn">View Deal</span>
+          </div>
+        </a>
+      </div>
+      
+      <p class="limited-time">Limited-time offers! Prices may change at any time.</p>
+    </div>
   </div>
 </main>
+
+<!-- Schema.org structured data for SEO -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "ContactPage",
+  "name": "Contact Home Gym Guides",
+  "description": "Get expert advice on building your perfect home gym from our fitness professionals.",
+  "mainEntity": {
+    "@type": "Organization",
+    "name": "Home Gym Guides",
+    "contactPoint": {
+      "@type": "ContactPoint",
+      "contactType": "customer support",
+      "email": "contact@homegymguides.com"
+    }
+  }
+}
+</script>
