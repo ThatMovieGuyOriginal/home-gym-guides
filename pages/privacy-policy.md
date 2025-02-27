@@ -1,132 +1,347 @@
 ---
 layout: page
-title: "Privacy Policy"
+title: "Privacy Policy | Home Gym Guides - Your Fitness Data Protected"
 permalink: /privacy-policy/
-comments: false
+description: "Learn how Home Gym Guides protects your personal information, manages cookies, and handles data to ensure your privacy while helping you achieve your fitness goals."
 ---
 
-<!-- Inline CSS for demonstration; ideally place this in a dedicated stylesheet -->
 <style>
-  /* CSS Variables for consistent theming */
+  /* Modern Privacy Policy Styles */
   :root {
-    --background-color: #F9F9F9;
-    --primary-text: #333333;
-    --cta-green: #28A745;
-    --cta-green-dark: #218838;
-    --secondary-accent: #FFC107;
-    --white: #fff;
-    --border-radius: 5px;
-    --font-body: 'Roboto', 'Open Sans', sans-serif;
-    --font-heading: 'Playfair Display', serif;
+    --primary-color: #0a0a0a;
+    --accent-color: #ff4d4d;
+    --light-bg: #f9f9f9;
+    --text-color: #333333;
+    --secondary-text: #666666;
+    --box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+    --border-radius: 12px;
   }
-
-  /* Global resets for consistency */
-  *, *::before, *::after {
-    box-sizing: border-box;
+  
+  .privacy-container {
+    display: flex;
+    flex-direction: column;
+    background-color: white;
+    border-radius: var(--border-radius);
+    box-shadow: var(--box-shadow);
+    padding: 2.5rem;
+    margin: 2rem auto;
+    max-width: 800px;
   }
-
-  body {
-    margin: 0;
-    padding: 0;
-    background-color: var(--background-color);
-    color: var(--primary-text);
-    font-family: var(--font-body);
-    line-height: 1.6;
-  }
-
-  /* Responsive and accessible heading styles */
-  h1, h2, h3 {
-    font-family: var(--font-heading);
-    color: var(--primary-text);
+  
+  .privacy-header {
     text-align: center;
+    margin-bottom: 2rem;
+    position: relative;
+  }
+  
+  .privacy-title {
+    font-size: 2.2rem;
+    font-weight: 700;
+    color: var(--primary-color);
+    margin-bottom: 1rem;
+    position: relative;
+    display: inline-block;
+  }
+  
+  .privacy-title::after {
+    content: "";
+    position: absolute;
+    height: 8px;
+    width: 100%;
+    background-color: var(--accent-color);
+    opacity: 0.2;
+    bottom: 8px;
+    left: 0;
+    z-index: -1;
+  }
+  
+  .last-updated {
+    font-size: 0.9rem;
+    color: var(--secondary-text);
     margin-bottom: 1rem;
   }
-
-  /* Container styling for the privacy policy content */
-  .privacy-container {
-    max-width: 700px;
-    margin: 2rem auto;
-    background-color: var(--white);
+  
+  .privacy-intro {
+    font-size: 1.1rem;
+    line-height: 1.6;
+    margin-bottom: 2rem;
+    color: var(--secondary-text);
+  }
+  
+  .privacy-section {
+    margin-bottom: 2.5rem;
+  }
+  
+  .section-title {
+    font-size: 1.5rem;
+    font-weight: 600;
+    color: var(--primary-color);
+    margin-bottom: 1rem;
+    position: relative;
+    display: inline-block;
+  }
+  
+  .section-title::after {
+    content: "";
+    position: absolute;
+    height: 3px;
+    width: 100%;
+    background-color: var(--accent-color);
+    bottom: -5px;
+    left: 0;
+  }
+  
+  .privacy-text {
+    font-size: 1rem;
+    line-height: 1.7;
+    color: var(--text-color);
+    margin-bottom: 1rem;
+  }
+  
+  .privacy-list {
+    padding-left: 1.2rem;
+    margin-bottom: 1.5rem;
+  }
+  
+  .privacy-list li {
+    margin-bottom: 0.8rem;
+    line-height: 1.6;
+  }
+  
+  .privacy-list li strong {
+    color: var(--primary-color);
+  }
+  
+  .highlight-box {
+    background-color: var(--light-bg);
+    border-left: 4px solid var(--accent-color);
+    padding: 1.5rem;
+    border-radius: 0 var(--border-radius) var(--border-radius) 0;
+    margin: 1.5rem 0;
+  }
+  
+  .highlight-box p {
+    margin: 0;
+  }
+  
+  .action-link {
+    color: var(--accent-color);
+    font-weight: 600;
+    text-decoration: none;
+    transition: all 0.3s ease;
+    position: relative;
+  }
+  
+  .action-link::after {
+    content: "";
+    position: absolute;
+    width: 100%;
+    height: 2px;
+    background-color: var(--accent-color);
+    bottom: -2px;
+    left: 0;
+    transform: scaleX(0);
+    transition: transform 0.3s ease;
+  }
+  
+  .action-link:hover::after {
+    transform: scaleX(1);
+  }
+  
+  .action-link:hover {
+    color: #e03e3e;
+  }
+  
+  .cta-container {
+    display: flex;
+    justify-content: center;
+    margin-top: 2rem;
+  }
+  
+  .primary-btn {
+    background-color: var(--accent-color);
+    color: white;
+    border: none;
+    padding: 0.75rem 1.8rem;
+    border-radius: 50px;
+    font-weight: 600;
+    text-decoration: none;
+    transition: all 0.3s ease;
+    display: inline-flex;
+    align-items: center;
+  }
+  
+  .primary-btn:hover {
+    background-color: #e03e3e;
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(255, 77, 77, 0.2);
+  }
+  
+  /* Equipment Recommendation Section */
+  .recommendation-banner {
+    background-color: var(--light-bg);
     border-radius: var(--border-radius);
-    padding: 2rem;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    padding: 1.5rem;
+    margin-top: 3rem;
+    position: relative;
+    overflow: hidden;
   }
-
-  .privacy-container p,
-  .privacy-container li {
-    text-align: left;
+  
+  .recommendation-banner::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 150px;
+    height: 150px;
+    background-color: var(--accent-color);
+    opacity: 0.05;
+    border-radius: 50%;
+    transform: translate(30%, -30%);
   }
-
-  /* Accessible and branded link styling */
-  .homepage-link {
-    font-weight: bold;
-    color: var(--cta-green);
-    text-decoration: underline;
-    text-decoration-color: var(--secondary-accent);
-    text-decoration-thickness: 2px;
-    transition: background-color 0.3s, color 0.3s;
+  
+  .recommendation-title {
+    font-size: 1.2rem;
+    font-weight: 600;
+    margin-bottom: 1rem;
+    color: var(--primary-color);
   }
-  .homepage-link:hover,
-  .homepage-link:focus {
-    background-color: var(--secondary-accent);
-    color: var(--cta-green-dark);
-    outline: none;
+  
+  .recommendation-text {
+    margin-bottom: 1.2rem;
   }
-
-  /* Responsive adjustments */
-  @media (max-width: 600px) {
+  
+  /* Responsive Adjustments */
+  @media (max-width: 768px) {
     .privacy-container {
-      padding: 1rem;
+      padding: 1.8rem;
+      margin: 1.5rem;
+    }
+    
+    .privacy-title {
+      font-size: 1.8rem;
+    }
+    
+    .section-title {
+      font-size: 1.3rem;
+    }
+  }
+  
+  @media (max-width: 480px) {
+    .privacy-container {
+      padding: 1.2rem;
       margin: 1rem;
+    }
+    
+    .highlight-box {
+      padding: 1rem;
+    }
+    
+    .cta-container {
+      flex-direction: column;
+      align-items: center;
+    }
+    
+    .primary-btn {
+      width: 100%;
+      text-align: center;
+      justify-content: center;
     }
   }
 </style>
 
 <main role="main">
   <article class="privacy-container">
-    <p>
-      At <strong>Home Gym Guides</strong>, we respect your privacy and are committed to protecting any personal information you share with us. This policy outlines how we handle the data we collect and how it’s used.
-    </p>
+    <header class="privacy-header">
+      <h1 class="privacy-title">Your Privacy & Data Security</h1>
+      <p class="last-updated">Last Updated: February 27, 2025</p>
+      <p class="privacy-intro">
+        At <strong>Home Gym Guides</strong>, we believe your fitness journey deserves both guidance and privacy protection. Here's our commitment to safeguarding your personal information while helping you achieve your fitness goals.
+      </p>
+    </header>
 
-    <h2>Information Gathered from Visitors</h2>
-    <p>
-      In common with other websites, our server stores log files containing details such as your IP address, browser type, referring page, and the time of your visit. These logs help us diagnose technical issues and understand user behavior to improve our site’s performance.
-    </p>
-    <p>
-      We may also collect email addresses if you voluntarily subscribe to our newsletter or provide them via contact forms. This allows us to send updates, offers, or other marketing-related information relevant to your fitness journey.
-    </p>
+    <section class="privacy-section">
+      <h2 class="section-title">Information We Collect</h2>
+      <p class="privacy-text">
+        Like most fitness websites, we collect standard server logs containing:
+      </p>
+      <ul class="privacy-list">
+        <li><strong>IP address</strong> - helps us diagnose technical issues</li>
+        <li><strong>Browser type</strong> - ensures our site displays correctly</li>
+        <li><strong>Referring pages</strong> - helps us understand how you found us</li>
+        <li><strong>Visit timestamps</strong> - allows us to optimize content delivery times</li>
+      </ul>
+      <p class="privacy-text">
+        We also collect email addresses when you subscribe to our fitness newsletter or contact us through our forms. This allows us to deliver personalized workout tips, equipment recommendations, and exclusive offers to enhance your home gym experience.
+      </p>
+    </section>
 
-    <h2>Cookies</h2>
-    <p>
-      Cookies are small digital signature files stored by your web browser. They help remember your preferences, track return visits, and enhance your overall experience. Third-party advertising companies may also use cookies for tracking purposes.
-    </p>
-    <p>
-      You can typically block or disable cookies via your browser settings; however, this may affect certain site features.
-    </p>
+    <section class="privacy-section">
+      <h2 class="section-title">How We Use Cookies</h2>
+      <p class="privacy-text">
+        Cookies help us remember your preferences and improve your browsing experience. They allow us to:
+      </p>
+      <ul class="privacy-list">
+        <li><strong>Remember your preferences</strong> - such as dark/light mode or units of measurement</li>
+        <li><strong>Analyze site performance</strong> - ensuring faster load times for workout guides</li>
+        <li><strong>Deliver relevant content</strong> - showing equipment suited to your fitness level</li>
+        <li><strong>Enhance security</strong> - protecting your account information</li>
+      </ul>
+      
+      <div class="highlight-box">
+        <p>You can manage cookie preferences through your browser settings. However, disabling cookies may limit certain site features and personalized content recommendations.</p>
+      </div>
+    </section>
 
-    <h2>How the Information Is Used</h2>
-    <ul>
-      <li><strong>Enhancing User Experience:</strong> We use logs and cookies to personalize content and possibly display relevant advertising.</li>
-      <li><strong>Email Communications:</strong> We send emails to subscribers with news, fitness insights, or product recommendations. You can unsubscribe at any time by following the link in the email.</li>
-      <li><strong>No Sale or Lease of Emails:</strong> We do not sell, rent, or lease your email address to third parties. Ever.</li>
-    </ul>
+    <section class="privacy-section">
+      <h2 class="section-title">How We Use Your Information</h2>
+      <ul class="privacy-list">
+        <li>
+          <strong>Personalized Content:</strong> We analyze your interactions to recommend equipment that matches your fitness goals, space constraints, and budget.
+        </li>
+        <li>
+          <strong>Email Communications:</strong> Subscribers receive tailored workout plans, equipment maintenance tips, and exclusive member discounts. Each email includes an easy unsubscribe option.
+        </li>
+        <li>
+          <strong>Site Improvements:</strong> We use anonymized browsing data to optimize our guides and reviews for clarity and effectiveness.
+        </li>
+      </ul>
+      
+      <div class="highlight-box">
+        <p><strong>Our Promise:</strong> We never sell, rent, or lease your email address to third parties. Your fitness journey is personal, and so is your data.</p>
+      </div>
+    </section>
 
-    <h2>Visitor Options</h2>
-    <p>
-      If you have subscribed to one of our services (e.g., a newsletter), you may unsubscribe by following the instructions in the emails you receive.
-    </p>
-    <p>
-      If you have concerns about cookies, you can modify your browser settings to block or delete them, though some site features may be unavailable.
-    </p>
+    <section class="privacy-section">
+      <h2 class="section-title">Affiliate Partnerships & Advertising</h2>
+      <p class="privacy-text">
+        Home Gym Guides partners with select fitness equipment manufacturers to bring you honest reviews and special offers. We may earn a commission when you purchase through our affiliate links at no additional cost to you.
+      </p>
+      <p class="privacy-text">
+        Google, as a third-party vendor, uses cookies to serve ads on our site. The DART cookie enables Google to serve ads based on your browsing history. You may opt out of the DART cookie by visiting the <a href="https://policies.google.com/technologies/ads" class="action-link" target="_blank" rel="noopener noreferrer">Google ad and content network privacy policy</a>.
+      </p>
+    </section>
 
-    <h2>Google Ads</h2>
-    <p>
-      Google, as a third-party vendor, uses cookies to serve ads on our site. The DART cookie enables Google to serve ads to visitors based on their browsing history across the Internet. You may opt out of the DART cookie by visiting the <a href="https://policies.google.com/technologies/ads" class="homepage-link" target="_blank" rel="noopener noreferrer">Google ad and content network privacy policy</a>.
-    </p>
+    <section class="privacy-section">
+      <h2 class="section-title">Your Control & Rights</h2>
+      <p class="privacy-text">
+        You maintain control over your data with options to:
+      </p>
+      <ul class="privacy-list">
+        <li>Unsubscribe from our fitness newsletter with one click</li>
+        <li>Request information about data we hold about you</li>
+        <li>Ask for your data to be deleted from our systems</li>
+      </ul>
+    </section>
 
-    <h2>Contact Us</h2>
-    <p>
-      If you have any questions or concerns regarding our privacy practices, please feel free to <a href="{{ site.baseurl }}/contact" class="homepage-link">Contact Us</a> at any time.
-    </p>
+    <div class="cta-container">
+      <a href="{{ site.baseurl }}/contact" class="primary-btn">Contact Our Privacy Team</a>
+    </div>
+
+    <section class="recommendation-banner">
+      <h3 class="recommendation-title">While You're Here: Top-Rated Home Gym Equipment</h3>
+      <p class="recommendation-text">Discover our expert-tested equipment essentials for effective home workouts.</p>
+      <a href="{{ site.baseurl }}/equipment-guides" class="action-link">View Equipment Recommendations →</a>
+    </section>
   </article>
 </main>
