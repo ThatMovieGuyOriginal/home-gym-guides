@@ -6,20 +6,18 @@ image: assets/images/about-home-gym-guides.jpg
 description: "Discover why thousands trust Home Gym Guides for honest fitness equipment reviews, expert workout advice, and affordable home gym solutions."
 ---
 
+{% include recommendations-styles.html %}
+
 <style>
   :root {
-    --background-color: #F9F9F9;
-    --primary-text: #333333;
+    --primary-color: #0a0a0a;
+    --accent-color: #ff4d4d;
+    --light-bg: #f9f9f9;
+    --text-color: #333333;
     --secondary-text: #666666;
-    --cta-green: #28A745;
-    --cta-green-dark: #218838;
-    --secondary-accent: #FFC107;
-    --accent-red: #ff4d4d;
-    --white: #fff;
-    --border-radius: 8px;
-    --box-shadow: 0 5px 15px rgba(0,0,0,0.08);
-    --font-body: 'Roboto', 'Open Sans', sans-serif;
-    --font-heading: 'Playfair Display', serif;
+    --box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+    --border-radius: 12px;
+    --highlight-color: #FFC107;
   }
 
   /* Global resets */
@@ -27,91 +25,82 @@ description: "Discover why thousands trust Home Gym Guides for honest fitness eq
     box-sizing: border-box;
   }
 
-  body {
-    margin: 0;
-    padding: 0;
-    background-color: var(--background-color);
-    color: var(--primary-text);
-    font-family: var(--font-body);
-    line-height: 1.6;
-  }
-
-  h1, h2, h3 {
-    font-family: var(--font-heading);
-    color: var(--primary-text);
-    margin-top: 1.5em;
-    margin-bottom: 0.5em;
-  }
-
   /* Hero section styling */
   .hero-section {
-    background-color: var(--white);
-    padding: 3rem 1.5rem;
+    background-color: white;
+    padding: 3rem 2rem;
     text-align: center;
     border-radius: var(--border-radius);
-    margin-bottom: 2rem;
+    margin-bottom: 3rem;
     box-shadow: var(--box-shadow);
   }
 
   .hero-section h1 {
     font-size: 2.2rem;
-    margin-bottom: 1rem;
+    margin-bottom: 1.5rem;
     position: relative;
     display: inline-block;
+    color: var(--primary-color);
   }
 
   .hero-section h1::after {
     content: "";
     position: absolute;
-    height: 4px;
-    width: 60%;
-    background-color: var(--accent-red);
-    bottom: -10px;
-    left: 20%;
+    height: 8px;
+    width: 100%;
+    background-color: var(--accent-color);
+    opacity: 0.2;
+    bottom: 5px;
+    left: 0;
+    z-index: -1;
   }
 
   .hero-image {
-    max-width: 150px;
+    max-width: 180px;
     border-radius: 50%;
-    margin: 1rem auto;
+    margin: 1rem auto 2rem;
     display: block;
-    border: 3px solid var(--cta-green);
+    border: 3px solid var(--accent-color);
+    box-shadow: var(--box-shadow);
   }
 
   .tagline {
     font-weight: 500;
     font-size: 1.2rem;
     color: var(--secondary-text);
-    max-width: 600px;
+    max-width: 700px;
     margin: 1.5rem auto;
+    line-height: 1.6;
   }
 
   /* About content container */
   .about-container {
     max-width: 800px;
-    margin: 0 auto 2rem;
-    background-color: var(--white);
+    margin: 0 auto 3rem;
+    background-color: white;
     border-radius: var(--border-radius);
-    padding: 2rem;
+    padding: 2.5rem;
     box-shadow: var(--box-shadow);
   }
 
   .about-section {
-    margin-bottom: 2rem;
+    margin-bottom: 3rem;
   }
 
   .about-section h2 {
     font-size: 1.8rem;
     position: relative;
-    padding-bottom: 0.5rem;
+    padding-bottom: 0.8rem;
+    margin-bottom: 1.5rem;
+    color: var(--primary-color);
   }
 
   .about-section h2::after {
     content: "";
     position: absolute;
     height: 3px;
-    width: 50px;
-    background-color: var(--secondary-accent);
+    width: 60px;
+    background-color: var(--accent-color);
     bottom: 0;
     left: 0;
   }
@@ -119,6 +108,8 @@ description: "Discover why thousands trust Home Gym Guides for honest fitness eq
   .about-section p {
     margin: 1rem 0;
     font-size: 1.05rem;
+    line-height: 1.7;
+    color: var(--text-color);
   }
 
   /* Benefits section */
@@ -126,42 +117,45 @@ description: "Discover why thousands trust Home Gym Guides for honest fitness eq
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
     gap: 1.5rem;
-    margin-top: 1.5rem;
+    margin-top: 2rem;
   }
 
   .benefit-card {
-    background-color: var(--white);
+    background-color: white;
     border-radius: var(--border-radius);
-    padding: 1.5rem;
-    box-shadow: 0 3px 10px rgba(0,0,0,0.05);
+    padding: 1.8rem;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.05);
     transition: transform 0.3s ease, box-shadow 0.3s ease;
-    border-top: 3px solid var(--cta-green);
+    border-top: 3px solid var(--accent-color);
   }
 
   .benefit-card:hover {
     transform: translateY(-5px);
-    box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+    box-shadow: 0 12px 25px rgba(0,0,0,0.1);
   }
 
   .benefit-card h3 {
     font-size: 1.3rem;
     margin-top: 0;
-    color: var(--primary-text);
+    margin-bottom: 1rem;
+    color: var(--primary-color);
   }
 
   .benefit-card p {
     color: var(--secondary-text);
     margin-bottom: 0;
+    font-size: 1rem;
   }
 
   /* Social proof section */
   .testimonial {
-    background-color: var(--background-color);
-    border-left: 4px solid var(--secondary-accent);
-    padding: 1rem 1.5rem;
-    margin: 1.5rem 0;
+    background-color: var(--light-bg);
+    border-left: 4px solid var(--accent-color);
+    padding: 1.5rem 2rem;
+    margin: 2rem 0;
     font-style: italic;
     position: relative;
+    border-radius: 0 var(--border-radius) var(--border-radius) 0;
   }
 
   .testimonial::before {
@@ -170,8 +164,8 @@ description: "Discover why thousands trust Home Gym Guides for honest fitness eq
     position: absolute;
     left: 0.5rem;
     top: -1.5rem;
-    color: var(--secondary-accent);
-    opacity: 0.3;
+    color: var(--accent-color);
+    opacity: 0.2;
     font-family: Georgia, serif;
   }
 
@@ -180,36 +174,63 @@ description: "Discover why thousands trust Home Gym Guides for honest fitness eq
     font-style: normal;
     text-align: right;
     color: var(--primary-text);
-    margin-top: 0.5rem;
+    margin-top: 0.8rem;
   }
 
   /* Call to action */
   .cta-section {
-    background-color: var(--cta-green);
-    color: var(--white);
-    padding: 2rem;
+    background-color: var(--primary-color);
+    color: white;
+    padding: 3rem 2rem;
     border-radius: var(--border-radius);
     text-align: center;
-    margin: 2rem auto;
+    margin: 3rem auto;
     max-width: 800px;
+    position: relative;
+    overflow: hidden;
+  }
+  
+  .cta-section::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 250px;
+    height: 250px;
+    background: radial-gradient(circle, var(--accent-color) 0%, rgba(255,77,77,0) 70%);
+    opacity: 0.1;
+    border-radius: 50%;
+    z-index: 0;
   }
 
   .cta-section h2 {
-    color: var(--white);
+    color: white;
     margin-top: 0;
+    font-size: 1.8rem;
+    margin-bottom: 1rem;
+  }
+  
+  .cta-section p {
+    color: rgba(255, 255, 255, 0.9);
+    margin-bottom: 2rem;
+    max-width: 600px;
+    margin-left: auto;
+    margin-right: auto;
   }
 
   .cta-buttons {
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
-    gap: 1rem;
+    gap: 1.2rem;
     margin-top: 1.5rem;
+    position: relative;
+    z-index: 1;
   }
 
   .btn {
     display: inline-block;
-    padding: 0.8rem 1.8rem;
+    padding: 0.9rem 1.8rem;
     border-radius: 50px;
     text-decoration: none;
     font-weight: 600;
@@ -217,130 +238,58 @@ description: "Discover why thousands trust Home Gym Guides for honest fitness eq
   }
 
   .btn-primary {
-    background-color: var(--white);
-    color: var(--cta-green);
-    border: 2px solid var(--white);
+    background-color: var(--accent-color);
+    color: white;
+    border: 2px solid var(--accent-color);
   }
 
   .btn-primary:hover {
-    background-color: transparent;
-    color: var(--white);
+    background-color: #e03e3e;
+    border-color: #e03e3e;
+    transform: translateY(-3px);
+    box-shadow: 0 8px 20px rgba(255, 77, 77, 0.2);
   }
 
   .btn-secondary {
     background-color: transparent;
-    color: var(--white);
-    border: 2px solid var(--white);
+    color: white;
+    border: 2px solid white;
   }
 
   .btn-secondary:hover {
-    background-color: var(--white);
-    color: var(--cta-green);
+    background-color: white;
+    color: var(--primary-color);
+    transform: translateY(-3px);
   }
 
-  /* Featured products section */
-  .featured-products {
-    margin-top: 2rem;
-  }
-
-  .products-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-    gap: 1.5rem;
-    margin-top: 1rem;
-  }
-
-  .product-card {
-    background-color: var(--white);
-    border-radius: var(--border-radius);
-    overflow: hidden;
-    box-shadow: 0 4px 10px rgba(0,0,0,0.05);
-    transition: all 0.3s ease;
-    text-decoration: none;
-    color: var(--primary-text);
-    display: flex;
-    flex-direction: column;
-  }
-
-  .product-card:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 8px 20px rgba(0,0,0,0.1);
-  }
-
-  .product-img-container {
-    height: 160px;
-    overflow: hidden;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    background-color: #f3f3f3;
-  }
-
-  .product-img {
-    max-width: 100%;
-    max-height: 140px;
-    object-fit: contain;
-    transition: transform 0.3s ease;
-  }
-
-  .product-card:hover .product-img {
-    transform: scale(1.05);
-  }
-
-  .product-info {
-    padding: 1rem;
-    display: flex;
-    flex-direction: column;
-    flex-grow: 1;
-  }
-
-  .product-title {
-    font-weight: 600;
-    margin: 0 0 0.5rem;
-    color: var(--primary-text);
-  }
-
-  .product-price {
-    font-weight: 700;
-    color: var(--accent-red);
-    margin-top: auto;
-  }
-
-  .product-button {
-    background-color: var(--cta-green);
-    color: white;
-    text-align: center;
-    padding: 0.5rem;
-    border-radius: 0 0 var(--border-radius) var(--border-radius);
-    font-weight: 600;
-    transition: background-color 0.3s;
-  }
-
-  .product-card:hover .product-button {
-    background-color: var(--cta-green-dark);
-  }
-
-  /* Responsive adjustments */
+  /* Responsive Adjustments */
   @media (max-width: 768px) {
     .hero-section h1 {
       font-size: 1.8rem;
     }
     
-    .about-container {
-      padding: 1.5rem;
+    .hero-section, .about-container {
+      padding: 2rem 1.5rem;
     }
     
-    .benefit-card, .product-card {
-      margin-bottom: 1rem;
+    .about-section h2 {
+      font-size: 1.5rem;
     }
     
     .cta-buttons {
       flex-direction: column;
+      max-width: 300px;
+      margin-left: auto;
+      margin-right: auto;
     }
     
     .btn {
       width: 100%;
       text-align: center;
+    }
+    
+    .benefits-grid {
+      grid-template-columns: 1fr;
     }
   }
 
@@ -354,8 +303,12 @@ description: "Discover why thousands trust Home Gym Guides for honest fitness eq
     }
     
     .about-container, .cta-section {
-      padding: 1rem;
-      margin: 1rem;
+      padding: 1.5rem;
+      margin: 1.5rem 1rem;
+    }
+    
+    .testimonial {
+      padding: 1.2rem;
     }
   }
 </style>
@@ -425,47 +378,11 @@ description: "Discover why thousands trust Home Gym Guides for honest fitness eq
     </section>
 
     <!-- Featured Products Section -->
-    <section class="about-section featured-products">
+    <section class="about-section">
       <h2>Reader Favorites: Most Trusted Equipment</h2>
       <p>These affordable essentials have helped thousands of our readers build effective home gyms:</p>
       
-      <div class="products-grid">
-        <!-- Product 1 -->
-        <a href="https://amzn.to/41iLxE1" class="product-card">
-          <div class="product-img-container">
-            <img src="{{ site.baseurl }}/assets/images/kettlebell-removebg.png" alt="Premium Kettlebells - Best Seller" class="product-img">
-          </div>
-          <div class="product-info">
-            <h4 class="product-title">Premium Kettlebells</h4>
-            <span class="product-price">From $22.10</span>
-          </div>
-          <div class="product-button">View Details</div>
-        </a>
-        
-        <!-- Product 2 -->
-        <a href="https://amzn.to/4gYQU11" class="product-card">
-          <div class="product-img-container">
-            <img src="{{ site.baseurl }}/assets/images/resistance-band-removebg.png" alt="Pro Resistance Bands Set" class="product-img">
-          </div>
-          <div class="product-info">
-            <h4 class="product-title">Pro Resistance Bands</h4>
-            <span class="product-price">$27.97</span>
-          </div>
-          <div class="product-button">View Details</div>
-        </a>
-        
-        <!-- Product 3 -->
-        <a href="https://amzn.to/4if3dY7" class="product-card">
-          <div class="product-img-container">
-            <img src="{{ site.baseurl }}/assets/images/yoga-mat-removebg.png" alt="Extra Thick Yoga Mat" class="product-img">
-          </div>
-          <div class="product-info">
-            <h4 class="product-title">Extra Thick Yoga Mat</h4>
-            <span class="product-price">$21.98</span>
-          </div>
-          <div class="product-button">View Details</div>
-        </a>
-      </div>
+      {% include recommendations.html page_name="about_page" title="Reader Favorites" %}
     </section>
   </article>
 
@@ -475,8 +392,11 @@ description: "Discover why thousands trust Home Gym Guides for honest fitness eq
     <p>Join thousands of fitness enthusiasts who have created effective home gyms without breaking the bank.</p>
     
     <div class="cta-buttons">
-      <a href="{{ site.baseurl }}/recommended-gear" class="btn btn-primary">See Our Top Equipment Picks</a>
-      <a href="{{ site.baseurl }}/blog" class="btn btn-secondary">Get Expert Workout Tips</a>
+      <a href="{{ site.baseurl }}/equipment-guides" class="btn btn-primary" onclick="if(window.gtag){ gtag('event', 'cta_click', {'event_category': 'about_page', 'event_label': 'equipment_guides_button'}); }">See Our Top Equipment Picks</a>
+      <a href="{{ site.baseurl }}/workout-plans" class="btn btn-secondary" onclick="if(window.gtag){ gtag('event', 'cta_click', {'event_category': 'about_page', 'event_label': 'workout_plans_button'}); }">Get Expert Workout Tips</a>
     </div>
   </section>
 </main>
+
+<!-- Include timer script -->
+{% include timer-script.html page_name="about_page" %}
