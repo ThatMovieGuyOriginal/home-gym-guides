@@ -5,20 +5,11 @@ permalink: "/contact/"
 description: "Have questions about building your home gym? Our fitness experts are ready to help you choose the perfect equipment for your space and goals."
 ---
 
+<!-- Include shared styles -->
+{% include recommendations-styles.html %}
+
 <style>
-  /* Modern Contact Page Styles - Updated with 404.html enhancements */
-  :root {
-    --primary-color: #0a0a0a;
-    --accent-color: #ff4d4d;
-    --light-bg: #f9f9f9;
-    --text-color: #333333;
-    --secondary-text: #666666;
-    --box-shadow: 0 10px 30px rgba(0,0,0,0.08);
-    --success-color: #28A745;
-    --success-hover: #218838;
-    --highlight-color: #FFC107;
-  }
-  
+  /* Contact-specific styles */
   .contact-container {
     display: flex;
     flex-direction: column;
@@ -120,185 +111,6 @@ description: "Have questions about building your home gym? Our fitness experts a
     box-shadow: 0 5px 15px rgba(255, 77, 77, 0.2);
   }
   
-  .recommendations {
-    margin-top: 3rem;
-    background-color: var(--light-bg);
-    padding: 1.8rem;
-    border-radius: 12px;
-    width: 100%;
-  }
-  
-  .recommendations-title {
-    font-size: 1.5rem;
-    font-weight: 600;
-    margin-bottom: 1rem;
-    color: var(--primary-color);
-    text-align: center;
-    position: relative;
-    display: inline-block;
-  }
-  
-  .recommendations-title::after {
-    content: "";
-    position: absolute;
-    height: 3px;
-    width: 80px;
-    background-color: var(--accent-color);
-    bottom: -8px;
-    left: 50%;
-    transform: translateX(-50%);
-  }
-  
-  .recommendations-subtitle {
-    text-align: center;
-    margin-bottom: 1.5rem;
-    color: var(--secondary-text);
-  }
-  
-  .products-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-    gap: 1.5rem;
-    margin-top: 1.5rem;
-  }
-  
-  .product-card {
-    background-color: white;
-    border-radius: 12px;
-    overflow: hidden;
-    box-shadow: 0 5px 15px rgba(0,0,0,0.05);
-    transition: all 0.3s ease;
-    text-decoration: none;
-    color: var(--text-color);
-    position: relative;
-  }
-  
-  .product-card:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 12px 25px rgba(0,0,0,0.1);
-  }
-  
-  .product-img {
-    width: 100%;
-    height: 180px;
-    object-fit: contain;
-    padding: 1rem;
-    transition: transform 0.3s ease;
-  }
-  
-  .product-card:hover .product-img {
-    transform: scale(1.05);
-  }
-  
-  .product-info {
-    padding: 1.2rem;
-    border-top: 1px solid #f0f0f0;
-  }
-  
-  .product-title {
-    font-weight: 600;
-    margin: 0 0 0.5rem;
-    color: var(--primary-color);
-  }
-  
-  .product-price {
-    font-weight: 700;
-    color: var(--accent-color);
-    display: block;
-    margin-bottom: 0.5rem;
-  }
-  
-  .product-rating {
-    color: var(--highlight-color);
-    margin-bottom: 0.5rem;
-  }
-  
-  .buy-now-btn {
-    display: block;
-    background-color: var(--accent-color);
-    color: white;
-    text-align: center;
-    padding: 0.7rem 0;
-    border-radius: 50px;
-    font-weight: 600;
-    margin-top: 0.8rem;
-    transition: all 0.3s ease;
-  }
-  
-  .product-card:hover .buy-now-btn {
-    background-color: #e03e3e;
-  }
-  
-  .discount-badge {
-    position: absolute;
-    top: 10px;
-    right: 10px;
-    background-color: var(--highlight-color);
-    color: var(--primary-color);
-    font-weight: 700;
-    padding: 0.3rem 0.8rem;
-    border-radius: 50px;
-    font-size: 0.9rem;
-    z-index: 1;
-    animation: pulse-badge 1.5s infinite ease-in-out;
-  }
-  
-  @keyframes pulse-badge {
-    0% { transform: scale(1); }
-    50% { transform: scale(1.1); }
-    100% { transform: scale(1); }
-  }
-  
-  .limited-time {
-    text-align: center;
-    margin-top: 1.5rem;
-    font-weight: 600;
-    color: var(--accent-color);
-  }
-  
-  .fomo-text {
-    font-size: 0.9rem;
-    margin-top: 0.5rem;
-    font-style: italic;
-    color: var(--secondary-text);
-  }
-  
-  .rating-count {
-    font-size: 0.8rem;
-    color: var(--secondary-text);
-  }
-  
-  .timer-container {
-    margin: 1rem 0;
-    text-align: center;
-  }
-  
-  .timer-text {
-    font-size: 0.9rem;
-    color: var(--secondary-text);
-    margin-bottom: 0.5rem;
-  }
-  
-  .timer-display {
-    display: inline-flex;
-    gap: 0.5rem;
-  }
-  
-  .timer-unit {
-    background-color: var(--primary-color);
-    color: white;
-    padding: 0.5rem 0.8rem;
-    border-radius: 4px;
-    font-weight: 700;
-    min-width: 40px;
-  }
-  
-  .timer-divider {
-    color: var(--primary-color);
-    align-self: center;
-    font-weight: 700;
-  }
-  
   .expert-advice {
     margin-top: 0;
     margin-bottom: 2rem;
@@ -383,10 +195,6 @@ description: "Have questions about building your home gym? Our fitness experts a
     
     .contact-subtitle {
       font-size: 1rem;
-    }
-    
-    .products-grid {
-      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
     }
     
     .benefit-points {
@@ -509,64 +317,8 @@ description: "Have questions about building your home gym? Our fitness experts a
       <input type="hidden" name="utm_campaign" value="{{ site.utm_campaign }}">
     </form>
     
-    <div class="recommendations">
-      <h2 class="recommendations-title">Trending Equipment</h2>
-      <p class="recommendations-subtitle">Our most popular picks this month, based on expert testing and customer feedback</p>
-      
-      <div class="timer-container">
-        <p class="timer-text">Limited-time offers end in:</p>
-        <div class="timer-display">
-          <span class="timer-unit" id="hours">23</span>
-          <span class="timer-divider">:</span>
-          <span class="timer-unit" id="minutes">45</span>
-          <span class="timer-divider">:</span>
-          <span class="timer-unit" id="seconds">19</span>
-        </div>
-      </div>
-      
-      <div class="products-grid">
-        <!-- Product 1 -->
-        <a href="https://amzn.to/41iLxE1" class="product-card" onclick="if(window.gtag){ gtag('event', 'product_click', {'product_name': 'Premium Kettlebells', 'position': 'contact_page'}); }">
-          <span class="discount-badge">25% OFF</span>
-          <img src="/assets/images/kettlebell-removebg.png" alt="Premium Kettlebells Set" class="product-img">
-          <div class="product-info">
-            <h3 class="product-title">Premium Kettlebells Set</h3>
-            <span class="product-price">From $22.10</span>
-            <div class="product-rating">★★★★★ <span class="rating-count">(1,287)</span></div>
-            <p class="fomo-text">12 purchased in the last 24 hours</p>
-            <span class="buy-now-btn">View Deal</span>
-          </div>
-        </a>
-        
-        <!-- Product 2 -->
-        <a href="https://amzn.to/4gYQU11" class="product-card" onclick="if(window.gtag){ gtag('event', 'product_click', {'product_name': 'Pro Resistance Bands', 'position': 'contact_page'}); }">
-          <span class="discount-badge">30% OFF</span>
-          <img src="/assets/images/resistance-band-removebg.png" alt="Professional Resistance Band Set" class="product-img">
-          <div class="product-info">
-            <h3 class="product-title">Pro Resistance Band Set</h3>
-            <span class="product-price">$27.97</span>
-            <div class="product-rating">★★★★½ <span class="rating-count">(943)</span></div>
-            <p class="fomo-text">Only 5 sets left at this price!</p>
-            <span class="buy-now-btn">View Deal</span>
-          </div>
-        </a>
-        
-        <!-- Product 3 -->
-        <a href="https://amzn.to/4if3dY7" class="product-card" onclick="if(window.gtag){ gtag('event', 'product_click', {'product_name': 'Extra Thick Yoga Mat', 'position': 'contact_page'}); }">
-          <span class="discount-badge">15% OFF</span>
-          <img src="/assets/images/yoga-mat-removebg.png" alt="Premium Extra Thick Yoga Mat" class="product-img">
-          <div class="product-info">
-            <h3 class="product-title">Extra Thick Yoga Mat</h3>
-            <span class="product-price">$21.98</span>
-            <div class="product-rating">★★★★★ <span class="rating-count">(2,156)</span></div>
-            <p class="fomo-text">Best seller this month</p>
-            <span class="buy-now-btn">View Deal</span>
-          </div>
-        </a>
-      </div>
-      
-      <p class="limited-time">Limited-time offers! Prices may change at any time.</p>
-    </div>
+    <!-- Include recommendations section -->
+    {% include recommendations.html page_name="contact_page" %}
   </div>
 </main>
 
@@ -616,52 +368,5 @@ description: "Have questions about building your home gym? Our fitness experts a
 }
 </script>
 
-<!-- Countdown Timer Script -->
-<script>
-  // Set the countdown timer
-  function updateTimer() {
-    const hours = document.getElementById('hours');
-    const minutes = document.getElementById('minutes');
-    const seconds = document.getElementById('seconds');
-    
-    let h = parseInt(hours.innerText);
-    let m = parseInt(minutes.innerText);
-    let s = parseInt(seconds.innerText);
-    
-    s = s - 1;
-    
-    if (s < 0) {
-      m = m - 1;
-      s = 59;
-    }
-    
-    if (m < 0) {
-      h = h - 1;
-      m = 59;
-    }
-    
-    if (h < 0) {
-      h = 23;
-      m = 59;
-      s = 59;
-    }
-    
-    hours.innerText = h.toString().padStart(2, '0');
-    minutes.innerText = m.toString().padStart(2, '0');
-    seconds.innerText = s.toString().padStart(2, '0');
-    
-    setTimeout(updateTimer, 1000);
-  }
-  
-  document.addEventListener('DOMContentLoaded', function() {
-    updateTimer();
-    
-    // Track form view events
-    if(window.gtag) {
-      gtag('event', 'contact_form_view', {
-        'event_category': 'engagement',
-        'event_label': 'form_view'
-      });
-    }
-  });
-</script>
+<!-- Include timer script -->
+{% include timer-script.html page_name="contact_page" %}
