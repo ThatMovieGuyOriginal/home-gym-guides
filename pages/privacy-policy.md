@@ -5,6 +5,8 @@ permalink: /privacy-policy/
 description: "Learn how Home Gym Guides protects your personal information, manages cookies, and handles data to ensure your privacy while helping you achieve your fitness goals."
 ---
 
+{% include recommendations-styles.html %}
+
 <style>
   /* Modern Privacy Policy Styles */
   :root {
@@ -338,10 +340,13 @@ description: "Learn how Home Gym Guides protects your personal information, mana
       <a href="{{ site.baseurl }}/contact" class="primary-btn">Contact Our Privacy Team</a>
     </div>
 
-    <section class="recommendation-banner">
-      <h3 class="recommendation-title">While You're Here: Top-Rated Home Gym Equipment</h3>
+    <div class="recommendation-banner">
+      <h3 class="recommendation-title">Top-Rated Home Gym Equipment</h3>
       <p class="recommendation-text">Discover our expert-tested equipment essentials for effective home workouts.</p>
       <a href="{{ site.baseurl }}/equipment-guides" class="action-link">View Equipment Recommendations →</a>
-    </section>
+    </div>
   </article>
 </main>
+
+<!-- Include timer script -->
+{% include timer-script.html page_name="privacy_page" %}
