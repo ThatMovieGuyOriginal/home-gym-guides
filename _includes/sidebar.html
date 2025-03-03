@@ -1,11 +1,5 @@
 <aside class="sidebar sticky-top">
-  <div class="sidebar-section newsletter-section">
-    <h5 class="section-heading">
-      <span class="section-heading-text">Newsletter</span>
-    </h5>
-    {% include newsletter.html %}
-  </div>
-  
+  <!-- Sponsored Section (Ads) -->
   <div class="sidebar-section sponsored-section">
     <h5 class="section-heading">
       <span class="section-heading-text">Sponsored</span>
@@ -23,6 +17,36 @@
         (adsbygoogle = window.adsbygoogle || []).push({});
       </script>
     </div>
+  </div>
+  
+  <!-- Popular Posts Section -->
+  <div class="sidebar-section popular-posts-section">
+    <h5 class="section-heading">
+      <span class="section-heading-text">Popular Posts</span>
+    </h5>
+    <div class="sidebar-posts">
+      {% for post in site.posts limit:3 %}
+        <a href="{{ site.baseurl }}{{ post.url }}" class="sidebar-post">
+          {% if post.image %}
+            <img src="{{ site.baseurl }}{{ post.image }}" alt="{{ post.title }}">
+          {% else %}
+            <img src="/api/placeholder/80/80" alt="{{ post.title }}">
+          {% endif %}
+          <div class="sidebar-post-info">
+            <div class="sidebar-post-title">{{ post.title }}</div>
+            <div class="sidebar-post-date">{{ post.date | date: '%b %d, %Y' }}</div>
+          </div>
+        </a>
+      {% endfor %}
+    </div>
+  </div>
+  
+  <!-- Newsletter Section -->
+  <div class="sidebar-section newsletter-section">
+    <h5 class="section-heading">
+      <span class="section-heading-text">Newsletter</span>
+    </h5>
+    {% include newsletter.html %}
   </div>
   
   <!-- Top Rated Products Section -->
@@ -62,28 +86,6 @@
     <a href="{{ site.baseurl }}/equipment-guides" class="view-all-link">
       View All Equipment Guides <i class="fas fa-arrow-right"></i>
     </a>
-  </div>
-  
-  <!-- Popular Posts Section -->
-  <div class="sidebar-section popular-posts-section">
-    <h5 class="section-heading">
-      <span class="section-heading-text">Popular Posts</span>
-    </h5>
-    <div class="sidebar-posts">
-      {% for post in site.posts limit:3 %}
-        <a href="{{ site.baseurl }}{{ post.url }}" class="sidebar-post">
-          {% if post.image %}
-            <img src="{{ site.baseurl }}{{ post.image }}" alt="{{ post.title }}">
-          {% else %}
-            <img src="/api/placeholder/80/80" alt="{{ post.title }}">
-          {% endif %}
-          <div class="sidebar-post-info">
-            <div class="sidebar-post-title">{{ post.title }}</div>
-            <div class="sidebar-post-date">{{ post.date | date: '%b %d, %Y' }}</div>
-          </div>
-        </a>
-      {% endfor %}
-    </div>
   </div>
 </aside>
 
