@@ -451,10 +451,10 @@ description: "Discover why thousands trust Home Gym Guides for honest fitness eq
 </div>
 
 <div class="section-container">
- <h2 class="section-title">Reader Favorites: Most Trusted Equipment</h2>
- <p class="section-text">These affordable essentials have helped thousands of our readers build effective home gyms:</p>
- 
- {% include recommendations.html page_name="about_page" title="Reader Favorites" %}
+  <h2 class="section-title">Reader Favorites: Most Trusted Equipment</h2>
+  <p class="section-text">These affordable essentials have helped thousands of our readers build effective home gyms:</p>
+  
+  {% include recommendations.html page_name="about_page" title="Reader Favorites" %}
 </div>
 
 <div class="cta-container">
