@@ -1,28 +1,382 @@
-<!-- Go to your Mailchimp account/Lists/Sign Up Forms/Embedded forms and replace the code below with your own  -->
+<!-- Begin Enhanced Newsletter Signup Form -->
+<style>
+  :root {
+    --primary-color: #0a0a0a;
+    --accent-color: #ff4d4d;
+    --light-bg: #f9f9f9;
+    --text-color: #333333;
+    --secondary-text: #666666;
+    --box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+    --highlight-color: #FFC107;
+  }
 
-<!-- Begin MailChimp Signup Form -->
-<link href="//cdn-images.mailchimp.com/embedcode/classic-10_7.css" rel="stylesheet" type="text/css">
-<style type="text/css">
-	#mc_embed_signup{background:#fff; clear:left; }
-	/* Add your own MailChimp form style overrides in your site stylesheet or in this style block.
-	   We recommend moving this block and the preceding CSS link to the HEAD of your HTML file. */
+  .newsletter-container {
+    background-color: white;
+    border-radius: 12px;
+    padding: 2rem;
+    margin: 2rem auto;
+    max-width: 650px;
+    box-shadow: var(--box-shadow);
+  }
+  
+  .newsletter-header {
+    text-align: center;
+    margin-bottom: 1.5rem;
+  }
+  
+  .newsletter-title {
+    font-size: 1.8rem;
+    font-weight: 700;
+    color: var(--primary-color);
+    margin: 0 0 0.8rem;
+    position: relative;
+    display: inline-block;
+  }
+  
+  .newsletter-title::after {
+    content: "";
+    position: absolute;
+    height: 8px;
+    width: 100%;
+    background-color: var(--accent-color);
+    opacity: 0.2;
+    bottom: 5px;
+    left: 0;
+    z-index: -1;
+  }
+  
+  .newsletter-subtitle {
+    font-size: 1.1rem;
+    color: var(--secondary-text);
+    margin: 0 auto 1rem;
+    max-width: 500px;
+  }
+  
+  .newsletter-perks {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 1rem;
+    margin-bottom: 1.5rem;
+  }
+  
+  .perk-item {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 0.95rem;
+    color: var(--secondary-text);
+  }
+  
+  .perk-icon {
+    color: var(--accent-color);
+    font-weight: bold;
+  }
+  
+  .newsletter-form {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+  }
+  
+  .form-group {
+    position: relative;
+  }
+  
+  .newsletter-input {
+    width: 100%;
+    padding: 0.9rem 1.2rem;
+    border: 2px solid #eaeaea;
+    border-radius: 50px;
+    font-size: 1rem;
+    transition: all 0.3s ease;
+  }
+  
+  .newsletter-input:focus {
+    outline: none;
+    border-color: var(--accent-color);
+    box-shadow: 0 0 0 3px rgba(255, 77, 77, 0.1);
+  }
+  
+  .newsletter-button {
+    background-color: var(--accent-color);
+    color: white;
+    border: none;
+    padding: 0.9rem 1.5rem;
+    border-radius: 50px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    width: 100%;
+    font-size: 1rem;
+  }
+  
+  .newsletter-button:hover {
+    background-color: #e03e3e;
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(255, 77, 77, 0.2);
+  }
+  
+  .newsletter-privacy {
+    text-align: center;
+    font-size: 0.8rem;
+    color: var(--secondary-text);
+    margin-top: 1rem;
+  }
+  
+  .subscribe-wrapper {
+    position: relative;
+    overflow: hidden;
+  }
+  
+  .subscribers-counter {
+    background-color: var(--light-bg);
+    border-radius: 8px;
+    padding: 0.8rem;
+    text-align: center;
+    margin-top: 1.5rem;
+  }
+  
+  .counter-number {
+    font-weight: 700;
+    color: var(--primary-color);
+  }
+  
+  .timer-small {
+    display: inline-flex;
+    gap: 0.3rem;
+    margin-left: 0.5rem;
+  }
+  
+  .timer-unit-small {
+    background-color: var(--primary-color);
+    color: white;
+    padding: 0.2rem 0.4rem;
+    border-radius: 3px;
+    font-size: 0.8rem;
+    font-weight: 700;
+  }
+  
+  .gift-badge {
+    position: absolute;
+    top: -10px;
+    right: -10px;
+    background-color: var(--highlight-color);
+    color: var(--primary-color);
+    font-weight: 700;
+    padding: 0.3rem 0.8rem;
+    border-radius: 50px;
+    font-size: 0.9rem;
+    z-index: 1;
+    animation: pulse-badge 1.5s infinite ease-in-out;
+  }
+  
+  @keyframes pulse-badge {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.1); }
+    100% { transform: scale(1); }
+  }
+  
+  /* Responsive adjustments */
+  @media (max-width: 768px) {
+    .newsletter-container {
+      padding: 1.5rem;
+      margin: 1.5rem;
+    }
+    
+    .newsletter-title {
+      font-size: 1.5rem;
+    }
+    
+    .newsletter-subtitle {
+      font-size: 1rem;
+    }
+    
+    .newsletter-perks {
+      flex-direction: column;
+      align-items: flex-start;
+    }
+  }
+  
+  /* For screen readers */
+  .sr-only {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    border: 0;
+  }
 </style>
-<div id="mc_embed_signup">
-<form action="https://wowthemes.us11.list-manage.com/subscribe/post?u=8aeb20a530e124561927d3bd8&amp;id=8c3d2d214b" method="post" id="mc-embedded-subscribe-form" name="mc-embedded-subscribe-form" class="validate" target="_blank" novalidate>
-	<div id="mc_embed_signup_scroll">
-	<h2>Sign up to get our weekly free guide to selling digital downloads</h2>
 
-<div class="mc-field-group">                
-	<input type="email" value="" name="EMAIL" class="required email" id="mce-EMAIL" placeholder="E-mail Address">
+<div class="newsletter-container">
+  <div class="newsletter-header">
+    <h2 class="newsletter-title">Get Expert Fitness Tips & Exclusive Deals</h2>
+    <p class="newsletter-subtitle">Join thousands of fitness enthusiasts who receive our weekly home gym guides, equipment reviews, and special offers.</p>
+  </div>
+  
+  <div class="newsletter-perks">
+    <div class="perk-item">
+      <span class="perk-icon">✓</span>
+      <span>Weekly workout tips</span>
+    </div>
+    <div class="perk-item">
+      <span class="perk-icon">✓</span>
+      <span>Equipment deals</span>
+    </div>
+    <div class="perk-item">
+      <span class="perk-icon">✓</span>
+      <span>Early access to reviews</span>
+    </div>
+  </div>
+  
+  <form 
+    action="https://wowthemes.us11.list-manage.com/subscribe/post?u=8aeb20a530e124561927d3bd8&amp;id=8c3d2d214b" 
+    method="post" 
+    id="mc-embedded-subscribe-form" 
+    name="mc-embedded-subscribe-form" 
+    class="newsletter-form validate" 
+    target="_blank" 
+    novalidate
+    onsubmit="if(window.gtag){ gtag('event', 'newsletter_signup', {'event_category': 'engagement', 'event_label': 'newsletter_form'}); }"
+  >
+    <div class="form-group">
+      <label for="mce-EMAIL" class="sr-only">Email Address</label>
+      <input type="email" value="" name="EMAIL" class="required email newsletter-input" id="mce-EMAIL" placeholder="Your email address*" required>
+    </div>
+    
+    <div class="subscribe-wrapper">
+      <span class="gift-badge">FREE GUIDE</span>
+      <button type="submit" name="subscribe" id="mc-embedded-subscribe" class="newsletter-button">
+        Get Your Free Home Gym Guide
+      </button>
+    </div>
+    
+    <div class="subscribers-counter">
+      Join <span class="counter-number">5,700+</span> fitness enthusiasts 
+      <div class="timer-small">
+        <span class="timer-unit-small" id="hours-small">23</span>
+        <span>:</span>
+        <span class="timer-unit-small" id="minutes-small">45</span>
+        <span>:</span>
+        <span class="timer-unit-small" id="seconds-small">19</span>
+      </div>
+    </div>
+    
+    <p class="newsletter-privacy">
+      We respect your privacy. Unsubscribe at any time. 
+      <a href="/privacy-policy">Privacy Policy</a>
+    </p>
+    
+    <!-- real people should not fill this in and expect good things - do not remove this or risk form bot signups-->
+    <div style="position: absolute; left: -5000px;" aria-hidden="true">
+      <input type="text" name="b_8aeb20a530e124561927d3bd8_8c3d2d214b" tabindex="-1" value="">
+    </div>
+    
+    <div id="mce-responses" class="clear" style="display:none;">
+      <div class="response" id="mce-error-response"></div>
+      <div class="response" id="mce-success-response"></div>
+    </div>
+  </form>
 </div>
-	<div id="mce-responses" class="clear">
-		<div class="response" id="mce-error-response" style="display:none"></div>
-		<div class="response" id="mce-success-response" style="display:none"></div>
-	</div>    <!-- real people should not fill this in and expect good things - do not remove this or risk form bot signups-->
-	<div style="position: absolute; left: -5000px;" aria-hidden="true"><input type="text" name="b_8aeb20a530e124561927d3bd8_8c3d2d214b" tabindex="-1" value=""></div>
-	<div class="clear"><input type="submit" value="Subscribe" name="subscribe" id="mc-embedded-subscribe" class="button"></div>
-	</div>
-</form>
-</div>
-<script type='text/javascript' src='//s3.amazonaws.com/downloads.mailchimp.com/js/mc-validate.js'></script><script type='text/javascript'>(function($) {window.fnames = new Array(); window.ftypes = new Array();fnames[0]='EMAIL';ftypes[0]='email';fnames[3]='MMERGE3';ftypes[3]='text';fnames[1]='MMERGE1';ftypes[1]='text';fnames[2]='MMERGE2';ftypes[2]='text';fnames[4]='MMERGE4';ftypes[4]='text';fnames[5]='MMERGE5';ftypes[5]='text';}(jQuery));var $mcj = jQuery.noConflict(true);</script>
-<!--End mc_embed_signup-->
+
+<script type='text/javascript' src='//s3.amazonaws.com/downloads.mailchimp.com/js/mc-validate.js'></script>
+<script type='text/javascript'>
+(function($) {
+  window.fnames = new Array(); 
+  window.ftypes = new Array();
+  fnames[0]='EMAIL';
+  ftypes[0]='email';
+  fnames[3]='MMERGE3';
+  ftypes[3]='text';
+  fnames[1]='MMERGE1';
+  ftypes[1]='text';
+  fnames[2]='MMERGE2';
+  ftypes[2]='text';
+  fnames[4]='MMERGE4';
+  ftypes[4]='text';
+  fnames[5]='MMERGE5';
+  ftypes[5]='text';
+}(jQuery));
+var $mcj = jQuery.noConflict(true);
+
+// Connect the timer to the main site timer
+document.addEventListener('DOMContentLoaded', function() {
+  function updateMiniTimer() {
+    const mainHours = document.getElementById('hours');
+    const mainMinutes = document.getElementById('minutes'); 
+    const mainSeconds = document.getElementById('seconds');
+    
+    const miniHours = document.getElementById('hours-small');
+    const miniMinutes = document.getElementById('minutes-small');
+    const miniSeconds = document.getElementById('seconds-small');
+    
+    if (mainHours && miniHours) {
+      miniHours.innerText = mainHours.innerText;
+    } else {
+      miniHours.innerText = "23";
+    }
+    
+    if (mainMinutes && miniMinutes) {
+      miniMinutes.innerText = mainMinutes.innerText;
+    } else {
+      miniMinutes.innerText = "45";
+    }
+    
+    if (mainSeconds && miniSeconds) {
+      miniSeconds.innerText = mainSeconds.innerText;
+    } else {
+      miniSeconds.innerText = "19";
+    }
+    
+    setTimeout(updateMiniTimer, 1000);
+  }
+  
+  updateMiniTimer();
+  
+  // Track newsletter view events
+  if(window.gtag) {
+    gtag('event', 'newsletter_view', {
+      'event_category': 'engagement',
+      'event_label': 'newsletter_section'
+    });
+  }
+  
+  // If no main timer exists, create one for this page
+  if (!document.getElementById('hours')) {
+    function getDeadlineTime() {
+      const now = new Date();
+      const deadline = new Date(now);
+      deadline.setHours(23, 59, 59, 999);
+      return deadline;
+    }
+
+    function updateStandaloneTimer() {
+      const now = new Date();
+      const deadline = getDeadlineTime();
+      const timeLeft = Math.max(0, deadline - now);
+      
+      const hours = Math.floor(timeLeft / (1000 * 60 * 60));
+      const minutes = Math.floor((timeLeft % (1000 * 60 * 60)) / (1000 * 60));
+      const seconds = Math.floor((timeLeft % (1000 * 60)) / 1000);
+      
+      document.getElementById('hours-small').innerText = hours.toString().padStart(2, '0');
+      document.getElementById('minutes-small').innerText = minutes.toString().padStart(2, '0');
+      document.getElementById('seconds-small').innerText = seconds.toString().padStart(2, '0');
+      
+      if (timeLeft > 0) {
+        setTimeout(updateStandaloneTimer, 1000);
+      } else {
+        setTimeout(() => {
+          updateStandaloneTimer();
+        }, 1000);
+      }
+    }
+    
+    updateStandaloneTimer();
+  }
+});
+</script>
+<!-- End Enhanced Newsletter Signup Form -->
