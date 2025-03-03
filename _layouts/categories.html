@@ -1,22 +1,672 @@
 ---
-title: "Categories"
 layout: default
-permalink: "/categories.html"
 ---
-{% for category in site.categories %}
-<h4 class="mt-5 mb-4 pb-2 border-bottom" id="{{ category[0] | replace: " ","-" }}"><span class="text-capitalize small font-weight-bold">In "{{ category[0] }}"</span></h4>
-<div class="row">
-{% assign pages_list = category[1] %}
-{% for post in pages_list %}
-{% if post.title != null %}
-{% if group == null or group == post.group %}
-<div class="col-md-4 mb-5">
-{% include postbox.html %}
-</div>
-{% endif %}
-{% endif %}
-{% endfor %}
-{% assign pages_list = nil %}
-{% assign group = nil %}
-</div>
-{% endfor %}
+
+{% include recommendations-styles.html %}
+
+<style>
+  :root {
+    --primary-color: #0a0a0a;
+    --accent-color: #ff4d4d;
+    --light-bg: #f9f9f9;
+    --text-color: #333333;
+    --secondary-text: #666666;
+    --box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+    --border-radius: 12px;
+    --highlight-color: #FFC107;
+  }
+  
+  /* Category Header */
+  .category-header {
+    background-color: white;
+    border-radius: var(--border-radius);
+    padding: 2.5rem;
+    margin-bottom: 2rem;
+    box-shadow: var(--box-shadow);
+    position: relative;
+    overflow: hidden;
+    text-align: center;
+  }
+  
+  .category-header::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 6px;
+    background: linear-gradient(90deg, var(--accent-color) 0%, #ff8f8f 100%);
+  }
+  
+  .category-title {
+    font-size: 2.2rem;
+    font-weight: 700;
+    color: var(--primary-color);
+    margin-bottom: 1rem;
+    position: relative;
+    display: inline-block;
+  }
+  
+  .category-title::after {
+    content: "";
+    position: absolute;
+    height: 8px;
+    width: 100%;
+    background-color: var(--accent-color);
+    opacity: 0.2;
+    bottom: 8px;
+    left: 0;
+    z-index: -1;
+  }
+  
+  .category-subtitle {
+    font-size: 1.1rem;
+    color: var(--secondary-text);
+    max-width: 700px;
+    margin: 0 auto 1rem;
+    line-height: 1.6;
+  }
+  
+  .category-meta {
+    font-size: 0.9rem;
+    color: var(--secondary-text);
+    display: inline-block;
+    padding: 0.4rem 1rem;
+    background-color: var(--light-bg);
+    border-radius: 50px;
+    margin-top: 0.5rem;
+  }
+  
+  /* Category Navigation */
+  .category-nav {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    justify-content: center;
+    margin: 1.5rem 0 1rem;
+  }
+  
+  .category-nav-item {
+    display: inline-flex;
+    align-items: center;
+    padding: 0.5rem 1rem;
+    border-radius: 50px;
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: var(--secondary-text);
+    text-decoration: none;
+    transition: all 0.3s ease;
+    background-color: var(--light-bg);
+  }
+  
+  .category-nav-item:hover {
+    background-color: rgba(255, 77, 77, 0.1);
+    color: var(--accent-color);
+    transform: translateY(-2px);
+  }
+  
+  .category-nav-item.active {
+    background-color: var(--accent-color);
+    color: white;
+  }
+  
+  /* Posts Grid */
+  .posts-container {
+    max-width: 1200px;
+    margin: 0 auto 3rem;
+  }
+  
+  .posts-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 1.5rem;
+    margin-bottom: 2rem;
+  }
+  
+  .post-card {
+    background-color: white;
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+    transition: all 0.3s ease;
+    text-decoration: none;
+    color: var(--text-color);
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    cursor: pointer;
+  }
+  
+  .post-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+  }
+  
+  .post-image-container {
+    position: relative;
+    overflow: hidden;
+  }
+  
+  .post-image {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+    transition: transform 0.5s ease;
+  }
+  
+  .post-card:hover .post-image {
+    transform: scale(1.05);
+  }
+  
+  .featured-tag {
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+    background-color: var(--accent-color);
+    color: white;
+    font-size: 0.8rem;
+    font-weight: 600;
+    padding: 0.3rem 0.8rem;
+    border-radius: 50px;
+    z-index: 1;
+  }
+  
+  .post-content {
+    padding: 1.5rem;
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+  }
+  
+  .post-category {
+    color: var(--accent-color);
+    text-transform: uppercase;
+    font-size: 0.8rem;
+    font-weight: 600;
+    margin-bottom: 0.5rem;
+    letter-spacing: 1px;
+  }
+  
+  .post-title {
+    font-size: 1.2rem;
+    font-weight: 700;
+    margin-bottom: 0.75rem;
+    color: var(--primary-color);
+    line-height: 1.4;
+  }
+  
+  .post-excerpt {
+    color: var(--secondary-text);
+    margin-bottom: 1.5rem;
+    font-size: 0.95rem;
+    line-height: 1.6;
+    flex-grow: 1;
+  }
+  
+  .post-meta {
+    display: flex;
+    align-items: center;
+    font-size: 0.85rem;
+    color: var(--secondary-text);
+    margin-top: auto;
+  }
+  
+  .post-meta img {
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    margin-right: 0.5rem;
+  }
+  
+  .post-date {
+    margin-left: auto;
+  }
+  
+  .read-more {
+    display: inline-flex;
+    align-items: center;
+    margin-top: 1rem;
+    font-weight: 600;
+    color: var(--accent-color);
+    font-size: 0.9rem;
+  }
+  
+  .read-more i {
+    margin-left: 0.5rem;
+    transition: transform 0.3s ease;
+  }
+  
+  .post-card:hover .read-more i {
+    transform: translateX(3px);
+  }
+  
+  /* Category Section Header */
+  .category-section {
+    margin: 3rem 0 1.5rem;
+  }
+  
+  .category-section-title {
+    font-size: 1.8rem;
+    font-weight: 700;
+    color: var(--primary-color);
+    margin-bottom: 1rem;
+    position: relative;
+    display: inline-block;
+  }
+  
+  .category-section-title::after {
+    content: "";
+    position: absolute;
+    height: 3px;
+    width: 60%;
+    background-color: var(--accent-color);
+    bottom: -8px;
+    left: 0;
+  }
+  
+  /* Newsletter Banner */
+  .newsletter-banner {
+    padding: 2.5rem;
+    background-color: var(--primary-color);
+    color: white;
+    border-radius: var(--border-radius);
+    margin: 3rem auto;
+    position: relative;
+    overflow: hidden;
+    max-width: 1200px;
+  }
+  
+  .newsletter-banner-content {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 2rem;
+    position: relative;
+    z-index: 1;
+  }
+  
+  .newsletter-banner::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 300px;
+    height: 300px;
+    background: radial-gradient(circle, var(--accent-color) 0%, rgba(255,77,77,0) 70%);
+    opacity: 0.2;
+    border-radius: 50%;
+    z-index: 0;
+  }
+  
+  .newsletter-banner-text {
+    flex: 1;
+    min-width: 300px;
+  }
+  
+  .newsletter-banner-form {
+    flex: 1;
+    min-width: 300px;
+  }
+  
+  .newsletter-banner-title {
+    font-size: 1.8rem;
+    font-weight: 700;
+    margin-bottom: 1rem;
+  }
+  
+  .newsletter-banner-subtitle {
+    color: rgba(255,255,255,0.8);
+    margin-bottom: 1.5rem;
+    line-height: 1.6;
+  }
+  
+  .newsletter-form {
+    display: flex;
+    max-width: 100%;
+  }
+  
+  .newsletter-input {
+    flex: 1;
+    padding: 0.9rem 1.2rem;
+    border: none;
+    border-radius: 50px 0 0 50px;
+    font-size: 1rem;
+  }
+  
+  .newsletter-input:focus {
+    outline: none;
+    box-shadow: 0 0 0 3px rgba(255, 77, 77, 0.1);
+  }
+  
+  .newsletter-button {
+    background-color: var(--accent-color);
+    color: white;
+    border: none;
+    border-radius: 0 50px 50px 0;
+    padding: 0 1.5rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    white-space: nowrap;
+  }
+  
+  .newsletter-button:hover {
+    background-color: #e03e3e;
+  }
+  
+  /* Pagination */
+  .pagination {
+    display: flex;
+    justify-content: center;
+    margin: 2rem 0;
+    gap: 0.5rem;
+  }
+  
+  .pagination a, .pagination span {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background-color: white;
+    color: var(--text-color);
+    text-decoration: none;
+    font-weight: 600;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+    transition: all 0.2s ease;
+  }
+  
+  .pagination a:hover {
+    background-color: var(--accent-color);
+    color: white;
+  }
+  
+  .pagination .active {
+    background-color: var(--accent-color);
+    color: white;
+  }
+  
+  /* Related Categories */
+  .related-categories {
+    padding: 2rem;
+    background-color: white;
+    border-radius: var(--border-radius);
+    box-shadow: var(--box-shadow);
+    margin-bottom: 3rem;
+  }
+  
+  .related-title {
+    font-size: 1.5rem;
+    font-weight: 700;
+    margin-bottom: 1.5rem;
+    color: var(--primary-color);
+    position: relative;
+    display: inline-block;
+  }
+  
+  .related-title::after {
+    content: "";
+    position: absolute;
+    height: 3px;
+    width: 60%;
+    background-color: var(--accent-color);
+    bottom: -5px;
+    left: 0;
+  }
+  
+  .categories-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 1rem;
+  }
+  
+  .category-card {
+    padding: 1.2rem;
+    background-color: var(--light-bg);
+    border-radius: 8px;
+    text-decoration: none;
+    color: var(--text-color);
+    transition: all 0.3s ease;
+    text-align: center;
+  }
+  
+  .category-card:hover {
+    background-color: rgba(255, 77, 77, 0.1);
+    transform: translateY(-3px);
+    box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+  }
+  
+  .category-icon {
+    font-size: 1.8rem;
+    color: var(--accent-color);
+    margin-bottom: 0.8rem;
+    display: block;
+  }
+  
+  .category-name {
+    font-weight: 600;
+    font-size: 1rem;
+  }
+  
+  /* Responsive Adjustments */
+  @media (max-width: 992px) {
+    .posts-grid {
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    }
+    
+    .categories-grid {
+      grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+    }
+  }
+  
+  @media (max-width: 768px) {
+    .category-header {
+      padding: 2rem 1.5rem;
+    }
+    
+    .category-title {
+      font-size: 1.8rem;
+    }
+    
+    .category-subtitle {
+      font-size: 1rem;
+    }
+    
+    .posts-grid {
+      grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    }
+    
+    .newsletter-banner {
+      padding: 2rem 1.5rem;
+    }
+    
+    .newsletter-banner-title {
+      font-size: 1.5rem;
+    }
+  }
+  
+  @media (max-width: 480px) {
+    .category-header {
+      padding: 1.5rem 1rem;
+    }
+    
+    .category-title {
+      font-size: 1.5rem;
+    }
+    
+    .posts-grid, .categories-grid {
+      grid-template-columns: 1fr;
+    }
+    
+    .newsletter-form {
+      flex-direction: column;
+    }
+    
+    .newsletter-input {
+      border-radius: 50px;
+      margin-bottom: 0.5rem;
+    }
+    
+    .newsletter-button {
+      border-radius: 50px;
+      padding: 0.75rem;
+      width: 100%;
+    }
+  }
+  
+  /* Schema.org JSON-LD for category pages */
+  .schema-org-markup {
+    display: none;
+  }
+</style>
+
+<!-- Schema.org structured data for SEO -->
+<script type="application/ld+json" class="schema-org-markup">
+{
+  "@context": "https://schema.org",
+  "@type": "CollectionPage",
+  "name": "{{ page.title }}",
+  "description": "{{ page.description | default: 'Browse our selection of ' | append: page.title | append: ' guides, reviews, and expert recommendations.' }}",
+  "url": "{{ site.url }}{{ page.url }}",
+  "publisher": {
+    "@type": "Organization",
+    "name": "{{ site.title }}",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "{{ site.url }}/assets/images/logo.png"
+    }
+  },
+  "mainEntity": {
+    "@type": "ItemList",
+    "itemListElement": [
+      {% for post in site.categories[page.category] limit:10 %}
+      {
+        "@type": "ListItem",
+        "position": {{ forloop.index }},
+        "url": "{{ site.url }}{{ post.url }}"
+      }{% unless forloop.last %},{% endunless %}
+      {% endfor %}
+    ]
+  }
+}
+</script>
+
+<!-- Category header -->
+<header class="category-header">
+  <h1 class="category-title">{{ page.title }}</h1>
+  <p class="category-subtitle">{{ page.description | default: "Browse our expert reviews, buying guides, and equipment recommendations for " | append: page.title | append: "." }}</p>
+  
+  {% if site.categories[page.category] %}
+    <div class="category-meta">{{ site.categories[page.category].size }} Articles</div>
+  {% endif %}
+  
+  {% if page.subcategories %}
+    <nav class="category-nav">
+      <a href="{{ site.baseurl }}/category/{{ page.category | slugify }}" class="category-nav-item {% if page.url contains '/category/' and page.url | split: '/' | size <= 3 %}active{% endif %}">All</a>
+      {% for subcategory in page.subcategories %}
+        <a href="{{ site.baseurl }}/category/{{ page.category | slugify }}/{{ subcategory.slug }}" class="category-nav-item {% if page.url contains subcategory.slug %}active{% endif %}">{{ subcategory.name }}</a>
+      {% endfor %}
+    </nav>
+  {% endif %}
+</header>
+
+<main class="posts-container">
+  {% if page.featured_equipment %}
+    <!-- Featured products section -->
+    <section class="featured-equipment">
+      <h2 class="category-section-title">Top-Rated {{ page.title }}</h2>
+      {% include recommendations.html page_name=page.category %}
+    </section>
+  {% endif %}
+  
+  <!-- Category posts -->
+  {% for category in site.categories %}
+    {% if category[0] == page.category %}
+      <div class="posts-grid">
+        {% assign pages_list = category[1] %}
+        {% for post in pages_list %}
+          {% if post.title != null %}
+            <a href="{{ site.baseurl }}{{ post.url }}" class="post-card" onclick="if(window.gtag){ gtag('event', 'post_click', {'post_title': '{{ post.title }}', 'post_category': '{{ post.categories[0] }}'}); }">
+              <div class="post-image-container">
+                {% if post.image %}
+                  <img src="{{ site.baseurl }}{{ post.image }}" alt="{{ post.title }}" class="post-image">
+                {% else %}
+                  <img src="/api/placeholder/400/200" alt="{{ post.title }}" class="post-image">
+                {% endif %}
+                {% if post.featured %}
+                  <span class="featured-tag">Featured</span>
+                {% endif %}
+              </div>
+              <div class="post-content">
+                {% if post.categories %}
+                  <span class="post-category">{{ post.categories[0] }}</span>
+                {% endif %}
+                <h3 class="post-title">{{ post.title }}</h3>
+                <div class="post-excerpt">{{ post.excerpt | strip_html | truncatewords: 25 }}</div>
+                <div class="post-meta">
+                  {% if post.author %}
+                    {% if site.data.authors[post.author].avatar %}
+                      <img src="{{ site.baseurl }}{{ site.data.authors[post.author].avatar }}" alt="{{ site.data.authors[post.author].name }}">
+                    {% endif %}
+                    <span>{{ site.data.authors[post.author].name }}</span>
+                  {% endif %}
+                  <span class="post-date">{{ post.date | date: '%b %d, %Y' }}</span>
+                </div>
+                <span class="read-more">Read More <i class="fas fa-arrow-right"></i></span>
+              </div>
+            </a>
+          {% endif %}
+        {% endfor %}
+      </div>
+    {% endif %}
+  {% endfor %}
+  
+  <!-- Newsletter banner -->
+  <section class="newsletter-banner">
+    <div class="newsletter-banner-content">
+      <div class="newsletter-banner-text">
+        <h2 class="newsletter-banner-title">Get {{ page.title }} Updates & Deals</h2>
+        <p class="newsletter-banner-subtitle">Join our community and receive exclusive deals, new reviews, and expert tips for {{ page.title | downcase }}.</p>
+      </div>
+      <div class="newsletter-banner-form">
+        <form 
+          action="https://wowthemes.us11.list-manage.com/subscribe/post?u=8aeb20a530e124561927d3bd8&amp;id=8c3d2d214b" 
+          method="post" 
+          id="banner-subscribe-form" 
+          name="mc-embedded-subscribe-form" 
+          class="newsletter-form validate" 
+          target="_blank" 
+          novalidate
+          onsubmit="if(window.gtag){ gtag('event', 'newsletter_signup', {'event_category': 'engagement', 'event_label': '{{ page.category }}_page'}); }"
+        >
+          <input type="email" value="" name="EMAIL" class="required email newsletter-input" id="mce-EMAIL-banner" placeholder="Your email address" required>
+          <button type="submit" name="subscribe" class="newsletter-button">Subscribe</button>
+          
+          <!-- real people should not fill this in and expect good things - do not remove this or risk form bot signups-->
+          <div style="position: absolute; left: -5000px;" aria-hidden="true">
+            <input type="text" name="b_8aeb20a530e124561927d3bd8_8c3d2d214b" tabindex="-1" value="">
+          </div>
+        </form>
+      </div>
+    </div>
+  </section>
+  
+  <!-- Related categories -->
+  {% if page.related_categories %}
+    <section class="related-categories">
+      <h2 class="related-title">Related Categories</h2>
+      <div class="categories-grid">
+        {% for category in page.related_categories %}
+          <a href="{{ site.baseurl }}/category/{{ category.slug }}" class="category-card">
+            <i class="{{ category.icon }} category-icon"></i>
+            <h3 class="category-name">{{ category.name }}</h3>
+          </a>
+        {% endfor %}
+      </div>
+    </section>
+  {% endif %}
+</main>
+
+<!-- Include timer script -->
+{% include timer-script.html page_name=page.category %}
