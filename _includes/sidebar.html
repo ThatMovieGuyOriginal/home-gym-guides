@@ -24,4 +24,238 @@
       </script>
     </div>
   </div>
+  
+  <!-- Top Rated Products Section -->
+  <div class="sidebar-section products-section">
+    <h5 class="section-heading">
+      <span class="section-heading-text">Top Rated Equipment</span>
+    </h5>
+    <div class="sidebar-products">
+      <a href="https://amzn.to/41iLxE1" class="sidebar-product" onclick="if(window.gtag){ gtag('event', 'product_click', {'product_name': 'Premium Kettlebells', 'position': 'sidebar'}); }">
+        <img src="/assets/images/kettlebell-removebg.png" alt="Premium Kettlebells Set">
+        <div class="sidebar-product-info">
+          <div class="sidebar-product-title">Premium Kettlebells Set</div>
+          <div class="sidebar-product-price">From $22.10</div>
+          <div class="sidebar-product-rating">★★★★★</div>
+        </div>
+      </a>
+      
+      <a href="https://amzn.to/4gYQU11" class="sidebar-product" onclick="if(window.gtag){ gtag('event', 'product_click', {'product_name': 'Pro Resistance Bands', 'position': 'sidebar'}); }">
+        <img src="/assets/images/resistance-band-removebg.png" alt="Professional Resistance Band Set">
+        <div class="sidebar-product-info">
+          <div class="sidebar-product-title">Pro Resistance Band Set</div>
+          <div class="sidebar-product-price">$27.97</div>
+          <div class="sidebar-product-rating">★★★★½</div>
+        </div>
+      </a>
+      
+      <a href="https://amzn.to/4if3dY7" class="sidebar-product" onclick="if(window.gtag){ gtag('event', 'product_click', {'product_name': 'Extra Thick Yoga Mat', 'position': 'sidebar'}); }">
+        <img src="/assets/images/yoga-mat-removebg.png" alt="Premium Extra Thick Yoga Mat">
+        <div class="sidebar-product-info">
+          <div class="sidebar-product-title">Extra Thick Yoga Mat</div>
+          <div class="sidebar-product-price">$21.98</div>
+          <div class="sidebar-product-rating">★★★★★</div>
+        </div>
+      </a>
+    </div>
+    
+    <a href="{{ site.baseurl }}/equipment-guides" class="view-all-link">
+      View All Equipment Guides <i class="fas fa-arrow-right"></i>
+    </a>
+  </div>
+  
+  <!-- Popular Posts Section -->
+  <div class="sidebar-section popular-posts-section">
+    <h5 class="section-heading">
+      <span class="section-heading-text">Popular Posts</span>
+    </h5>
+    <div class="sidebar-posts">
+      {% for post in site.posts limit:3 %}
+        <a href="{{ site.baseurl }}{{ post.url }}" class="sidebar-post">
+          {% if post.image %}
+            <img src="{{ site.baseurl }}{{ post.image }}" alt="{{ post.title }}">
+          {% else %}
+            <img src="/api/placeholder/80/80" alt="{{ post.title }}">
+          {% endif %}
+          <div class="sidebar-post-info">
+            <div class="sidebar-post-title">{{ post.title }}</div>
+            <div class="sidebar-post-date">{{ post.date | date: '%b %d, %Y' }}</div>
+          </div>
+        </a>
+      {% endfor %}
+    </div>
+  </div>
 </aside>
+
+<style>
+  .sidebar {
+    background-color: white;
+    border-radius: 12px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+    padding: 1.5rem;
+    margin-bottom: 2rem;
+  }
+  
+  .sidebar-section {
+    margin-bottom: 2rem;
+  }
+  
+  .section-heading {
+    position: relative;
+    margin-bottom: 1.2rem;
+    padding-bottom: 0.5rem;
+    font-size: 1.3rem;
+    font-weight: 700;
+    color: #0a0a0a;
+  }
+  
+  .section-heading::after {
+    content: "";
+    position: absolute;
+    height: 3px;
+    width: 60px;
+    background-color: #ff4d4d;
+    bottom: 0;
+    left: 0;
+  }
+  
+  .sponsored-section .google-ads {
+    padding: 0.5rem;
+    background-color: #f9f9f9;
+    border-radius: 8px;
+  }
+  
+  /* Products Section */
+  .sidebar-products {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+  }
+  
+  .sidebar-product {
+    display: flex;
+    align-items: center;
+    padding: 0.75rem;
+    background-color: #f9f9f9;
+    border-radius: 8px;
+    text-decoration: none;
+    color: #333333;
+    transition: all 0.3s ease;
+  }
+  
+  .sidebar-product:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+  }
+  
+  .sidebar-product img {
+    width: 60px;
+    height: 60px;
+    object-fit: contain;
+    margin-right: 0.75rem;
+  }
+  
+  .sidebar-product-info {
+    flex: 1;
+  }
+  
+  .sidebar-product-title {
+    font-weight: 600;
+    margin-bottom: 0.25rem;
+    color: #0a0a0a;
+  }
+  
+  .sidebar-product-price {
+    color: #ff4d4d;
+    font-weight: 700;
+    font-size: 0.9rem;
+    margin-bottom: 0.25rem;
+  }
+  
+  .sidebar-product-rating {
+    color: #FFC107;
+    font-size: 0.8rem;
+  }
+  
+  .view-all-link {
+    display: inline-block;
+    margin-top: 1rem;
+    font-weight: 600;
+    color: #ff4d4d;
+    text-decoration: none;
+    font-size: 0.9rem;
+    transition: all 0.3s ease;
+  }
+  
+  .view-all-link:hover {
+    color: #e03e3e;
+  }
+  
+  .view-all-link i {
+    margin-left: 0.25rem;
+    transition: transform 0.3s ease;
+  }
+  
+  .view-all-link:hover i {
+    transform: translateX(3px);
+  }
+  
+  /* Popular Posts Section */
+  .sidebar-posts {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+  }
+  
+  .sidebar-post {
+    display: flex;
+    align-items: center;
+    text-decoration: none;
+    color: #333333;
+    transition: all 0.3s ease;
+  }
+  
+  .sidebar-post:hover {
+    transform: translateX(5px);
+  }
+  
+  .sidebar-post img {
+    width: 80px;
+    height: 60px;
+    object-fit: cover;
+    border-radius: 6px;
+    margin-right: 0.75rem;
+  }
+  
+  .sidebar-post-info {
+    flex: 1;
+  }
+  
+  .sidebar-post-title {
+    font-weight: 600;
+    color: #0a0a0a;
+    margin-bottom: 0.25rem;
+    line-height: 1.3;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+  
+  .sidebar-post-date {
+    font-size: 0.8rem;
+    color: #666666;
+  }
+  
+  /* Sticky behavior */
+  .sticky-top {
+    position: sticky;
+    top: 2rem;
+  }
+  
+  @media (max-width: 768px) {
+    .sticky-top {
+      position: static;
+    }
+  }
+</style>
