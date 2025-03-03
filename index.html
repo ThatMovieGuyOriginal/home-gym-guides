@@ -322,63 +322,6 @@ description: "Find the best home gym equipment with expert reviews, in-depth fit
     transform: translateX(3px);
   }
   
-  /* Regular Posts Section */
-  .main-content {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 2rem;
-    margin-bottom: 3rem;
-  }
-  
-  .posts-column {
-    flex: 2;
-    min-width: 300px;
-  }
-  
-  .sidebar-column {
-    flex: 1;
-    min-width: 250px;
-  }
-  
-  .posts-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
-    gap: 1.5rem;
-  }
-  
-  /* Pagination */
-  .pagination {
-    display: flex;
-    justify-content: center;
-    margin-top: 2rem;
-    gap: 0.5rem;
-  }
-  
-  .pagination a, .pagination span {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    width: 40px;
-    height: 40px;
-    border-radius: 50%;
-    background-color: white;
-    color: var(--text-color);
-    text-decoration: none;
-    font-weight: 600;
-    box-shadow: 0 2px 5px rgba(0,0,0,0.05);
-    transition: all 0.2s ease;
-  }
-  
-  .pagination a:hover {
-    background-color: var(--accent-color);
-    color: white;
-  }
-  
-  .pagination .active {
-    background-color: var(--accent-color);
-    color: white;
-  }
-  
   /* Categories Section */
   .categories-section {
     margin-bottom: 3rem;
@@ -542,13 +485,18 @@ description: "Find the best home gym equipment with expert reviews, in-depth fit
     margin-bottom: 3rem;
   }
   
+  /* Latest Articles Section */
+  .latest-articles {
+    margin-bottom: 3rem;
+  }
+  
   /* Responsive Adjustments */
   @media (max-width: 992px) {
     .hero-title {
       font-size: 2.2rem;
     }
     
-    .featured-grid, .posts-grid {
+    .featured-grid {
       grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
     }
     
@@ -600,10 +548,6 @@ description: "Find the best home gym equipment with expert reviews, in-depth fit
       font-size: 1.5rem;
     }
     
-    .main-content {
-      flex-direction: column;
-    }
-    
     .categories-grid {
       grid-template-columns: repeat(2, 1fr);
     }
@@ -622,7 +566,7 @@ description: "Find the best home gym equipment with expert reviews, in-depth fit
       font-size: 1.8rem;
     }
     
-    .featured-grid, .posts-grid {
+    .featured-grid {
       grid-template-columns: 1fr;
     }
     
@@ -721,166 +665,4 @@ description: "Find the best home gym equipment with expert reviews, in-depth fit
   <div class="featured-grid">
     {% for post in site.posts %}
       {% if post.featured == true %}
-        <a href="{{ site.baseurl }}{{ post.url }}" class="post-card" onclick="if(window.gtag){ gtag('event', 'post_click', {'post_title': '{{ post.title }}', 'post_category': '{{ post.categories[0] }}'}); }">
-          <div class="post-image-container">
-            {% if post.image %}
-              <img src="{{ site.baseurl }}{{ post.image }}" alt="{{ post.title }}" class="post-image">
-            {% else %}
-              <img src="/api/placeholder/400/200" alt="{{ post.title }}" class="post-image">
-            {% endif %}
-            <span class="featured-tag">Featured</span>
-          </div>
-          <div class="post-content">
-            {% if post.categories %}
-              <span class="post-category">{{ post.categories[0] }}</span>
-            {% endif %}
-            <h3 class="post-title">{{ post.title }}</h3>
-            <div class="post-excerpt">{{ post.excerpt | strip_html | truncatewords: 25 }}</div>
-            <div class="post-meta">
-              {% if post.author %}
-                {% if site.data.authors[post.author].avatar %}
-                  <img src="{{ site.baseurl }}{{ site.data.authors[post.author].avatar }}" alt="{{ site.data.authors[post.author].name }}">
-                {% endif %}
-                <span>{{ site.data.authors[post.author].name }}</span>
-              {% endif %}
-              <span class="post-date">{{ post.date | date: '%b %d, %Y' }}</span>
-            </div>
-            <span class="read-more">Read More <i class="fas fa-arrow-right"></i></span>
-          </div>
-        </a>
-      {% endif %}
-    {% endfor %}
-  </div>
-</section>
-
-<!-- Categories Section -->
-<section class="categories-section">
-  <h2 class="section-title">Popular Categories</h2>
-  <div class="categories-grid">
-    <a href="{{site.baseurl}}/category/cardio-equipment" class="category-card" onclick="if(window.gtag){ gtag('event', 'category_click', {'category_name': 'Cardio Equipment'}); }">
-      <div class="category-icon"><i class="fas fa-running"></i></div>
-      <h3 class="category-name">Cardio Equipment</h3>
-      <span class="category-count">12 Articles</span>
-    </a>
-    
-    <a href="{{site.baseurl}}/category/strength-training" class="category-card" onclick="if(window.gtag){ gtag('event', 'category_click', {'category_name': 'Strength Training'}); }">
-      <div class="category-icon"><i class="fas fa-dumbbell"></i></div>
-      <h3 class="category-name">Strength Training</h3>
-      <span class="category-count">15 Articles</span>
-    </a>
-    
-    <a href="{{site.baseurl}}/category/yoga-fitness" class="category-card" onclick="if(window.gtag){ gtag('event', 'category_click', {'category_name': 'Yoga & Flexibility'}); }">
-      <div class="category-icon"><i class="fas fa-spa"></i></div>
-      <h3 class="category-name">Yoga & Flexibility</h3>
-      <span class="category-count">8 Articles</span>
-    </a>
-    
-    <a href="{{site.baseurl}}/category/small-space-solutions" class="category-card" onclick="if(window.gtag){ gtag('event', 'category_click', {'category_name': 'Small Space Solutions'}); }">
-      <div class="category-icon"><i class="fas fa-compress-arrows-alt"></i></div>
-      <h3 class="category-name">Small Space Solutions</h3>
-      <span class="category-count">9 Articles</span>
-    </a>
-  </div>
-</section>
-
-<!-- Newsletter Banner -->
-<section class="newsletter-banner">
-  <div class="newsletter-banner-content">
-    <div class="newsletter-banner-text">
-      <h2 class="newsletter-banner-title">Get Equipment Deals & Expert Tips</h2>
-      <p class="newsletter-banner-subtitle">Join our community of fitness enthusiasts and be the first to know about exclusive deals, new reviews, and workout tips.</p>
-    </div>
-    <div class="newsletter-banner-form">
-      <form 
-        action="https://wowthemes.us11.list-manage.com/subscribe/post?u=8aeb20a530e124561927d3bd8&amp;id=8c3d2d214b" 
-        method="post" 
-        id="banner-subscribe-form" 
-        name="mc-embedded-subscribe-form" 
-        class="newsletter-form validate" 
-        target="_blank" 
-        novalidate
-        onsubmit="if(window.gtag){ gtag('event', 'newsletter_signup', {'event_category': 'engagement', 'event_label': 'banner_form'}); }"
-      >
-        <input type="email" value="" name="EMAIL" class="required email newsletter-input" id="mce-EMAIL-banner" placeholder="Your email address" required>
-        <button type="submit" name="subscribe" class="newsletter-button">Subscribe</button>
-        
-        <!-- real people should not fill this in and expect good things - do not remove this or risk form bot signups-->
-        <div style="position: absolute; left: -5000px;" aria-hidden="true">
-          <input type="text" name="b_8aeb20a530e124561927d3bd8_8c3d2d214b" tabindex="-1" value="">
-        </div>
-      </form>
-    </div>
-  </div>
-</section>
-
-<!-- Main Content with Sidebar -->
-<div class="main-content">
-  <div class="posts-column">
-    <h2 class="section-title">Latest Articles</h2>
-    <div class="posts-grid">
-      {% for post in paginator.posts limit:6 %}
-        {% unless post.featured == true %}
-          <a href="{{ site.baseurl }}{{ post.url }}" class="post-card" onclick="if(window.gtag){ gtag('event', 'post_click', {'post_title': '{{ post.title }}', 'post_category': '{{ post.categories[0] }}'}); }">
-            <div class="post-image-container">
-              {% if post.image %}
-                <img src="{{ site.baseurl }}{{ post.image }}" alt="{{ post.title }}" class="post-image">
-              {% else %}
-                <img src="/api/placeholder/400/200" alt="{{ post.title }}" class="post-image">
-              {% endif %}
-            </div>
-            <div class="post-content">
-              {% if post.categories %}
-                <span class="post-category">{{ post.categories[0] }}</span>
-              {% endif %}
-              <h3 class="post-title">{{ post.title }}</h3>
-              <div class="post-excerpt">{{ post.excerpt | strip_html | truncatewords: 15 }}</div>
-              <div class="post-meta">
-                {% if post.author %}
-                  {% if site.data.authors[post.author].avatar %}
-                    <img src="{{ site.baseurl }}{{ site.data.authors[post.author].avatar }}" alt="{{ site.data.authors[post.author].name }}">
-                  {% endif %}
-                  <span>{{ site.data.authors[post.author].name }}</span>
-                {% endif %}
-                <span class="post-date">{{ post.date | date: '%b %d, %Y' }}</span>
-              </div>
-              <span class="read-more">Read More <i class="fas fa-arrow-right"></i></span>
-            </div>
-          </a>
-        {% endunless %}
-      {% endfor %}
-    </div>
-    
-    <!-- Pagination -->
-    <div class="pagination">
-      {% if paginator.previous_page %}
-        <a href="{{ paginator.previous_page_path | prepend: site.baseurl }}" class="prev">
-          <i class="fas fa-chevron-left"></i>
-        </a>
-      {% endif %}
-      
-      {% for page in (1..paginator.total_pages) %}
-        {% if page == paginator.page %}
-          <span class="active">{{ page }}</span>
-        {% elsif page == 1 %}
-          <a href="{{ site.baseurl }}/">{{ page }}</a>
-        {% else %}
-          <a href="{{ site.baseurl }}/page{{ page }}">{{ page }}</a>
-        {% endif %}
-      {% endfor %}
-      
-      {% if paginator.next_page %}
-        <a href="{{ paginator.next_page_path | prepend: site.baseurl }}" class="next">
-          <i class="fas fa-chevron-right"></i>
-        </a>
-      {% endif %}
-    </div>
-  </div>
-  
-  <!-- Sidebar -->
-  <div class="sidebar-column">
-    {% include sidebar.html %}
-  </div>
-</div>
-
-<!-- Include timer script for recommendations -->
-{% include timer-script.html page_name="homepage" %}
+        <a href="{{ site.baseurl }}
