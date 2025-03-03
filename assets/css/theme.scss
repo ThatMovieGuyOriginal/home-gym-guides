@@ -3,8 +3,9 @@
 
 // start content
 
-$green:   #28A745 !default;
-$blue:    #007BFF !default;
+$green: #ff4d4d !default;
+$accent-color: #ff4d4d !default;
+$accent-dark: #e03e3e !default;
 
 @import 'bootstrap/bootstrap';
 
@@ -85,7 +86,7 @@ small, .small {
 
 .homepage-link {
   font-weight: bold;
-  color: var(--cta-green);
+  color: var(--accent-color);
   text-decoration: underline;
   text-decoration-color: var(--secondary-accent);
   text-decoration-thickness: 2px;
@@ -95,14 +96,14 @@ small, .small {
 .homepage-link:hover,
 .homepage-link:focus {
   background-color: var(--secondary-accent);
-  color: var(--cta-green-dark);
+  color: var(--accent-dark);
   outline: none;
 }
 
 .search-button {
   padding: 0.75rem 1rem;
   border: none;
-  background-color: var(--cta-green); /* Ensures CTA green is applied */
+  background-color: var(--accent-color);
   color: #fff;
   font-size: 1rem;
   border-radius: var(--border-radius);
@@ -113,7 +114,7 @@ small, .small {
 
 .search-button:hover,
 .search-button:focus {
-  background-color: var(--cta-green-dark); /* A darker green on hover */
+  background-color: var(--accent-dark);
   outline: none;
 }
 
@@ -446,8 +447,8 @@ ul.tags li a:hover {
     font-weight:400;
 }
 .btn.subscribe {
-  background-color: var(--cta-green);
-  border-color: var(--cta-green);
+  background-color: var(--accent-color);
+  border-color: var(--accent-color);
   color: #fff;
   border-radius: 30px;
   font-size: 0.85rem;
@@ -459,8 +460,8 @@ ul.tags li a:hover {
 
 .btn.subscribe:hover,
 .btn.subscribe:focus {
-  background-color: var(--cta-green-dark);
-  border-color: var(--cta-green-dark);
+  background-color: var(--accent-dark);
+  border-color: var(--accent-dark);
   outline: none;
 }
 
