@@ -33,6 +33,18 @@ description: "Discover why thousands trust Home Gym Guides for honest fitness eq
     border-radius: var(--border-radius);
     margin-bottom: 3rem;
     box-shadow: var(--box-shadow);
+    position: relative;
+    overflow: hidden;
+  }
+  
+  .hero-section::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 6px;
+    background: linear-gradient(90deg, var(--accent-color) 0%, #ff8f8f 100%);
   }
 
   .hero-section h1 {
@@ -62,6 +74,11 @@ description: "Discover why thousands trust Home Gym Guides for honest fitness eq
     display: block;
     border: 3px solid var(--accent-color);
     box-shadow: var(--box-shadow);
+    transition: transform 0.3s ease;
+  }
+  
+  .hero-image:hover {
+    transform: scale(1.05);
   }
 
   .tagline {
@@ -85,6 +102,10 @@ description: "Discover why thousands trust Home Gym Guides for honest fitness eq
 
   .about-section {
     margin-bottom: 3rem;
+  }
+  
+  .about-section:last-child {
+    margin-bottom: 1rem;
   }
 
   .about-section h2 {
@@ -110,6 +131,17 @@ description: "Discover why thousands trust Home Gym Guides for honest fitness eq
     font-size: 1.05rem;
     line-height: 1.7;
     color: var(--text-color);
+  }
+  
+  .about-section ul {
+    color: var(--text-color);
+    line-height: 1.7;
+    margin: 1.5rem 0;
+    padding-left: 1.5rem;
+  }
+  
+  .about-section li {
+    margin-bottom: 0.8rem;
   }
 
   /* Benefits section */
@@ -173,7 +205,7 @@ description: "Discover why thousands trust Home Gym Guides for honest fitness eq
     font-weight: 600;
     font-style: normal;
     text-align: right;
-    color: var(--primary-text);
+    color: var(--text-color);
     margin-top: 0.8rem;
   }
 
@@ -261,6 +293,40 @@ description: "Discover why thousands trust Home Gym Guides for honest fitness eq
     color: var(--primary-color);
     transform: translateY(-3px);
   }
+  
+  /* Trust badges */
+  .trust-badges {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 2rem;
+    margin: 2rem auto;
+  }
+  
+  .trust-badge {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+  }
+  
+  .trust-badge-icon {
+    font-size: 2rem;
+    color: var(--accent-color);
+    margin-bottom: 0.8rem;
+  }
+  
+  .trust-badge-text {
+    font-weight: 600;
+    font-size: 1rem;
+    color: var(--text-color);
+  }
+  
+  .trust-badge-subtext {
+    font-size: 0.9rem;
+    color: var(--secondary-text);
+    margin-top: 0.3rem;
+  }
 
   /* Responsive Adjustments */
   @media (max-width: 768px) {
@@ -291,6 +357,10 @@ description: "Discover why thousands trust Home Gym Guides for honest fitness eq
     .benefits-grid {
       grid-template-columns: 1fr;
     }
+    
+    .trust-badges {
+      gap: 1.5rem;
+    }
   }
 
   @media (max-width: 480px) {
@@ -313,12 +383,47 @@ description: "Discover why thousands trust Home Gym Guides for honest fitness eq
   }
 </style>
 
+<!-- Schema.org structured data for SEO -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "AboutPage",
+  "name": "About Home Gym Guides",
+  "description": "Discover why thousands trust Home Gym Guides for honest fitness equipment reviews, expert workout advice, and affordable home gym solutions.",
+  "url": "{{ site.url }}{{ page.url }}",
+  "mainEntity": {
+    "@type": "Organization",
+    "name": "Home Gym Guides",
+    "foundingDate": "2018",
+    "description": "Expert home gym equipment reviews and fitness advice"
+  }
+}
+</script>
+
 <main role="main">
   <!-- Hero Section -->
   <section class="hero-section">
     <img src="{{ site.baseurl }}/assets/images/about-home-gym-guides.jpg" alt="Home Gym Guides Founder" class="hero-image">
     <h1>The #1 Resource for Home Fitness Enthusiasts</h1>
     <p class="tagline">Helping over 50,000 fitness lovers create effective home gyms without breaking the bank.</p>
+    
+    <div class="trust-badges">
+      <div class="trust-badge">
+        <i class="fas fa-award trust-badge-icon"></i>
+        <div class="trust-badge-text">5 Years</div>
+        <div class="trust-badge-subtext">Reviewing Equipment</div>
+      </div>
+      <div class="trust-badge">
+        <i class="fas fa-users trust-badge-icon"></i>
+        <div class="trust-badge-text">50,000+</div>
+        <div class="trust-badge-subtext">Satisfied Readers</div>
+      </div>
+      <div class="trust-badge">
+        <i class="fas fa-dumbbell trust-badge-icon"></i>
+        <div class="trust-badge-text">300+</div>
+        <div class="trust-badge-subtext">Products Tested</div>
+      </div>
+    </div>
   </section>
 
   <article class="about-container">
