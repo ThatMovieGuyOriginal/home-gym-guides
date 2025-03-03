@@ -1,9 +1,11 @@
 ---
-title: Home | Fitness Equipment Reviews & Online Success Tips
+title: Home | Expert Home Gym Equipment Reviews & Fitness Guides
 layout: default
 background: '/img/bg-index.jpg'
-description: "Learn how to build a successful online fitness business with expert reviews, affiliate marketing strategies, and monetization tips from a 10+ year blogging veteran."
+description: "Find the best home gym equipment with expert reviews, in-depth fitness guides, and honest recommendations to build your perfect workout space within any budget."
 ---
+
+{% include recommendations-styles.html %}
 
 <style>
   /* Modern Homepage Styles */
@@ -14,6 +16,7 @@ description: "Learn how to build a successful online fitness business with exper
     --text-color: #333333;
     --secondary-text: #666666;
     --box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+    --highlight-color: #FFC107;
   }
   
   /* Hero Section */
@@ -100,6 +103,25 @@ description: "Learn how to build a successful online fitness business with exper
     margin-left: 0.5rem;
   }
   
+  .hero-secondary-cta {
+    display: inline-flex;
+    align-items: center;
+    padding: 0.8rem 1.8rem;
+    background-color: white;
+    color: var(--text-color);
+    border: 2px solid #eaeaea;
+    border-radius: 50px;
+    font-weight: 600;
+    text-decoration: none;
+    margin-left: 1rem;
+    transition: all 0.3s ease;
+  }
+  
+  .hero-secondary-cta:hover {
+    border-color: var(--accent-color);
+    color: var(--accent-color);
+  }
+  
   .hero-image img {
     max-width: 100%;
     height: auto;
@@ -110,6 +132,29 @@ description: "Learn how to build a successful online fitness business with exper
     0% { transform: translateY(0px); }
     50% { transform: translateY(-15px); }
     100% { transform: translateY(0px); }
+  }
+  
+  .trust-badges {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 1rem;
+    margin-top: 2rem;
+    padding-top: 1.5rem;
+    border-top: 1px solid #eaeaea;
+  }
+  
+  .trust-badge {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 0.9rem;
+    color: var(--secondary-text);
+  }
+  
+  .trust-badge i {
+    color: var(--accent-color);
+    font-size: 1.2rem;
   }
   
   /* Featured Posts Section */
@@ -136,6 +181,24 @@ description: "Learn how to build a successful online fitness business with exper
     margin-bottom: 3rem;
   }
   
+  .featured-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1.5rem;
+  }
+  
+  .view-all {
+    font-weight: 600;
+    color: var(--accent-color);
+    text-decoration: none;
+    transition: all 0.3s ease;
+  }
+  
+  .view-all:hover {
+    color: #e03e3e;
+  }
+  
   .featured-grid {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
@@ -153,6 +216,7 @@ description: "Learn how to build a successful online fitness business with exper
     display: flex;
     flex-direction: column;
     height: 100%;
+    cursor: pointer;
   }
   
   .post-card:hover {
@@ -160,10 +224,20 @@ description: "Learn how to build a successful online fitness business with exper
     box-shadow: 0 10px 30px rgba(0,0,0,0.1);
   }
   
+  .post-image-container {
+    position: relative;
+    overflow: hidden;
+  }
+  
   .post-image {
     width: 100%;
     height: 200px;
     object-fit: cover;
+    transition: transform 0.5s ease;
+  }
+  
+  .post-card:hover .post-image {
+    transform: scale(1.05);
   }
   
   .featured-tag {
@@ -230,6 +304,24 @@ description: "Learn how to build a successful online fitness business with exper
     margin-left: auto;
   }
   
+  .read-more {
+    display: inline-flex;
+    align-items: center;
+    margin-top: 1rem;
+    font-weight: 600;
+    color: var(--accent-color);
+    font-size: 0.9rem;
+  }
+  
+  .read-more i {
+    margin-left: 0.5rem;
+    transition: transform 0.3s ease;
+  }
+  
+  .post-card:hover .read-more i {
+    transform: translateX(3px);
+  }
+  
   /* Regular Posts Section */
   .main-content {
     display: flex;
@@ -287,125 +379,142 @@ description: "Learn how to build a successful online fitness business with exper
     color: white;
   }
   
-  /* Sidebar */
-  .sidebar {
+  /* Categories Section */
+  .categories-section {
+    margin-bottom: 3rem;
+    padding: 2rem;
     background-color: white;
-    border-radius: 10px;
+    border-radius: 12px;
     box-shadow: var(--box-shadow);
-    padding: 1.5rem;
   }
   
-  .sidebar-section {
-    margin-bottom: 2rem;
+  .categories-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 1rem;
+    margin-top: 1.5rem;
   }
   
-  .sidebar-title {
-    font-size: 1.2rem;
-    font-weight: 700;
-    margin-bottom: 1rem;
-    padding-bottom: 0.5rem;
-    border-bottom: 2px solid var(--accent-color);
-    color: var(--primary-color);
-  }
-  
-  .sidebar-product {
-    display: flex;
-    align-items: center;
-    padding: 0.75rem 0;
-    text-decoration: none;
-    color: var(--text-color);
-    transition: all 0.2s ease;
-  }
-  
-  .sidebar-product:hover {
-    transform: translateX(5px);
-    color: var(--accent-color);
-  }
-  
-  .sidebar-product img {
-    width: 60px;
-    height: 60px;
-    object-fit: cover;
-    border-radius: 5px;
-    margin-right: 0.75rem;
-  }
-  
-  .sidebar-product-info {
-    flex: 1;
-  }
-  
-  .sidebar-product-title {
-    font-weight: 600;
-    margin-bottom: 0.25rem;
-  }
-  
-  .sidebar-product-price {
-    color: var(--accent-color);
-    font-weight: 700;
-    font-size: 0.9rem;
-  }
-  
-  .sidebar-cta {
-    background-color: var(--light-bg);
-    border-radius: 8px;
+  .category-card {
     padding: 1.5rem;
     text-align: center;
+    background-color: var(--light-bg);
+    border-radius: 8px;
+    text-decoration: none;
+    color: var(--text-color);
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
   }
   
-  .sidebar-cta h4 {
-    font-size: 1.1rem;
-    font-weight: 700;
+  .category-card::before {
+    content: "";
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 3px;
+    background-color: var(--accent-color);
+    transform: scaleX(0);
+    transition: transform 0.3s ease;
+  }
+  
+  .category-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+  }
+  
+  .category-card:hover::before {
+    transform: scaleX(1);
+  }
+  
+  .category-icon {
+    font-size: 2rem;
+    color: var(--accent-color);
     margin-bottom: 1rem;
-    color: var(--primary-color);
   }
   
-  .sidebar-cta p {
-    margin-bottom: 1.5rem;
-    font-size: 0.95rem;
+  .category-name {
+    font-weight: 600;
+    margin-bottom: 0.5rem;
+  }
+  
+  .category-count {
+    font-size: 0.8rem;
     color: var(--secondary-text);
   }
   
-  .sidebar-cta-button {
-    display: inline-block;
-    background-color: var(--accent-color);
+  /* Newsletter Banner */
+  .newsletter-banner {
+    padding: 2.5rem;
+    background-color: var(--primary-color);
     color: white;
-    font-weight: 600;
-    padding: 0.75rem 1.5rem;
-    border-radius: 50px;
-    text-decoration: none;
-    transition: all 0.3s ease;
-    width: 100%;
+    border-radius: 12px;
+    margin-bottom: 3rem;
+    position: relative;
+    overflow: hidden;
   }
   
-  .sidebar-cta-button:hover {
-    background-color: #e03e3e;
-    transform: translateY(-2px);
+  .newsletter-banner-content {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 2rem;
+    position: relative;
+    z-index: 1;
   }
   
-  /* Newsletter */
-  .newsletter {
-    background-color: var(--light-bg);
-    padding: 2rem;
-    border-radius: 10px;
-    margin-top: 2rem;
+  .newsletter-banner::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 300px;
+    height: 300px;
+    background: radial-gradient(circle, var(--accent-color) 0%, rgba(255,77,77,0) 70%);
+    opacity: 0.2;
+    border-radius: 50%;
+    z-index: 0;
+  }
+  
+  .newsletter-banner-text {
+    flex: 1;
+    min-width: 300px;
+  }
+  
+  .newsletter-banner-form {
+    flex: 1;
+    min-width: 300px;
+  }
+  
+  .newsletter-banner-title {
+    font-size: 1.8rem;
+    font-weight: 700;
+    margin-bottom: 1rem;
+  }
+  
+  .newsletter-banner-subtitle {
+    color: rgba(255,255,255,0.8);
+    margin-bottom: 1.5rem;
+    line-height: 1.6;
   }
   
   .newsletter-form {
     display: flex;
-    margin-top: 1rem;
+    max-width: 100%;
   }
   
   .newsletter-input {
     flex: 1;
-    padding: 0.75rem 1rem;
-    border: 2px solid #eaeaea;
+    padding: 0.9rem 1.2rem;
+    border: none;
     border-radius: 50px 0 0 50px;
-    font-size: 0.95rem;
+    font-size: 1rem;
   }
   
   .newsletter-input:focus {
     outline: none;
-    border-color: var(--accent-color);
+    box-shadow: 0 0 0 3px rgba(255, 77, 77, 0.1);
   }
   
   .newsletter-button {
@@ -417,10 +526,20 @@ description: "Learn how to build a successful online fitness business with exper
     font-weight: 600;
     cursor: pointer;
     transition: all 0.3s ease;
+    white-space: nowrap;
   }
   
   .newsletter-button:hover {
     background-color: #e03e3e;
+  }
+  
+  /* Popular Equipment Section */
+  .equipment-section {
+    padding: 2rem;
+    background-color: white;
+    border-radius: 12px;
+    box-shadow: var(--box-shadow);
+    margin-bottom: 3rem;
   }
   
   /* Responsive Adjustments */
@@ -431,6 +550,10 @@ description: "Learn how to build a successful online fitness business with exper
     
     .featured-grid, .posts-grid {
       grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    }
+    
+    .categories-grid {
+      grid-template-columns: repeat(3, 1fr);
     }
   }
   
@@ -460,6 +583,17 @@ description: "Learn how to build a successful online fitness business with exper
     
     .hero-cta-container {
       text-align: center;
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+    }
+    
+    .hero-secondary-cta {
+      margin-left: 0;
+    }
+    
+    .trust-badges {
+      justify-content: center;
     }
     
     .section-title {
@@ -469,6 +603,18 @@ description: "Learn how to build a successful online fitness business with exper
     .main-content {
       flex-direction: column;
     }
+    
+    .categories-grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+    
+    .newsletter-banner {
+      padding: 2rem 1.5rem;
+    }
+    
+    .newsletter-banner-title {
+      font-size: 1.5rem;
+    }
   }
   
   @media (max-width: 480px) {
@@ -477,6 +623,10 @@ description: "Learn how to build a successful online fitness business with exper
     }
     
     .featured-grid, .posts-grid {
+      grid-template-columns: 1fr;
+    }
+    
+    .categories-grid {
       grid-template-columns: 1fr;
     }
     
@@ -497,30 +647,82 @@ description: "Learn how to build a successful online fitness business with exper
   }
 </style>
 
+<!-- Schema.org structured data for SEO -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "WebSite",
+  "name": "Home Gym Guides",
+  "url": "{{ site.url }}",
+  "description": "Expert reviews and guides for home gym equipment",
+  "publisher": {
+    "@type": "Organization",
+    "name": "Home Gym Guides",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "{{ site.url }}/assets/images/logo.png"
+    }
+  },
+  "potentialAction": {
+    "@type": "SearchAction",
+    "target": "{{ site.url }}/search?q={search_term_string}",
+    "query-input": "required name=search_term_string"
+  }
+}
+</script>
+
 <!-- Hero Section -->
 <section class="hero-section">
   <div class="hero-content">
     <div class="hero-text">
-      <h1 class="hero-title">Become a <span>Successful</span> Fitness Affiliate Marketer</h1>
-      <p class="hero-subtitle">My name is Lyam and I'm here to share with you my knowledge and experience of over 10 years of monetizing my fitness equipment review blog.</p>
+      <h1 class="hero-title">Build Your <span>Perfect</span> Home Gym With Expert Advice</h1>
+      <p class="hero-subtitle">Discover the best home gym equipment with our detailed reviews and buying guides. From beginners to advanced fitness enthusiasts, we help you make informed choices.</p>
       <div class="hero-cta-container">
-        <a href="{{site.baseurl}}/about" class="hero-cta">About Me <i class="fas fa-arrow-right"></i></a>
+        <a href="{{site.baseurl}}/equipment-guides" class="hero-cta" onclick="if(window.gtag){ gtag('event', 'cta_click', {'event_category': 'homepage', 'event_label': 'equipment_guides_button'}); }">Equipment Guides <i class="fas fa-arrow-right"></i></a>
+        <a href="{{site.baseurl}}/workout-plans" class="hero-secondary-cta" onclick="if(window.gtag){ gtag('event', 'cta_click', {'event_category': 'homepage', 'event_label': 'workout_plans_button'}); }">Workout Plans</a>
+      </div>
+      <div class="trust-badges">
+        <div class="trust-badge">
+          <i class="fas fa-check-circle"></i>
+          <span>Expert Reviews</span>
+        </div>
+        <div class="trust-badge">
+          <i class="fas fa-shield-alt"></i>
+          <span>Honest Recommendations</span>
+        </div>
+        <div class="trust-badge">
+          <i class="fas fa-tag"></i>
+          <span>Exclusive Deals</span>
+        </div>
       </div>
     </div>
     <div class="hero-image">
-      <img src="{{site.baseurl}}/assets/images/intro.svg" alt="Fitness Blogging Success" width="450">
+      <img src="{{site.baseurl}}/assets/images/intro.svg" alt="Home Gym Equipment" width="450">
     </div>
   </div>
 </section>
 
+<!-- Popular Equipment Section -->
+<section class="equipment-section">
+  <div class="featured-header">
+    <h2 class="section-title">Top-Rated Equipment</h2>
+    <a href="{{site.baseurl}}/equipment-guides" class="view-all">View All <i class="fas fa-arrow-right"></i></a>
+  </div>
+  
+  {% include recommendations.html page_name="homepage" %}
+</section>
+
 <!-- Featured Posts Section -->
 <section class="featured-posts">
-  <h2 class="section-title">Featured Content</h2>
+  <div class="featured-header">
+    <h2 class="section-title">Featured Guides</h2>
+    <a href="{{site.baseurl}}/guides" class="view-all">View All <i class="fas fa-arrow-right"></i></a>
+  </div>
   <div class="featured-grid">
     {% for post in site.posts %}
       {% if post.featured == true %}
-        <article class="post-card">
-          <div style="position: relative;">
+        <a href="{{ site.baseurl }}{{ post.url }}" class="post-card" onclick="if(window.gtag){ gtag('event', 'post_click', {'post_title': '{{ post.title }}', 'post_category': '{{ post.categories[0] }}'}); }">
+          <div class="post-image-container">
             {% if post.image %}
               <img src="{{ site.baseurl }}{{ post.image }}" alt="{{ post.title }}" class="post-image">
             {% else %}
@@ -543,10 +745,71 @@ description: "Learn how to build a successful online fitness business with exper
               {% endif %}
               <span class="post-date">{{ post.date | date: '%b %d, %Y' }}</span>
             </div>
+            <span class="read-more">Read More <i class="fas fa-arrow-right"></i></span>
           </div>
-        </article>
+        </a>
       {% endif %}
     {% endfor %}
+  </div>
+</section>
+
+<!-- Categories Section -->
+<section class="categories-section">
+  <h2 class="section-title">Popular Categories</h2>
+  <div class="categories-grid">
+    <a href="{{site.baseurl}}/category/cardio-equipment" class="category-card" onclick="if(window.gtag){ gtag('event', 'category_click', {'category_name': 'Cardio Equipment'}); }">
+      <div class="category-icon"><i class="fas fa-running"></i></div>
+      <h3 class="category-name">Cardio Equipment</h3>
+      <span class="category-count">12 Articles</span>
+    </a>
+    
+    <a href="{{site.baseurl}}/category/strength-training" class="category-card" onclick="if(window.gtag){ gtag('event', 'category_click', {'category_name': 'Strength Training'}); }">
+      <div class="category-icon"><i class="fas fa-dumbbell"></i></div>
+      <h3 class="category-name">Strength Training</h3>
+      <span class="category-count">15 Articles</span>
+    </a>
+    
+    <a href="{{site.baseurl}}/category/yoga-fitness" class="category-card" onclick="if(window.gtag){ gtag('event', 'category_click', {'category_name': 'Yoga & Flexibility'}); }">
+      <div class="category-icon"><i class="fas fa-spa"></i></div>
+      <h3 class="category-name">Yoga & Flexibility</h3>
+      <span class="category-count">8 Articles</span>
+    </a>
+    
+    <a href="{{site.baseurl}}/category/small-space-solutions" class="category-card" onclick="if(window.gtag){ gtag('event', 'category_click', {'category_name': 'Small Space Solutions'}); }">
+      <div class="category-icon"><i class="fas fa-compress-arrows-alt"></i></div>
+      <h3 class="category-name">Small Space Solutions</h3>
+      <span class="category-count">9 Articles</span>
+    </a>
+  </div>
+</section>
+
+<!-- Newsletter Banner -->
+<section class="newsletter-banner">
+  <div class="newsletter-banner-content">
+    <div class="newsletter-banner-text">
+      <h2 class="newsletter-banner-title">Get Equipment Deals & Expert Tips</h2>
+      <p class="newsletter-banner-subtitle">Join our community of fitness enthusiasts and be the first to know about exclusive deals, new reviews, and workout tips.</p>
+    </div>
+    <div class="newsletter-banner-form">
+      <form 
+        action="https://wowthemes.us11.list-manage.com/subscribe/post?u=8aeb20a530e124561927d3bd8&amp;id=8c3d2d214b" 
+        method="post" 
+        id="banner-subscribe-form" 
+        name="mc-embedded-subscribe-form" 
+        class="newsletter-form validate" 
+        target="_blank" 
+        novalidate
+        onsubmit="if(window.gtag){ gtag('event', 'newsletter_signup', {'event_category': 'engagement', 'event_label': 'banner_form'}); }"
+      >
+        <input type="email" value="" name="EMAIL" class="required email newsletter-input" id="mce-EMAIL-banner" placeholder="Your email address" required>
+        <button type="submit" name="subscribe" class="newsletter-button">Subscribe</button>
+        
+        <!-- real people should not fill this in and expect good things - do not remove this or risk form bot signups-->
+        <div style="position: absolute; left: -5000px;" aria-hidden="true">
+          <input type="text" name="b_8aeb20a530e124561927d3bd8_8c3d2d214b" tabindex="-1" value="">
+        </div>
+      </form>
+    </div>
   </div>
 </section>
 
@@ -555,14 +818,16 @@ description: "Learn how to build a successful online fitness business with exper
   <div class="posts-column">
     <h2 class="section-title">Latest Articles</h2>
     <div class="posts-grid">
-      {% for post in paginator.posts %}
+      {% for post in paginator.posts limit:6 %}
         {% unless post.featured == true %}
-          <article class="post-card">
-            {% if post.image %}
-              <img src="{{ site.baseurl }}{{ post.image }}" alt="{{ post.title }}" class="post-image">
-            {% else %}
-              <img src="/api/placeholder/400/200" alt="{{ post.title }}" class="post-image">
-            {% endif %}
+          <a href="{{ site.baseurl }}{{ post.url }}" class="post-card" onclick="if(window.gtag){ gtag('event', 'post_click', {'post_title': '{{ post.title }}', 'post_category': '{{ post.categories[0] }}'}); }">
+            <div class="post-image-container">
+              {% if post.image %}
+                <img src="{{ site.baseurl }}{{ post.image }}" alt="{{ post.title }}" class="post-image">
+              {% else %}
+                <img src="/api/placeholder/400/200" alt="{{ post.title }}" class="post-image">
+              {% endif %}
+            </div>
             <div class="post-content">
               {% if post.categories %}
                 <span class="post-category">{{ post.categories[0] }}</span>
@@ -578,8 +843,9 @@ description: "Learn how to build a successful online fitness business with exper
                 {% endif %}
                 <span class="post-date">{{ post.date | date: '%b %d, %Y' }}</span>
               </div>
+              <span class="read-more">Read More <i class="fas fa-arrow-right"></i></span>
             </div>
-          </article>
+          </a>
         {% endunless %}
       {% endfor %}
     </div>
@@ -612,55 +878,9 @@ description: "Learn how to build a successful online fitness business with exper
   
   <!-- Sidebar -->
   <div class="sidebar-column">
-    <aside class="sidebar">
-      <!-- Top Products Section -->
-      <div class="sidebar-section">
-        <h3 class="sidebar-title">Top Rated Products</h3>
-        
-        <a href="{{ site.baseurl }}/products/kettlebells" class="sidebar-product">
-          <img src="/api/placeholder/120/120" alt="Premium Kettlebells">
-          <div class="sidebar-product-info">
-            <div class="sidebar-product-title">Premium Kettlebells</div>
-            <div class="sidebar-product-price">From $39.99</div>
-          </div>
-        </a>
-        
-        <a href="{{ site.baseurl }}/products/resistance-bands" class="sidebar-product">
-          <img src="/api/placeholder/120/120" alt="Pro Resistance Bands">
-          <div class="sidebar-product-info">
-            <div class="sidebar-product-title">Pro Resistance Bands</div>
-            <div class="sidebar-product-price">$24.99</div>
-          </div>
-        </a>
-        
-        <a href="{{ site.baseurl }}/products/yoga-mats" class="sidebar-product">
-          <img src="/api/placeholder/120/120" alt="Extra Thick Yoga Mat">
-          <div class="sidebar-product-info">
-            <div class="sidebar-product-title">Extra Thick Yoga Mat</div>
-            <div class="sidebar-product-price">$49.99</div>
-          </div>
-        </a>
-      </div>
-      
-      <!-- CTA Section -->
-      <div class="sidebar-cta">
-        <h4>Start Your Affiliate Journey</h4>
-        <p>Get my proven formula for creating a profitable fitness blog in 30 days or less.</p>
-        <a href="{{ site.baseurl }}/courses/affiliate-mastery" class="sidebar-cta-button">Get Started</a>
-      </div>
-      
-      <!-- Newsletter -->
-      <div class="newsletter">
-        <h3 class="sidebar-title">Newsletter</h3>
-        <p>Subscribe to get my latest fitness equipment reviews and affiliate marketing tips.</p>
-        <form class="newsletter-form">
-          <input type="email" placeholder="Your email address" required class="newsletter-input">
-          <button type="submit" class="newsletter-button">Subscribe</button>
-        </form>
-      </div>
-      
-      <!-- Additional Sidebar Content -->
-      {% include sidebar.html %}
-    </aside>
+    {% include sidebar.html %}
   </div>
 </div>
+
+<!-- Include timer script for recommendations -->
+{% include timer-script.html page_name="homepage" %}
