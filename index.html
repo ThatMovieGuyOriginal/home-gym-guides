@@ -665,4 +665,203 @@ description: "Find the best home gym equipment with expert reviews, in-depth fit
   <div class="featured-grid">
     {% for post in site.posts %}
       {% if post.featured == true %}
-        <a href="{{ site.baseurl }}
+        <a href="{{ site.baseurl }}{{ post.url }}" class="post-card" onclick="if(window.gtag){ gtag('event', 'post_click', {'event_category': 'featured', 'event_label': '{{ post.title }}'}); }">
+          <div class="post-image-container">
+            <img src="{{ site.baseurl }}{{ post.background }}" alt="{{ post.title }}" class="post-image">
+            <span class="featured-tag">Featured</span>
+          </div>
+          <div class="post-content">
+            <div class="post-category">{{ post.categories[0] }}</div>
+            <h3 class="post-title">{{ post.title }}</h3>
+            <p class="post-excerpt">{{ post.description | truncatewords: 20 }}</p>
+            <div class="post-meta">
+              {% if post.author %}
+                {% assign author = site.data.authors[post.author] %}
+                <img src="{{ site.baseurl }}{{ author.avatar }}" alt="{{ author.name }}" loading="lazy">
+                <span>{{ author.name }}</span>
+              {% endif %}
+              <span class="post-date">{{ post.date | date: '%b %d, %Y' }}</span>
+            </div>
+            <span class="read-more">Read More <i class="fas fa-arrow-right"></i></span>
+          </div>
+        </a>
+      {% endif %}
+      {% if forloop.index == 6 %}
+        {% break %}
+      {% endif %}
+    {% endfor %}
+  </div>
+</section>
+
+<!-- Categories Section -->
+<section class="categories-section">
+  <h2 class="section-title">Browse By Category</h2>
+  <div class="categories-grid">
+    {% assign categories = site.categories | sort %}
+    {% for category in categories %}
+      <a href="{{ site.baseurl }}/category/{{ category[0] | slugify }}/" class="category-card" onclick="if(window.gtag){ gtag('event', 'category_click', {'event_category': 'navigation', 'event_label': '{{ category[0] }}'}); }">
+        <div class="category-icon">
+          <i class="fas fa-{% if category[0] == 'cardio' %}running{% elsif category[0] == 'strength' %}dumbbell{% elsif category[0] == 'recovery' %}heart{% elsif category[0] == 'accessories' %}tools{% elsif category[0] == 'nutrition' %}apple-alt{% else %}tag{% endif %}"></i>
+        </div>
+        <h3 class="category-name">{{ category[0] | capitalize }}</h3>
+        <span class="category-count">{{ category[1].size }} Articles</span>
+      </a>
+    {% endfor %}
+  </div>
+</section>
+
+<!-- Newsletter Banner -->
+<section class="newsletter-banner">
+  <div class="newsletter-banner-content">
+    <div class="newsletter-banner-text">
+      <h2 class="newsletter-banner-title">Get Exclusive Fitness Tips & Equipment Deals</h2>
+      <p class="newsletter-banner-subtitle">Join our community and receive the latest reviews, workout tips, and exclusive discounts directly to your inbox.</p>
+    </div>
+    <div class="newsletter-banner-form">
+      <form class="newsletter-form" id="newsletter-form" action="{{ site.mailchimp-list }}" method="post" name="mc-embedded-subscribe-form" target="_blank">
+        <input type="email" name="EMAIL" class="newsletter-input" placeholder="Your email address" required aria-label="Email Address">
+        <button type="submit" class="newsletter-button" name="subscribe" onclick="if(window.gtag){ gtag('event', 'newsletter_signup', {'event_category': 'engagement'}); }">Subscribe</button>
+      </form>
+    </div>
+  </div>
+</section>
+
+<!-- Latest Articles Section -->
+<section class="latest-articles">
+  <div class="featured-header">
+    <h2 class="section-title">Latest Articles</h2>
+    <a href="{{site.baseurl}}/blog" class="view-all">View All <i class="fas fa-arrow-right"></i></a>
+  </div>
+  <div class="featured-grid">
+    {% for post in site.posts limit:6 %}
+      <a href="{{ site.baseurl }}{{ post.url }}" class="post-card" onclick="if(window.gtag){ gtag('event', 'post_click', {'event_category': 'latest', 'event_label': '{{ post.title }}'}); }">
+        <div class="post-image-container">
+          <img src="{{ site.baseurl }}{{ post.background }}" alt="{{ post.title }}" class="post-image" loading="lazy">
+          {% if post.new == true %}
+            <span class="featured-tag">New</span>
+          {% endif %}
+        </div>
+        <div class="post-content">
+          <div class="post-category">{{ post.categories[0] }}</div>
+          <h3 class="post-title">{{ post.title }}</h3>
+          <p class="post-excerpt">{{ post.description | truncatewords: 20 }}</p>
+          <div class="post-meta">
+            {% if post.author %}
+              {% assign author = site.data.authors[post.author] %}
+              <img src="{{ site.baseurl }}{{ author.avatar }}" alt="{{ author.name }}" loading="lazy">
+              <span>{{ author.name }}</span>
+            {% endif %}
+            <span class="post-date">{{ post.date | date: '%b %d, %Y' }}</span>
+          </div>
+          <span class="read-more">Read More <i class="fas fa-arrow-right"></i></span>
+        </div>
+      </a>
+    {% endfor %}
+  </div>
+</section>
+
+<!-- FAQ Section for SEO -->
+<section class="categories-section">
+  <h2 class="section-title">Frequently Asked Questions</h2>
+  <div class="faq-container">
+    {% for item in site.data.faqs.homepage limit:5 %}
+      <div class="faq-item" itemscope itemprop="mainEntity" itemtype="https://schema.org/Question">
+        <h3 class="faq-question" itemprop="name">{{ item.question }}</h3>
+        <div class="faq-answer" itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer">
+          <div itemprop="text">{{ item.answer }}</div>
+        </div>
+      </div>
+    {% endfor %}
+  </div>
+  <div class="text-center" style="margin-top: 2rem;">
+    <a href="{{site.baseurl}}/faqs" class="hero-secondary-cta">See All FAQs</a>
+  </div>
+</section>
+
+<!-- Testimonials Section -->
+<section class="equipment-section">
+  <h2 class="section-title">What Our Readers Say</h2>
+  <div class="testimonials-slider">
+    {% for testimonial in site.data.testimonials limit:5 %}
+      <div class="testimonial-card">
+        <div class="testimonial-content">
+          <div class="testimonial-stars">
+            {% for i in (1..5) %}
+              {% if i <= testimonial.rating %}
+                <i class="fas fa-star"></i>
+              {% else %}
+                <i class="far fa-star"></i>
+              {% endif %}
+            {% endfor %}
+          </div>
+          <p class="testimonial-text">"{{ testimonial.text }}"</p>
+          <div class="testimonial-author">
+            <img src="{{ site.baseurl }}{{ testimonial.avatar }}" alt="{{ testimonial.name }}" class="testimonial-avatar" loading="lazy">
+            <div>
+              <p class="testimonial-name">{{ testimonial.name }}</p>
+              <p class="testimonial-position">{{ testimonial.position }}</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    {% endfor %}
+  </div>
+</section>
+
+<!-- Additional Schema.org for FAQ -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {% for item in site.data.faqs.homepage %}
+    {
+      "@type": "Question",
+      "name": "{{ item.question }}",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "{{ item.answer | strip_newlines }}"
+      }
+    }{% unless forloop.last %},{% endunless %}
+    {% endfor %}
+  ]
+}
+</script>
+
+<!-- Initialize testimonials slider -->
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+    // Initialize slider if library is loaded
+    if (typeof Swiper !== 'undefined') {
+      new Swiper('.testimonials-slider', {
+        slidesPerView: 1,
+        spaceBetween: 20,
+        pagination: {
+          el: '.swiper-pagination',
+          clickable: true
+        },
+        breakpoints: {
+          640: {
+            slidesPerView: 2
+          },
+          1024: {
+            slidesPerView: 3
+          }
+        }
+      });
+    }
+    
+    // Add lazy loading for images that are below fold
+    if ('loading' in HTMLImageElement.prototype) {
+      const images = document.querySelectorAll('img[loading="lazy"]');
+      images.forEach(img => {
+        img.src = img.dataset.src;
+      });
+    } else {
+      // Fallback for browsers that don't support lazy loading
+      const script = document.createElement('script');
+      script.src = '{{site.baseurl}}/assets/js/lazysizes.min.js';
+      document.body.appendChild(script);
+    }
+  });
+</script>
