@@ -2,17 +2,37 @@
 layout: post
 title: "{{title}}"
 date: {{date}}
+author: {{author}}
 categories: [{{categories}}]
 tags: [{{tags}}]
-author: {{author}}
+image: assets/images/posts/{{slug}}.jpg
 featured: {{featured}}
-image: assets/images/posts/placeholder.jpg
-description: "A comprehensive guide about {{title}} for home gym enthusiasts looking to improve their fitness journey."
+hidden: false
+rating: {{rating}}
+beforetoc: "{{short_description}}"
+toc: true
+description: "{{seo_description}}"
+last_modified_at: {{date}}
 ---
 
 # {{title}}
 
-{{content}}
+## Introduction
+{{introduction}}
+
+## Main Content
+{{main_content}}
+
+## Key Takeaways
+{{takeaways}}
+
+## Expert Tips
+{{expert_tips}}
+
+{% include recommendations.html page_name="{{slug}}_page" title="Recommended Equipment for {{related_equipment}}" %}
+
+## Conclusion
+{{conclusion}}
 
 ---
 
