@@ -1,0 +1,37 @@
+{% comment %}
+Usage: 
+{% include responsive-image.html 
+  path="path/to/image.jpg" 
+  alt="Alt text" 
+  class="additional-class" 
+  width="original-width-optional" 
+  height="original-height-optional" 
+%}
+{% endcomment %}
+
+{% assign path_parts = include.path | split: '.' %}
+{% assign file_name = path_parts | first %}
+{% assign file_ext = path_parts | last %}
+
+<picture>
+  {% if file_ext == 'jpg' or file_ext == 'jpeg' or file_ext == 'png' %}
+    <source 
+      srcset="{{ file_name }}-320.{{ file_ext }} 320w,
+              {{ file_name }}-480.{{ file_ext }} 480w,
+              {{ file_name }}-640.{{ file_ext }} 640w,
+              {{ file_name }}-800.{{ file_ext }} 800w,
+              {{ file_name }}-1200.{{ file_ext }} 1200w"
+      sizes="(max-width: 480px) 100vw,
+             (max-width: 768px) 80vw,
+             (max-width: 992px) 70vw,
+             50vw">
+  {% endif %}
+  <img 
+    src="{{ include.path }}" 
+    alt="{{ include.alt }}" 
+    class="{{ include.class }}" 
+    {% if include.width %}width="{{ include.width }}"{% endif %}
+    {% if include.height %}height="{{ include.height }}"{% endif %}
+    loading="lazy"
+    {% if include.fetchpriority %}fetchpriority="{{ include.fetchpriority }}"{% endif %}>
+</picture>
