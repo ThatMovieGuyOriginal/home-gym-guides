@@ -906,3 +906,966 @@ async function generateAIContent(contentType, title, metadata) {
     let prompt = '';
     
     if (contentType === 'post') {
+      prompt = `
+      Write a comprehensive blog post about "${title}" for a home gym fitness blog.
+      
+      The post should include:
+      - An engaging introduction that hooks the reader
+      - 3-5 main sections with helpful information
+      - Practical tips and advice for home gym enthusiasts
+      - A conclusion with key takeaways
+      
+      Additional details:
+      - Target audience: Home fitness enthusiasts
+      - Categories: ${metadata.categories || 'Home Fitness'}
+      - Keywords: ${metadata.keywords || title}
+      
+      Format the content in Markdown with appropriate headings, lists, and emphasis.
+      Aim for approximately 1200-1500 words of informative, engaging content.
+      `;
+    } else if (contentType === 'review') {
+      prompt = `
+      Write a detailed product review about "${title}" for a home gym equipment blog.
+      
+      The review should include:
+      - Product overview and specifications
+      - Pros and cons list
+      - Value for money assessment
+      - Comparison with similar products
+      - Final verdict with rating (out of 10)
+      
+      Additional details:
+      - Categories: ${metadata.categories || 'Reviews, Equipment'}
+      - Keywords: ${metadata.keywords || title + ' review'}
+      
+      Format the content in Markdown with appropriate headings, lists, and emphasis.
+      Include a section for technical specifications in a table format.
+      Aim for approximately 1500-2000 words of informative, balanced review content.
+      `;
+    } else if (contentType === 'equipment') {
+      prompt = `
+      Write a comprehensive equipment guide about "${title}" for a home gym website.
+      
+      The guide should include:
+      - Detailed description and types available
+      - Benefits and muscles targeted
+      - How to choose the right one for your needs
+      - Maintenance and care tips
+      - Price ranges and recommendations
+      
+      Additional details:
+      - Main category: ${metadata.category || 'Equipment'}
+      - Subcategory: ${metadata.subcategory || 'Guide'}
+      - Keywords: ${metadata.keywords || title}
+      
+      Format the content in Markdown with appropriate headings, lists, and emphasis.
+      Include a buyer's guide section and recommended products.
+      Aim for approximately 1800-2200 words of informative, detailed content.
+      `;
+    } else if (contentType === 'category') {
+      prompt = `
+      Write a category page introduction about "${title}" for a home gym website.
+      
+      The content should include:
+      - Definition and overview of ${title}
+      - Why this category is important for home fitness
+      - Key considerations when purchasing items in this category
+      - Brief overview of subcategories or types
+      
+      Additional details:
+      - Description: ${metadata.description || ''}
+      - Keywords: ${metadata.keywords || title}
+      
+      Format the content in Markdown with appropriate headings and emphasis.
+      This will serve as an introduction to a category page, so keep it concise but informative.
+      Aim for approximately 500-700 words of engaging, informative content.
+      `;
+    }
+    
+    // Generate content
+    console.log('Sending prompt to OpenAI...');
+    const completion = await openai.createCompletion({
+      model: CONFIG.openAI.model,
+      prompt: prompt,
+      max_tokens: CONFIG.openAI.maxTokens,
+      temperature: 0.7,
+    });
+    
+    // Extract and return generated content
+    return completion.data.choices[0].text.trim();
+  } catch (error) {
+    console.error('Error generating content with AI:', error);
+    return `# ${title}\n\nUnable to generate content with AI. Please try again later or add your content manually.`;
+  }
+}
+
+// Helper function to generate or fetch an image
+async function generateImage(contentType, title, metadata) {
+  try {
+    if (!CONFIG.imageGeneration.enabled) {
+      return null;
+    }
+    
+    const config = CONFIG.contentTypes[contentType];
+    const searchQuery = encodeURIComponent(title.replace(/[^\w\s]/g, ''));
+    let imageUrl = '';
+    
+    // Use Unsplash API if configured, otherwise use placeholder
+    if (CONFIG.imageGeneration.apiKey) {
+      console.log('Fetching image from Unsplash...');
+      const response = await axios.get(`https://api.unsplash.com/search/photos`, {
+        params: {
+          query: searchQuery,
+          orientation: 'landscape',
+          per_page: 1
+        },
+        headers: {
+          Authorization: `Client-ID ${CONFIG.imageGeneration.apiKey}`
+        }
+      });
+      
+      if (response.data.results && response.data.results.length > 0) {
+        imageUrl = response.data.results[0].urls.regular;
+      } else {
+        // Fallback to placeholder if no results
+        imageUrl = CONFIG.imageGeneration.placeholderUrl.replace('{query}', searchQuery);
+      }
+    } else {
+      // Use placeholder
+      imageUrl = CONFIG.imageGeneration.placeholderUrl.replace('{query}', searchQuery);
+    }
+    
+    // Download image
+    console.log('Downloading image...');
+    const imageResponse = await axios.get(imageUrl, { responseType: 'arraybuffer' });
+    const buffer = Buffer.from(imageResponse.data, 'binary');
+    
+    // Generate filename
+    const slug = title.toLowerCase().replace(/[^\w\s-]/g, '').replace(/\s+/g, '-');
+    const filename = `${slug}.jpg`;
+    const outputPath = path.join(config.imageDir, filename);
+    
+    // Optimize and save image
+    console.log('Optimizing and saving image...');
+    await sharp(buffer)
+      .resize(1200, 800, { fit: 'cover' })
+      .jpeg({ quality: 80 })
+      .toFile(outputPath);
+    
+    // Return relative path for frontmatter
+    const relativePath = `/${config.imageDir}/${filename}`;
+    return relativePath;
+  } catch (error) {
+    console.error('Error generating image:', error);
+    return null;
+  }
+}
+
+// Helper function to create content file
+async function createContentFile(contentType, title, metadata, content) {
+  try {
+    const config = CONFIG.contentTypes[contentType];
+    
+    // Read template
+    let template = '';
+    if (fs.existsSync(config.template)) {
+      template = await readFile(config.template, 'utf8');
+    }
+    
+    // Generate slug from title
+    const slug = title.toLowerCase().replace(/[^\w\s-]/g, '').replace(/\s+/g, '-');
+    
+    // Generate filename
+    let filename = '';
+    if (config.datePrefix) {
+      const date = new Date().toISOString().split('T')[0];
+      filename = `${date}-${slug}.md`;
+    } else {
+      filename = `${slug}.md`;
+    }
+    
+    // Create frontmatter
+    const frontMatter = {
+      layout: contentType === 'post' || contentType === 'review' ? 'post' : 'page',
+      title: title,
+      date: new Date().toISOString().split('T')[0],
+      author: metadata.author || 'admin',
+      image: metadata.image || '',
+      ...(metadata.seo_title ? { seo_title: metadata.seo_title } : {}),
+      ...(metadata.description ? { description: metadata.description } : {}),
+      ...(metadata.keywords ? { keywords: metadata.keywords } : {})
+    };
+    
+    // Add content type specific frontmatter
+    if (contentType === 'post' || contentType === 'review') {
+      frontMatter.categories = metadata.categories.split(',').map(c => c.trim());
+      frontMatter.tags = metadata.tags.split(',').map(t => t.trim());
+      frontMatter.featured = metadata.featured;
+    } else if (contentType === 'equipment') {
+      frontMatter.category = metadata.category;
+      frontMatter.subcategory = metadata.subcategory;
+    } else if (contentType === 'category') {
+      frontMatter.permalink = metadata.permalink;
+    }
+    
+    // Convert frontmatter to YAML
+    const yamlFrontMatter = yaml.dump(frontMatter);
+    
+    // Combine frontmatter and content
+    const fileContent = `---\n${yamlFrontMatter}---\n\n${content}`;
+    
+    // Ensure output directory exists
+    if (!fs.existsSync(config.outputDir)) {
+      await mkdir(config.outputDir, { recursive: true });
+    }
+    
+    // Write file
+    const outputPath = path.join(config.outputDir, filename);
+    await writeFile(outputPath, fileContent, 'utf8');
+    
+    return outputPath;
+  } catch (error) {
+    console.error('Error creating content file:', error);
+    throw error;
+  }
+}
+
+// Helper function to extract frontmatter from content
+function extractFrontMatter(content) {
+  try {
+    const frontMatterRegex = /---\s*([\s\S]*?)\s*---/;
+    const match = content.match(frontMatterRegex);
+    
+    if (match && match[1]) {
+      return yaml.load(match[1]);
+    }
+    
+    return {};
+  } catch (error) {
+    console.error('Error extracting frontmatter:', error);
+    return {};
+  }
+}
+
+// Helper function to update publication date in content
+function updatePublicationDate(content, date) {
+  try {
+    const frontMatterRegex = /---\s*([\s\S]*?)\s*---/;
+    const match = content.match(frontMatterRegex);
+    
+    if (match && match[1]) {
+      const frontMatter = yaml.load(match[1]);
+      frontMatter.date = date;
+      
+      const updatedFrontMatter = yaml.dump(frontMatter);
+      return content.replace(frontMatterRegex, `---\n${updatedFrontMatter}---`);
+    }
+    
+    return content;
+  } catch (error) {
+    console.error('Error updating publication date:', error);
+    return content;
+  }
+}
+
+// Helper function to get next publishing date
+function getNextPublishingDate(offset = 0) {
+  try {
+    const today = new Date();
+    const days = CONFIG.publishing.publishingDays.map(day => {
+      const dayMap = {
+        'Monday': 1,
+        'Tuesday': 2,
+        'Wednesday': 3,
+        'Thursday': 4,
+        'Friday': 5,
+        'Saturday': 6,
+        'Sunday': 0
+      };
+      return dayMap[day];
+    });
+    
+    // Sort days
+    days.sort((a, b) => a - b);
+    
+    // Find next publishing day
+    let nextDay = null;
+    const currentDay = today.getDay();
+    
+    for (const day of days) {
+      if (day > currentDay) {
+        nextDay = day;
+        break;
+      }
+    }
+    
+    // If no next day found, use first day of next week
+    if (nextDay === null) {
+      nextDay = days[0];
+    }
+    
+    // Calculate days to add
+    let daysToAdd = nextDay - currentDay;
+    if (daysToAdd <= 0) {
+      daysToAdd += 7;
+    }
+    
+    // Add offset (for batch scheduling)
+    const offsetWeeks = Math.floor(offset / CONFIG.publishing.postsPerWeek);
+    const offsetDays = offsetWeeks * 7;
+    
+    daysToAdd += offsetDays;
+    
+    // Calculate next date
+    const nextDate = new Date(today);
+    nextDate.setDate(today.getDate() + daysToAdd);
+    
+    return nextDate.toISOString().split('T')[0];
+  } catch (error) {
+    console.error('Error calculating next publishing date:', error);
+    
+    // Default to tomorrow
+    const tomorrow = new Date();
+    tomorrow.setDate(tomorrow.getDate() + 1);
+    return tomorrow.toISOString().split('T')[0];
+  }
+}
+
+// Helper function to get existing content titles
+async function getExistingContentTitles() {
+  try {
+    const titles = [];
+    
+    // Get posts
+    if (fs.existsSync('_posts')) {
+      const files = await readdir('_posts');
+      
+      for (const file of files) {
+        if (!file.endsWith('.md')) continue;
+        
+        const content = await readFile(path.join('_posts', file), 'utf8');
+        const frontMatter = extractFrontMatter(content);
+        
+        if (frontMatter.title) {
+          titles.push(frontMatter.title.replace(/["|']/g, ''));
+        }
+      }
+    }
+    
+    // Get equipment pages
+    if (fs.existsSync('_equipment')) {
+      const files = await readdir('_equipment');
+      
+      for (const file of files) {
+        if (!file.endsWith('.md')) continue;
+        
+        const content = await readFile(path.join('_equipment', file), 'utf8');
+        const frontMatter = extractFrontMatter(content);
+        
+        if (frontMatter.title) {
+          titles.push(frontMatter.title.replace(/["|']/g, ''));
+        }
+      }
+    }
+    
+    return titles;
+  } catch (error) {
+    console.error('Error getting existing content titles:', error);
+    return [];
+  }
+}
+
+// Generate content ideas based on analytics data
+async function generateContentIdeas() {
+  try {
+    console.log('Generating content ideas based on analytics...');
+    
+    let popularKeywords = [];
+    let gapAnalysis = [];
+    
+    // Check if Google Analytics data file exists
+    const analyticsPath = '_data/analytics.json';
+    if (fs.existsSync(analyticsPath)) {
+      const analytics = JSON.parse(await readFile(analyticsPath, 'utf8'));
+      
+      // Extract popular search terms
+      if (analytics.searchTerms) {
+        popularKeywords = analytics.searchTerms.slice(0, 10).map(term => term.keyword);
+      }
+      
+      // Extract content gaps
+      if (analytics.contentGaps) {
+        gapAnalysis = analytics.contentGaps.slice(0, 5);
+      }
+    } else {
+      console.log('No analytics data found, using default keywords');
+      popularKeywords = ['home gym', 'dumbbells', 'squat rack', 'kettlebells', 'resistance bands'];
+    }
+    
+    // If OpenAI is configured, generate content ideas
+    if (CONFIG.openAI.apiKey) {
+      const prompt = `
+      Generate 10 content ideas for a home gym fitness blog based on these popular keywords: ${popularKeywords.join(', ')}
+      
+      For each idea, provide:
+      - Title
+      - Content type (post, review, equipment guide)
+      - Brief description (2-3 sentences)
+      - Target audience
+      - Potential keywords for SEO
+      
+      Content gaps to address: ${gapAnalysis.join(', ') || 'budget home equipment, small space workouts'}
+      `;
+      
+      const completion = await openai.createCompletion({
+        model: CONFIG.openAI.model,
+        prompt: prompt,
+        max_tokens: 1500,
+        temperature: 0.7,
+      });
+      
+      const ideas = completion.data.choices[0].text.trim();
+      
+      // Save ideas to file
+      const date = new Date().toISOString().split('T')[0];
+      const ideasPath = path.join(CONFIG.publishing.scheduledDir, `ideas_${date}.txt`);
+      await writeFile(ideasPath, ideas, 'utf8');
+      
+      console.log(`Content ideas generated and saved to: ${ideasPath}`);
+      return ideas;
+    } else {
+      console.log('OpenAI API key not configured, skipping idea generation');
+      return null;
+    }
+  } catch (error) {
+    console.error('Error generating content ideas:', error);
+    return null;
+  }
+}
+
+// Analyze existing content for gaps and opportunities
+async function analyzeContentCoverage() {
+  try {
+    console.log('Analyzing content coverage...');
+    
+    // Get existing content
+    const titles = await getExistingContentTitles();
+    const categories = new Set();
+    const tags = new Set();
+    const contentByCategory = {};
+    
+    // Process posts to extract categories and tags
+    if (fs.existsSync('_posts')) {
+      const files = await readdir('_posts');
+      
+      for (const file of files) {
+        if (!file.endsWith('.md')) continue;
+        
+        const content = await readFile(path.join('_posts', file), 'utf8');
+        const frontMatter = extractFrontMatter(content);
+        
+        if (frontMatter.categories) {
+          const postCategories = Array.isArray(frontMatter.categories) 
+            ? frontMatter.categories 
+            : frontMatter.categories.split(',').map(c => c.trim());
+          
+          postCategories.forEach(category => {
+            categories.add(category);
+            
+            if (!contentByCategory[category]) {
+              contentByCategory[category] = 0;
+            }
+            
+            contentByCategory[category]++;
+          });
+        }
+        
+        if (frontMatter.tags) {
+          const postTags = Array.isArray(frontMatter.tags) 
+            ? frontMatter.tags 
+            : frontMatter.tags.split(',').map(t => t.trim());
+          
+          postTags.forEach(tag => tags.add(tag));
+        }
+      }
+    }
+    
+    // Analyze coverage
+    const analysis = {
+      totalContent: titles.length,
+      categoryCoverage: Object.entries(contentByCategory).map(([category, count]) => ({
+        category,
+        count,
+        percentage: Math.round((count / titles.length) * 100)
+      })),
+      underrepresentedCategories: []
+    };
+    
+    // Find underrepresented categories
+    const avgContentPerCategory = titles.length / categories.size;
+    
+    analysis.underrepresentedCategories = Object.entries(contentByCategory)
+      .filter(([_, count]) => count < avgContentPerCategory * 0.7)
+      .map(([category, count]) => ({
+        category,
+        count,
+        gap: Math.round(avgContentPerCategory - count)
+      }));
+    
+    // Create report
+    const report = `
+    # Content Coverage Analysis
+    
+    Generated on: ${new Date().toISOString().split('T')[0]}
+    
+    ## Overview
+    - Total content items: ${analysis.totalContent}
+    - Number of categories: ${categories.size}
+    - Number of tags: ${tags.size}
+    
+    ## Category Coverage
+    ${analysis.categoryCoverage
+      .sort((a, b) => b.count - a.count)
+      .map(c => `- ${c.category}: ${c.count} items (${c.percentage}%)`)
+      .join('\n')}
+    
+    ## Underrepresented Categories
+    ${analysis.underrepresentedCategories.length > 0 
+      ? analysis.underrepresentedCategories
+          .sort((a, b) => b.gap - a.gap)
+          .map(c => `- ${c.category}: ${c.count} items (suggested to add ${c.gap} more)`)
+          .join('\n')
+      : '- No underrepresented categories found'
+    }
+    
+    ## Recommendations
+    ${analysis.underrepresentedCategories.length > 0 
+      ? `Focus on creating content for: ${analysis.underrepresentedCategories.map(c => c.category).join(', ')}`
+      : 'Continue with current content distribution strategy'
+    }
+    `;
+    
+    // Save report
+    const reportPath = path.join(CONFIG.publishing.scheduledDir, 'content_analysis.md');
+    await writeFile(reportPath, report, 'utf8');
+    
+    console.log(`Content analysis completed and saved to: ${reportPath}`);
+    return analysis;
+  } catch (error) {
+    console.error('Error analyzing content coverage:', error);
+    return null;
+  }
+}
+
+// Generate social media posts for new content
+async function generateSocialMediaPosts(contentFile) {
+  try {
+    if (!CONFIG.publishing.socialMedia.enabled) {
+      return null;
+    }
+    
+    console.log('Generating social media posts...');
+    
+    // Read content file
+    const content = await readFile(contentFile, 'utf8');
+    const frontMatter = extractFrontMatter(content);
+    
+    // Extract title and description
+    const title = frontMatter.title || '';
+    const description = frontMatter.description || '';
+    
+    // If OpenAI is configured, generate social media posts
+    if (CONFIG.openAI.apiKey) {
+      const prompt = `
+      Generate social media posts for a new content piece:
+      
+      Title: ${title}
+      Description: ${description}
+      
+      Create:
+      1. A Twitter post (max 280 characters)
+      2. A Facebook post (100-250 words)
+      3. An Instagram caption (150-300 characters)
+      
+      For each post, include:
+      - Engaging hook
+      - Brief value proposition
+      - Call to action
+      - Relevant hashtags (for Twitter and Instagram)
+      `;
+      
+      const completion = await openai.createCompletion({
+        model: CONFIG.openAI.model,
+        prompt: prompt,
+        max_tokens: 1000,
+        temperature: 0.7,
+      });
+      
+      const posts = completion.data.choices[0].text.trim();
+      
+      // Save posts to file
+      const slug = path.basename(contentFile, '.md');
+      const postsPath = path.join(CONFIG.publishing.scheduledDir, `social_${slug}.txt`);
+      await writeFile(postsPath, posts, 'utf8');
+      
+      console.log(`Social media posts generated and saved to: ${postsPath}`);
+      return posts;
+    } else {
+      console.log('OpenAI API key not configured, skipping social media post generation');
+      return null;
+    }
+  } catch (error) {
+    console.error('Error generating social media posts:', error);
+    return null;
+  }
+}
+
+// Generate an editorial calendar
+async function generateEditorialCalendar(months = 3) {
+  try {
+    console.log(`Generating editorial calendar for the next ${months} months...`);
+    
+    // Get content ideas
+    const ideas = await generateContentIdeas();
+    if (!ideas) {
+      console.log('No content ideas generated, skipping editorial calendar');
+      return null;
+    }
+    
+    // Parse ideas
+    const ideaLines = ideas.split('\n').filter(line => line.trim().startsWith('-') || line.trim().match(/^\d+\./));
+    const titles = ideaLines.map(line => {
+      const match = line.match(/[-.] (.+?)( \(|:)/);
+      return match ? match[1].trim() : line.trim();
+    }).filter(title => title.length > 0);
+    
+    // Calculate publishing schedule
+    const startDate = new Date();
+    const endDate = new Date();
+    endDate.setMonth(endDate.getMonth() + months);
+    
+    const publishingDays = CONFIG.publishing.publishingDays.map(day => {
+      const dayMap = {
+        'Monday': 1,
+        'Tuesday': 2,
+        'Wednesday': 3,
+        'Thursday': 4,
+        'Friday': 5,
+        'Saturday': 6,
+        'Sunday': 0
+      };
+      return dayMap[day];
+    });
+    
+    // Generate calendar entries
+    const calendar = [];
+    let currentDate = new Date(startDate);
+    let ideaIndex = 0;
+    
+    while (currentDate <= endDate) {
+      const dayOfWeek = currentDate.getDay();
+      
+      if (publishingDays.includes(dayOfWeek)) {
+        const dateString = currentDate.toISOString().split('T')[0];
+        const title = titles[ideaIndex % titles.length];
+        
+        calendar.push({
+          date: dateString,
+          title: title,
+          contentType: ideaIndex % 3 === 0 ? 'review' : (ideaIndex % 3 === 1 ? 'equipment' : 'post')
+        });
+        
+        ideaIndex++;
+      }
+      
+      // Move to next day
+      currentDate.setDate(currentDate.getDate() + 1);
+    }
+    
+    // Create calendar in markdown
+    const calendarMarkdown = `
+    # Editorial Calendar: ${startDate.toISOString().split('T')[0]} to ${endDate.toISOString().split('T')[0]}
+    
+    ${calendar.map(entry => `## ${entry.date} (${new Date(entry.date).toLocaleString('en-us', { weekday: 'long' })})
+    
+    - **Title**: ${entry.title}
+    - **Type**: ${entry.contentType}
+    `).join('\n')}
+    `;
+    
+    // Save calendar
+    const calendarPath = path.join(CONFIG.publishing.scheduledDir, 'editorial_calendar.md');
+    await writeFile(calendarPath, calendarMarkdown, 'utf8');
+    
+    console.log(`Editorial calendar generated and saved to: ${calendarPath}`);
+    return calendar;
+  } catch (error) {
+    console.error('Error generating editorial calendar:', error);
+    return null;
+  }
+}
+
+// Add two additional commands to the program
+program
+  .command('analyze')
+  .description('Analyze existing content for gaps and opportunities')
+  .action(analyzeContentCoverage);
+
+program
+  .command('ideas')
+  .description('Generate content ideas based on analytics')
+  .option('-c, --count <number>', 'Number of ideas to generate', 10)
+  .action(options => generateContentIdeas(options.count));
+
+program
+  .command('calendar')
+  .description('Generate an editorial calendar')
+  .option('-m, --months <number>', 'Number of months to plan', 3)
+  .action(options => generateEditorialCalendar(options.months));
+
+program
+  .command('social')
+  .description('Generate social media posts for content')
+  .argument('<file>', 'Content file to generate posts for')
+  .action(file => generateSocialMediaPosts(file));
+
+// Enhanced interactive mode
+async function handleInteractive() {
+  try {
+    // Main menu
+    const { action } = await inquirer.prompt([
+      {
+        type: 'list',
+        name: 'action',
+        message: 'What would you like to do?',
+        choices: [
+          { name: 'Create new content', value: 'create' },
+          { name: 'Schedule existing content', value: 'schedule' },
+          { name: 'Publish scheduled content', value: 'publish' },
+          { name: 'Generate content ideas', value: 'ideas' },
+          { name: 'Analyze content coverage', value: 'analyze' },
+          { name: 'Generate editorial calendar', value: 'calendar' },
+          { name: 'Create batch content', value: 'batch' },
+          { name: 'Exit', value: 'exit' }
+        ]
+      }
+    ]);
+    
+    if (action === 'exit') {
+      console.log('Goodbye! 👋');
+      return;
+    }
+    
+    // Handle selected action
+    switch (action) {
+      case 'create':
+        await handleCreateContent();
+        break;
+      case 'schedule':
+        await handleScheduleContent();
+        break;
+      case 'publish':
+        await handlePublishContent();
+        break;
+      case 'ideas':
+        await generateContentIdeas();
+        break;
+      case 'analyze':
+        await analyzeContentCoverage();
+        break;
+      case 'calendar':
+        const { months } = await inquirer.prompt([
+          {
+            type: 'number',
+            name: 'months',
+            message: 'How many months to plan for?',
+            default: 3
+          }
+        ]);
+        await generateEditorialCalendar(months);
+        break;
+      case 'batch':
+        await handleBatchContent();
+        break;
+    }
+    
+    // Ask if user wants to continue
+    const { continue: shouldContinue } = await inquirer.prompt([
+      {
+        type: 'confirm',
+        name: 'continue',
+        message: 'Would you like to perform another action?',
+        default: true
+      }
+    ]);
+    
+    if (shouldContinue) {
+      await handleInteractive();
+    } else {
+      console.log('Goodbye! 👋');
+    }
+  } catch (error) {
+    console.error('Error in interactive mode:', error);
+    process.exit(1);
+  }
+}
+
+// Helper function for interactive content scheduling
+async function handleScheduleContent() {
+  try {
+    // Get list of content files
+    const contentDirs = [
+      '_posts',
+      '_equipment',
+      '_category'
+    ];
+    
+    const contentFiles = [];
+    
+    for (const dir of contentDirs) {
+      if (fs.existsSync(dir)) {
+        const files = await readdir(dir);
+        
+        for (const file of files) {
+          if (file.endsWith('.md')) {
+            contentFiles.push(path.join(dir, file));
+          }
+        }
+      }
+    }
+    
+    if (contentFiles.length === 0) {
+      console.log('No content files found to schedule.');
+      return;
+    }
+    
+    // Sort by modified date (most recent first)
+    const filesWithDates = await Promise.all(contentFiles.map(async file => {
+      const stats = await stat(file);
+      return {
+        path: file,
+        mtime: stats.mtime
+      };
+    }));
+    
+    filesWithDates.sort((a, b) => b.mtime - a.mtime);
+    
+    const fileChoices = filesWithDates.map(file => ({
+      name: `${path.basename(file.path)} (${new Date(file.mtime).toISOString().split('T')[0]})`,
+      value: file.path
+    }));
+    
+    // Prompt for file and date
+    const { file, date } = await inquirer.prompt([
+      {
+        type: 'list',
+        name: 'file',
+        message: 'Select a file to schedule:',
+        choices: fileChoices
+      },
+      {
+        type: 'input',
+        name: 'date',
+        message: 'Enter publication date (YYYY-MM-DD):',
+        default: getNextPublishingDate(),
+        validate: input => /^\d{4}-\d{2}-\d{2}$/.test(input) ? true : 'Date must be in YYYY-MM-DD format'
+      }
+    ]);
+    
+    // Schedule the file
+    await handleSchedule({ file, date });
+  } catch (error) {
+    console.error('Error scheduling content:', error);
+  }
+}
+
+// Helper function for interactive content publishing
+async function handlePublishContent() {
+  try {
+    // Get scheduled dates
+    const scheduledDir = CONFIG.publishing.scheduledDir;
+    
+    if (!fs.existsSync(scheduledDir)) {
+      console.log('No scheduled content found.');
+      return;
+    }
+    
+    const dates = await readdir(scheduledDir);
+    const validDates = dates.filter(date => {
+      return fs.statSync(path.join(scheduledDir, date)).isDirectory() &&
+             /^\d{4}-\d{2}-\d{2}$/.test(date);
+    });
+    
+    if (validDates.length === 0) {
+      console.log('No scheduled content found.');
+      return;
+    }
+    
+    // Sort dates (earliest first)
+    validDates.sort();
+    
+    const today = new Date().toISOString().split('T')[0];
+    
+    const dateChoices = [
+      { name: `Today (${today})`, value: today },
+      { name: 'All scheduled content', value: 'all' },
+      ...validDates.map(date => ({ name: date, value: date }))
+    ];
+    
+    // Prompt for date
+    const { dateOption } = await inquirer.prompt([
+      {
+        type: 'list',
+        name: 'dateOption',
+        message: 'Select content to publish:',
+        choices: dateChoices
+      }
+    ]);
+    
+    // Publish content
+    if (dateOption === 'all') {
+      await handlePublish({ all: true });
+    } else {
+      await handlePublish({ date: dateOption });
+    }
+  } catch (error) {
+    console.error('Error publishing content:', error);
+  }
+}
+
+// Helper function for interactive batch content creation
+async function handleBatchContent() {
+  try {
+    // Prompt for batch file
+    const { batchFile, schedule } = await inquirer.prompt([
+      {
+        type: 'input',
+        name: 'batchFile',
+        message: 'Enter path to batch file (CSV or JSON):',
+        validate: input => {
+          if (!input.trim()) return 'File path is required';
+          if (!fs.existsSync(input)) return 'File does not exist';
+          if (!input.endsWith('.csv') && !input.endsWith('.json')) return 'File must be CSV or JSON';
+          return true;
+        }
+      },
+      {
+        type: 'confirm',
+        name: 'schedule',
+        message: 'Schedule content for future dates?',
+        default: true
+      }
+    ]);
+    
+    // Process batch file
+    await handleBatch(batchFile, { schedule });
+  } catch (error) {
+    console.error('Error processing batch content:', error);
+  }
+}
+
+// Run the main function
+main().catch(error => {
+  console.error('Error:', error);
+  process.exit(1);
+});
