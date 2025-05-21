@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="theme-color" content="#ff4d4d">
+  <title>You're Offline | Home Gym Guides</title>
+  <style>
+    :root {
+      --primary-color: #0a0a0a;
+      --accent-color: #ff4d4d;
+      --light-bg: #f9f9f9;
+      --text-color: #333333;
+      --secondary-text: #666666;
+      --box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+    }
+    
+    body {
+      font-family: 'Arial', sans-serif;
+      background-color: var(--light-bg);
+      color: var(--text-color);
+      line-height: 1.6;
+      padding: 0;
+      margin: 0;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+    }
+    
+    .offline-container {
+      max-width: 600px;
+      padding: 2rem;
+      margin: 2rem;
+      background-color: white;
+      border-radius: 12px;
+      box-shadow: var(--box-shadow);
+      text-align: center;
+    }
+    
+    .offline-icon {
+      font-size: 4rem;
+      margin-bottom: 1rem;
+      color: var(--accent-color);
+    }
+    
+    .offline-title {
+      font-size: 2rem;
+      font-weight: 700;
+      margin: 1rem 0;
+      color: var(--primary-color);
+    }
+    
+    .offline-message {
+      font-size: 1.1rem;
+      color: var(--secondary-text);
+      margin-bottom: 2rem;
+    }
+    
+    .offline-content {
+      margin: 2rem 0;
+      padding: 1.5rem;
+      background-color: var(--light-bg);
+      border-radius: 8px;
+      text-align: left;
+    }
+    
+    .offline-content h3 {
+      font-size: 1.3rem;
+      margin-top: 0;
+      color: var(--primary-color);
+    }
+    
+    .offline-content ul {
+      padding-left: 1.5rem;
+    }
+    
+    .offline-content li {
+      margin-bottom: 0.5rem;
+    }
+    
+    .offline-button {
+      display: inline-block;
+      background-color: var(--accent-color);
+      color: white;
+      padding: 0.8rem 1.8rem;
+      border-radius: 50px;
+      font-weight: 600;
+      text-decoration: none;
+      transition: all 0.3s ease;
+      border: none;
+      cursor: pointer;
+      font-size: 1rem;
+    }
+    
+    .offline-button:hover {
+      background-color: #e03e3e;
+      transform: translateY(-2px);
+      box-shadow: 0 5px 15px rgba(255, 77, 77, 0.2);
+    }
+    
+    @media (max-width: 480px) {
+      .offline-container {
+        padding: 1.5rem;
+        margin: 1rem;
+      }
+      
+      .offline-title {
+        font-size: 1.8rem;
+      }
+      
+      .offline-message {
+        font-size: 1rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="offline-container">
+    <div class="offline-icon">⚡</div>
+    
+    <h1 class="offline-title">You're Offline</h1>
+    <p class="offline-message">It looks like you're not connected to the internet right now. Some of our content is available offline, or you can try reconnecting.</p>
+    
+    <button class="offline-button" onclick="window.location.reload()">Try Again</button>
+    
+    <div class="offline-content">
+      <h3>Quick Workout While You Wait</h3>
+      <p>No equipment needed! Try this quick 5-minute workout to stay active:</p>
+      <ul>
+        <li>20 bodyweight squats</li>
+        <li>10 push-ups (modified on knees if needed)</li>
+        <li>30-second plank</li>
+        <li>15 lunges (each leg)</li>
+        <li>30 jumping jacks</li>
+      </ul>
+      <p>Repeat 2-3 times for a great no-equipment workout!</p>
+    </div>
+    
+    <p class="offline-message">
+      Home Gym Guides saves some content for offline reading. Connect to see our latest reviews and guides.
+    </p>
+  </div>
+  
+  <script>
+    // Check connection status periodically
+    function checkConnection() {
+      if (navigator.onLine) {
+        document.querySelector('.offline-message').textContent = 
+          'Your connection has been restored! Click the button below to reload the page.';
+      }
+    }
+    
+    // Check every 5 seconds
+    setInterval(checkConnection, 5000);
+    
+    // Also check when the online event fires
+    window.addEventListener('online', function() {
+      document.querySelector('.offline-message').textContent = 
+        'Your connection has been restored! Click the button below to reload the page.';
+    });
+  </script>
+</body>
+</html>
